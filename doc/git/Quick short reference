@@ -1,0 +1,46 @@
+"git pull" (use it frequently to download new changes from the server)
+
+
+After making my own changes:
+=====================================================================
+"git status" (shows your status)
+"git add" or "git rm" (to confirm or remove changes)
+"git commit" (to commit confirmed changes)
+"git commit -m 'Description'" (to commit confirmed changes)
+"git push" (to upload changes to the server)
+"git revert <the ID or the beginning of it>" (without the < >)
+"git merge master" (pull from the master branch of the project)
+
+
+Working with branches:
+=====================================================================
+"git checkout -b new_branch" Creates a new branch
+"git push origin new_branch" Initializes the branch in the server (after you add and commit the first change in that branch)
+"git checkout any_branch" Change to a new branch. You can change to master branch, do "git pull" and then "git merge my_branch" to merge my changes to the master branch
+"git reset --soft HEAD^" Undo last commit in the current branch (use --hard to undo all the changes in that commit)
+"git reset HEAD <file>" To unstage added but not commited changes in file
+"git pull origin branch_name" Updates branch from the server
+"git branch -d branch_name" Delete branch_name (it must be fully merged in its upstream branch, or in HEAD if no upstream was set with --track or --set-upstream)
+"git branch -D branch_name" Delete branch_name irrespective of its merged status
+"git push origin :branch_name" Delete remote branch_name
+
+
+Initial configuration:
+=====================================================================
+git clone ssh://USERNAME@mje-robots.git.sourceforge.net/gitroot/mje-robots/mje-robots
+git config --global user.name "Your Name" (you need the "")
+git config --global user.email "Your email" (you need the "")
+git config -l (to check the configuration data)
+
+
+Tags:
+=====================================================================
+git tag -a v0.1 -m 'versión 0.1' (creates a new tag)
+git tag (lists all tags)
+git push origin --tags
+git push origin v1.5
+
+Patchs:
+=====================================================================
+git format-patch origin/master (patch for master with the changes)
+git apply filename.patch (apply filename patch)

@@ -1,0 +1,34 @@
+Once you are registered and have your own account, you need to create
+a new project. Just go to Create Project and fill the requested
+information. After the registration is completed, you can follow
+the recommended instructions.
+
+To initialize the repository, first clone the empty repository from
+the server:
+
+$ git clone ssh://USERNAME@PROJECTNAME.git.sourceforge.net/gitroot/PROJECTNAME/REPONAME
+
+(This will create a folder named "PROJECTNAME" in the current
+directory). Then, create a file for the first commit, in example:
+
+$ cd PROJECTNAME
+$ gedit README
+
+We can add a short description of the project in that file.
+After saving the changes to README, we'll just need to commit them.
+But before doing it, we'll configure some personal data (use your
+own name and e-mail instead of "my_name" and "my_email@domain";
+remember to keep the "" around them!):
+
+$ git config --global user.name "my_name"
+$ git config --global user.email "my_email@domain"
+$ git config -l	(to check that we correctly entered our data)
+
+Now we are ready to commit the changes:
+
+$ git add README
+$ git commit
+
+The last thing we need to do is to push this change to the serer:
+
+$ git push origin master

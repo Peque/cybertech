@@ -59,16 +59,16 @@ void loop()
 }
 
 /**
- * @brief Returns sensor's distance in cm.
+ * @brief Returns distance from sensor to the reflective object in cm.
  *
  * The get_distance(uint8_t sensor) function calculates de distance
  * from the specified sensor to the reflective object and returns this
  * value in cm. The distance is calculated this way:
  * @f[
- * distance = 27/(5.0/1024*Vs)
+ * distance = 27/(5.0/1023*Vs)
  * @f]
- * Where Vs is the sensor's analog input reading and 27 is the constant
- * scale factor (V*cm).
+ * Where Vs is the sensor's analog input reading (0V -> 0, 5V -> 1023)
+ * and 27 is the constant scale factor (V*cm).
  *
  * @param[in] sensor Name of the sensor's analog input.
  * @return Linearized output of the distance from sensor to the reflective object in cm.
@@ -90,5 +90,5 @@ float get_distance(uint8_t sensor)
     * constant scale factor (~27 V*cm) divided by the sensor’s output
     * voltage:
     */
-    return 27/(5.0/1024*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces
+    return 27/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces
 }

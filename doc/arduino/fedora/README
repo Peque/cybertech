@@ -1,0 +1,34 @@
+First, you need to downgrade avr-binutils, and tell yum not to update it again:
+
+$ su -
+# yum downgrade avr-binutils
+
+Then edit /etc/yum.conf and add the following line:
+
+     exclude=avr-binutils-2.21
+
+================================================================================
+
+If you are using Arduino UNO, you will probably need to upgrade the Atmega8U2's
+firmware:
+
+1) Install dfu-programmer:
+
+     $ su -c 'yum install -y dfu-programmer'
+
+2) Connect the Arduino to your computer with a usb cable and reset the 8u2. To
+   do so, use two grounded wires as shown in picture "8u2_reset.jpeg". The
+   serial port for your board should no longer show up (check that executing
+   "$ ls /dev/tty*").
+
+3) Now you'll need to program the chip with the "Arduino-usbserial-uno.hex"
+   file:
+   
+     $ su -
+     # cd /path/to/Arduino-usbserial-uno.hex/folder/
+     # dfu-programmer at90usb82 erase
+     # dfu-programmer at90usb82 flash Arduino-usbserial-uno.hex
+     # dfu-programmer at90usb82 reset
+
+4) Unplug your board and plug it back in. Your board should be ready and up to
+   date.

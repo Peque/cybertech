@@ -14,12 +14,22 @@
 #define rxPin 3
 #define rstPin 4
 
-// SHARP sensors:
+// SHARP sensors
 #define SHARP_FRONT A0         // Front sensor in A0
 #define SHARP_RIGHT A1         // Right sensor in A1
 #define SHARP_LEFT A2          // Left sensor in A2
 #define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
+
+// PID
+#define Kp 0.1
+#define Ki 0
+#define Kd 0
+unsigned long prev_time;
+float prev_err;
+
+// Instant position variables
+float dist_left, dist_right, dist_front;
 
 // RGB LED
 #define LED_RED 9
@@ -29,7 +39,6 @@
 
 NewSoftSerial motorSerial =  NewSoftSerial(rxPin, txPin);
 CompactQik2s9v1 motor = CompactQik2s9v1(&motorSerial,rstPin);
-
 
 void setup()  
 {
@@ -47,18 +56,46 @@ void setup()
 	pinMode(LED_BLUE, OUTPUT);
 }
 
-
-
 void loop() 
 {
 /* */
 	
-/* */
+	float output;
+
+	// Set instant position
+	dist_left = get_distance(SHARP_LEFT);
+	dist_right = get_distance(SHARP_RIGHT);
+	dist_front = get_distance(SHARP_FRONT);
+
+	output = pid_output();
+	
+	Serial.println(output);
+	if (output > 127) output = 127;
+	if (output < -127) output = -127;
+
+	if (get_distance(SHARP_FRONT) > 200) {
+		if (output > 0) {
+			motor.motor0Forward(127-abs(output));
+			motor.motor1Forward(127);
+			set_rgb(0, 2*abs(output), 0);
+		} else {
+			motor.motor0Forward(127);
+			motor.motor1Forward(127-abs(output));
+			set_rgb(0, 0, 2*abs(output));
+		}
+	} else {
+		motor.motor0Coast();        // Lets the motor turn freely
+		motor.motor1Coast();        // Lets the motor turn freely
+		set_rgb(255, 0, 0);
+		turn_back();
+		if (get_distance(SHARP_FRONT) < 200) delay(5000);
+	}
+/* *
 	float signal;
 	signal = get_distance(SHARP_FRONT);
 	Serial.println(signal);
 	delay(100);
-/* *
+* *
 	motor.motor0Forward(125);
 	motor.motor1Forward(125);
 	delay(4000);
@@ -107,10 +144,55 @@ float get_distance(uint8_t sensor)
 }
 
 /**
+ * @brief Returns PID output
+ *
+ * The pid_output() function performs a proportional, integral and
+ * derivative controller:
+ * @f[
+ * output = Kp*err + Ki*integral + Kd*derivative
+ * @f]
+ * For now, we have not implemented the integral and derivative control
+ * (Ki = Kd = 0).
+ *
+ * @return PID output
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/20
+ */
+float pid_output()
+{
+	float err, integral, derivative, output;
+	unsigned long dt, time;
+
+	time = millis();
+
+	dt = time - prev_time;
+
+	err = dist_left - dist_right;
+	integral += err*dt;
+	derivative = (err - prev_err)/dt;
+
+	output = Kp*err + Ki*integral + Kd*derivative;
+	prev_time = time;
+	prev_err = err;
+	
+	return output;
+}
+
+void turn_back()
+{
+	motor.motor0Forward(125);
+	motor.motor1Reverse(125);
+	delay(250);
+	motor.motor0Coast();        // Lets the motor turn freely
+	motor.motor1Coast();        // Lets the motor turn freely
+	delay(200);
+}
+
+/**
  * @brief Set RGB LED's colors.
  *
- * The set_rgb(int red, int green, int blue) function is used to change
- * the brightness of the RGB LED's colors.
+ * The set_rgb(uint8_t red, uint8_t green, uint8_t blue) function is
+ * used to change the brightness of the RGB LED's colors.
  *
  * @param[in] red Value for red color: from 0 to 255.
  * @param[in] green Value for green color: from 0 to 255.

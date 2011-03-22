@@ -15,9 +15,9 @@
 #define rstPin 4
 
 // SHARP sensors
-#define SHARP_FRONT A0         // Front sensor in A0
-#define SHARP_RIGHT A1         // Right sensor in A1
-#define SHARP_LEFT A2          // Left sensor in A2
+#define SHARP_FRONT 14         // Front sensor in A0
+#define SHARP_LEFT 15          // Left sensor in A1
+#define SHARP_RIGHT 16         // Right sensor in A2
 #define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
 
@@ -65,8 +65,7 @@ void setup()
 void loop() 
 {
 /* */
-	Serial.println(SHARP_FRONT);
-	
+
 	float output;
 
 	// Set instant position
@@ -198,36 +197,18 @@ void initialization()
 	
 }
 
-int get_config() // TODO: clean this function
+int get_config()
 {
 	unsigned long time = millis();
-	if (abs((int) get_distance(SHARP_FRONT) - 150) < 30) {
-		while (abs((int) get_distance(SHARP_FRONT) - 150) < 30) {
-			if (((millis() - time)/50) % 2 == 0) set_rgb(0, 255, 0);
-			else set_rgb(0, 0, 0);
-			if (millis() - time > 3000) {
-				while (abs((int) get_distance(SHARP_FRONT) - 150) < 30) set_rgb(0, 255, 0);
-				return 1;
-			}
-		}
-	}
-	if (abs((int) get_distance(SHARP_LEFT) - 150) < 30) {
-		while (abs((int) get_distance(SHARP_LEFT) - 150) < 30) {
-			if (((millis() - time)/50) % 2 == 0) set_rgb(255, 0, 0);
-			else set_rgb(0, 0, 0);
-			if (millis() - time > 3000) {
-				while (abs((int) get_distance(SHARP_LEFT) - 150) < 30) set_rgb(255, 0, 0);
-				return 2;
-			}
-		}
-	}
-	if (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) {
-		while (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) {
-			if (((millis() - time)/50) % 2 == 0) set_rgb(0, 0, 255);
-			else set_rgb(0, 0, 0);
-			if (millis() - time > 3000) {
-				while (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) set_rgb(0, 0, 255);
-				return 3;
+	for (uint8_t i = 1; i < 4; i++) {
+		if (abs((int) get_distance(13 + i) - 150) < 30) {
+			while (abs((int) get_distance(13 + i) - 150) < 30) {
+				if (((millis() - time)/50) % 2 == 0) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
+				else set_rgb(0, 0, 0);
+				if (millis() - time > 3000) {
+					while (abs((int) get_distance(13 + i) - 150) < 30) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
+					return i;
+				}
 			}
 		}
 	}

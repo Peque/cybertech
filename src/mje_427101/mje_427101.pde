@@ -129,7 +129,7 @@ float get_distance(uint8_t sensor)
     * constant scale factor (~270 V*mm) divided by the sensor’s output
     * voltage:
     */
-    return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces
+    return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
 }
 
 /**
@@ -167,14 +167,29 @@ float pid_output()
 	return output;
 }
 
+/**
+ * @brief Tells the robot to turn back.
+ *
+ * The robot will turn back and wait for a brief period of time to
+ * continue moving around. This function is supposed to be used only
+ * while mapping the maze (the first time).
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/22
+ */
 void turn_back()
 {
 	motor.motor0Forward(125);
 	motor.motor1Reverse(125);
-	delay(250);
+	delay(250); /* TODO: this delay should depend on the motors' speed and/or weight
+	             *       we should create a variable to set in the initialization()
+	             *       function. IE: two turnnings and divide the time by 4 (all
+	             *       around should be free space except for a thin object static
+	             *       in the front of the robot).
+	             * */
 	motor.motor0Coast();        // Lets the motor turn freely
 	motor.motor1Coast();        // Lets the motor turn freely
-	delay(200);
+	delay(300);
 }
 
 void initialization()
@@ -197,14 +212,33 @@ void initialization()
 	
 }
 
+/**
+ * @brief Gets configuration parameters from one of the sensors.
+ *
+ * The get_config() function reads from all sensors until it gets an
+ * appropiate response. That means it must read a value at the correct
+ * distance and for a few seconds without interruptions.
+ *
+ * While the sensor is reading, the LED will blink fast with green, red
+ * or blue color depending on the selected sensor (front, left or blue
+ * respectively). After the reading is confirmed, the LED will stop
+ * blinking.
+ *
+ * @return Sensor which has confirmed the reading: 1 for FRONT, 2 for LEFT, 3 for RIGHT and 0 for NONE.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/22
+ */
 int get_config()
 {
 	unsigned long time = millis();
 	for (uint8_t i = 1; i < 4; i++) {
+		// Check de appropiate distance
 		if (abs((int) get_distance(13 + i) - 150) < 30) {
+			// Check continuous reading
 			while (abs((int) get_distance(13 + i) - 150) < 30) {
 				if (((millis() - time)/50) % 2 == 0) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
 				else set_rgb(0, 0, 0);
+				// Confirm and return value after 3 seconds
 				if (millis() - time > 3000) {
 					while (abs((int) get_distance(13 + i) - 150) < 30) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
 					return i;
@@ -216,16 +250,19 @@ int get_config()
 	return 0;
 }
 
+// TODO: implement this function
 int simple_way()
 {
 	return 0;
 }
 
+// TODO: implement this function
 int move_forward()
 {
 	return 0;
 }
 
+// TODO: implement this function
 int solve_node()
 {
 	return 0;

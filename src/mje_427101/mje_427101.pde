@@ -90,22 +90,6 @@ void loop()
 		turn_back();
 		if (get_distance(SHARP_FRONT) < 200) delay(5000);
 	}
-/* *
-	float signal;
-	signal = get_distance(SHARP_FRONT);
-	Serial.println(signal);
-	delay(100);
-* *
-	motor.motor0Forward(125);
-	motor.motor1Forward(125);
-	delay(4000);
-	motor.motor0Coast();        // Lets the motor turn freely
-	motor.motor1Coast();        // Lets the motor turn freely
-	delay(2000);
-	motor.motor0Reverse(125);
-	motor.motor1Reverse(125);
-	delay(4000);
-* */
 }
 
 /**

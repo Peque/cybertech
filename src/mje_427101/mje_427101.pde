@@ -31,6 +31,9 @@ float prev_err;
 // Instant position variables
 float dist_left, dist_right, dist_front;
 
+// Configuration
+int choose_left = 1; // Left by default
+
 // RGB LED
 #define LED_RED 9
 #define LED_GREEN 10
@@ -42,23 +45,27 @@ CompactQik2s9v1 motor = CompactQik2s9v1(&motorSerial,rstPin);
 
 void setup()  
 {
-	// Serial setup:
+	// Serial setup
 	Serial.begin(9600);
 	motorSerial.begin(9600);
 
-	// Motor setup:
+	// Motor setup
 	motor.begin();
 	motor.stopBothMotors();
 
-	// LED setup:
+	// LED setup
 	pinMode(LED_RED, OUTPUT);
 	pinMode(LED_GREEN, OUTPUT);
 	pinMode(LED_BLUE, OUTPUT);
+
+	// Initialization
+	initialization();
 }
 
 void loop() 
 {
 /* */
+	Serial.println(SHARP_FRONT);
 	
 	float output;
 
@@ -69,7 +76,6 @@ void loop()
 
 	output = pid_output();
 	
-	Serial.println(output);
 	if (output > 127) output = 127;
 	if (output < -127) output = -127;
 
@@ -170,6 +176,78 @@ void turn_back()
 	motor.motor0Coast();        // Lets the motor turn freely
 	motor.motor1Coast();        // Lets the motor turn freely
 	delay(200);
+}
+
+void initialization()
+{
+	unsigned long time = millis();
+	int conf;
+	do {
+		conf = get_config();
+		if (((millis() - time)/500) % 2 == 0) set_rgb(255, 0, 0);
+		else set_rgb(0, 0, 255);
+	} while (conf < 2);
+	if (conf == 2) choose_left = 1;
+	else choose_left = 0;
+	while (get_config() != 1) {
+		if (choose_left) set_rgb(255, 0, 0);
+		else set_rgb(0, 0, 255);
+	}
+	set_rgb(0, 255, 0);
+	delay(2000);
+	
+}
+
+int get_config() // TODO: clean this function
+{
+	unsigned long time = millis();
+	if (abs((int) get_distance(SHARP_FRONT) - 150) < 30) {
+		while (abs((int) get_distance(SHARP_FRONT) - 150) < 30) {
+			if (((millis() - time)/50) % 2 == 0) set_rgb(0, 255, 0);
+			else set_rgb(0, 0, 0);
+			if (millis() - time > 3000) {
+				while (abs((int) get_distance(SHARP_FRONT) - 150) < 30) set_rgb(0, 255, 0);
+				return 1;
+			}
+		}
+	}
+	if (abs((int) get_distance(SHARP_LEFT) - 150) < 30) {
+		while (abs((int) get_distance(SHARP_LEFT) - 150) < 30) {
+			if (((millis() - time)/50) % 2 == 0) set_rgb(255, 0, 0);
+			else set_rgb(0, 0, 0);
+			if (millis() - time > 3000) {
+				while (abs((int) get_distance(SHARP_LEFT) - 150) < 30) set_rgb(255, 0, 0);
+				return 2;
+			}
+		}
+	}
+	if (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) {
+		while (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) {
+			if (((millis() - time)/50) % 2 == 0) set_rgb(0, 0, 255);
+			else set_rgb(0, 0, 0);
+			if (millis() - time > 3000) {
+				while (abs((int) get_distance(SHARP_RIGHT) - 150) < 30) set_rgb(0, 0, 255);
+				return 3;
+			}
+		}
+	}
+	// Failed to confirm configuration settings
+	return 0;
+}
+
+int simple_way()
+{
+	return 0;
+}
+
+int move_forward()
+{
+	return 0;
+}
+
+int solve_node()
+{
+	return 0;
 }
 
 /**

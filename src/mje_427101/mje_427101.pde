@@ -32,7 +32,11 @@ float prev_err;
 float dist_left, dist_right, dist_front;
 
 // Configuration
-int choose_left = 1; // Left by default
+#define CONFIG_DIST 150     // Distance for sensors' reading in mm
+#define CONFIG_PREC 30      // Sets the sensors' reading distance precision in mm (+/-)
+int choose_left = 1;        // Left by default
+int t_turn_back = 250;      // Time in ms to turn back
+int initialized = 0;        // Boolean variable to know if the robot is already initialized
 
 // RGB LED
 #define LED_RED 9
@@ -57,14 +61,12 @@ void setup()
 	pinMode(LED_RED, OUTPUT);
 	pinMode(LED_GREEN, OUTPUT);
 	pinMode(LED_BLUE, OUTPUT);
-
-	// Initialization
-	initialization();
 }
 
 void loop() 
 {
-/* */
+	// Initialization
+	if (!initialized) initialization();
 
 	float output;
 
@@ -181,14 +183,9 @@ void turn_back()
 {
 	motor.motor0Forward(125);
 	motor.motor1Reverse(125);
-	delay(250); /* TODO: this delay should depend on the motors' speed and/or weight.
-	             *       We should create a variable to set in the initialization()
-	             *       function. IE: two turnnings and divide the time by 4 (all
-	             *       around should be free space except for a thin object static
-	             *       in the front of the robot).
-	             * */
-	motor.motor0Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
-	motor.motor1Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
+	delay(t_turn_back);
+	motor.motor0Forward(0);        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
+	motor.motor1Reverse(0);        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
 	delay(300);
 }
 
@@ -197,50 +194,76 @@ void initialization()
 	unsigned long time = millis();
 	int conf;
 	do {
-		conf = get_config();
+		conf = get_config(0);
 		if (((millis() - time)/500) % 2 == 0) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
 	} while (conf < 2);
 	if (conf == 2) choose_left = 1;
 	else choose_left = 0;
-	while (get_config() != 1) {
+	while (get_config(1) != 1) {
 		if (choose_left) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
 	}
+	
+	time = millis();
+	motor.motor0Forward(125);
+	motor.motor1Reverse(125);
+	delay(100);
+	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 50);
+	delay(100);
+	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 50);
+	t_turn_back = (millis() - time) / 4;
+	motor.motor0Forward(0);
+	motor.motor1Reverse(0);
+
+	for (int i=0; i<4; i++) {
+		delay(1000);
+		turn_back();
+	}
+	delay(5000);
+	
+	while (get_config(0) != 1) {
+		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
+		else set_rgb(0, 0, 0);
+	}
+
 	set_rgb(0, 255, 0);
 	delay(2000);
-	
+
+	initialized = 1;
 }
 
 /**
  * @brief Gets configuration parameters from one of the sensors.
  *
- * The get_config() function reads from all sensors until it gets an
- * appropiate response. That means it must read a value at the correct
- * distance and for a few seconds without interruptions.
+ * The get_config(uint8_t interrupt) function reads from all sensors
+ * until it gets an appropiate response. That means it must read a value
+ * at the correct distance and for a few seconds without interruptions.
  *
  * While the sensor is reading, the LED will blink fast with green, red
  * or blue color depending on the selected sensor (front, left or blue
  * respectively). After the reading is confirmed, the LED will stop
- * blinking.
+ * blinking or the function will end (depending on the value of the
+ * parameter "interrupt": 0 to stop blinking, 1 to exit function).
  *
+ * @param[in] interrupt Toggle it to 1 if you want to exit get_config() after confirmation.
  * @return Sensor which has confirmed the reading: 1 for FRONT, 2 for LEFT, 3 for RIGHT and 0 for NONE.
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/03/22
  */
-int get_config()
+int get_config(uint8_t interrupt)
 {
 	unsigned long time = millis();
 	for (uint8_t i = 1; i < 4; i++) {
 		// Check de appropiate distance
-		if (abs((int) get_distance(13 + i) - 150) < 30) {
+		if (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) {
 			// Check continuous reading
-			while (abs((int) get_distance(13 + i) - 150) < 30) {
+			while (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) {
 				if (((millis() - time)/50) % 2 == 0) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
 				else set_rgb(0, 0, 0);
 				// Confirm and return value after 3 seconds
 				if (millis() - time > 3000) {
-					while (abs((int) get_distance(13 + i) - 150) < 30) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
+					if (!interrupt) while (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
 					return i;
 				}
 			}

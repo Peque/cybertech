@@ -89,8 +89,8 @@ void loop()
 			set_rgb(0, 0, 2*abs(output));
 		}
 	} else {
-		motor.motor0Coast();        // Lets the motor turn freely
-		motor.motor1Coast();        // Lets the motor turn freely
+		motor.motor0Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
+		motor.motor1Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
 		set_rgb(255, 0, 0);
 		turn_back();
 		if (get_distance(SHARP_FRONT) < 200) delay(5000);
@@ -181,14 +181,14 @@ void turn_back()
 {
 	motor.motor0Forward(125);
 	motor.motor1Reverse(125);
-	delay(250); /* TODO: this delay should depend on the motors' speed and/or weight
-	             *       we should create a variable to set in the initialization()
+	delay(250); /* TODO: this delay should depend on the motors' speed and/or weight.
+	             *       We should create a variable to set in the initialization()
 	             *       function. IE: two turnnings and divide the time by 4 (all
 	             *       around should be free space except for a thin object static
 	             *       in the front of the robot).
 	             * */
-	motor.motor0Coast();        // Lets the motor turn freely
-	motor.motor1Coast();        // Lets the motor turn freely
+	motor.motor0Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
+	motor.motor1Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
 	delay(300);
 }
 

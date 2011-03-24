@@ -18,13 +18,13 @@
 #define SHARP_FRONT 14         // Front sensor in A0
 #define SHARP_LEFT 15          // Left sensor in A1
 #define SHARP_RIGHT 16         // Right sensor in A2
-#define SHARP_AREAD_N 5        // Repeat SHARP analogRead N times
+#define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
 #define MAX_DIST_SIDE 400      // Max. distance considering a side wall
-#define MAX_DIST_FRONT 500     // Min. distance considering a front wall
+#define MAX_DIST_FRONT 600     // Min. distance considering a front wall
 
 // PID
-#define Kp 0.5
+#define Kp 1
 #define Ki 0.0
 #define Kd 0.0
 unsigned long prev_time;     // Previous time
@@ -72,16 +72,13 @@ void setup()
 
 	// Initialization
 //	initialization();
+	delay(5000);
 }
 
 void loop() 
-{
-	// Set instant position
-	dist_left = get_distance(SHARP_LEFT);
-	dist_right = get_distance(SHARP_RIGHT);
-	dist_front = get_distance(SHARP_FRONT);
-
-	if (simple_way()) move_forward();
+{	
+	while (way_straight()) move_forward();
+	if (way_simple()) turn();
 	else solve_node();
 }
 
@@ -172,21 +169,59 @@ void turn_back()
 	delay(PI*DIAMETER/(2*v_max));
 	motor.motor0Forward(0);
 	motor.motor1Reverse(0);
-	delay(300);
+	delay(100);
+}
+
+void turn()
+{
+	if (dist_left > MAX_DIST_SIDE) turn_left();
+	else if (dist_right > MAX_DIST_SIDE) turn_right();
+	else if (dist_right < MAX_DIST_SIDE) turn_back();
+	just_turned = 1;
 }
 
 void turn_right()   // TODO: merge turn_right() and turn_left() into one simple function
 {
-	motor.motor1Forward(127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER));
+	set_rgb(0, 0, 255);
 	motor.motor0Forward(127);
-	delay((PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max*1.1)); // TODO: fix this 1.1 factor!
+	motor.motor1Forward(75); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
+}
+
+void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
+{
+	motor.motor0Forward(127);
+	motor.motor1Reverse(127);
+	delay(PI*DIAMETER/(4*v_max));
+	motor.motor0Forward(127);
+	motor.motor1Reverse(127);
+	delay(LANE_WIDTH/(2*v_max));
 }
 
 void turn_left()
 {
+	set_rgb(255, 0, 0);
+	motor.motor0Forward(75); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
 	motor.motor1Forward(127);
-	motor.motor0Forward(127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER));
-	delay((PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max*1.1)); // TODO: fix this 1.1 factor!
+	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
+}
+
+void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
+{
+	motor.motor0Reverse(127);
+	motor.motor1Forward(127);
+	delay(PI*DIAMETER/(4*v_max));
+	motor.motor0Forward(127);
+	motor.motor1Reverse(127);
+	delay(LANE_WIDTH/(2*v_max));
+}
+
+void turn_none()
+{
+	/*
+	 * If there's any side-wall, we should try to maintain the distance.
+	 * That should help us for avoid bumping into walls...
+	 */
 }
 
 void initialization()
@@ -274,52 +309,48 @@ int get_config(uint8_t interrupt)
 	return 0;
 }
 
-int simple_way()
+int way_simple()
 {
-	return 1;
-	/*
-	if ((dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) || \
-	(dist_front < MAX_DIST_FRONT && (dist_left < MAX_DIST_SIDE || dist_right < MAX_DIST_SIDE))) {
-		// set_rgb(0, 255, 0);
-		return 1;
-	} else {
-		// set_rgb(255, 0, 0);
-		return 0;
-	}*/
+	motor.motor0Forward(127);
+	motor.motor1Forward(127);
+	if (!just_turned) delay(200); // TODO: this should depend on speed...  FORESEE/v_max
+	
+	set_pos();
+	
+	if (dist_front < MAX_DIST_FRONT) {
+		if (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)
+			return 1;
+	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_FRONT) {
+			return 1;
+	} else return 0;
+}
+
+int way_straight()
+{
+	set_pos();
+	if (dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) return 1;
+	else return 0;
 }
 
 void move_forward()
 {
-	if (dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) {
-		set_rgb(0, 255, 0);
-		correction = pid_output();
-		// Fix corrections out of range
-		if (correction > 127) correction = 127;
-		if (correction < -127) correction = -127;
+	set_rgb(0, 255, 0);
+	correction = pid_output();
+	// Fix corrections out of range
+	if (correction > 127) correction = 127;
+	if (correction < -127) correction = -127;
 
-		if (correction > 0) {
-			motor.motor0Forward(127-abs(correction));
-			motor.motor1Forward(127);
-		} else {
-			motor.motor0Forward(127);
-			motor.motor1Forward(127-abs(correction));
-		}
-		if (dist_front < 300) {
-			set_rgb(0, 0, 0);
-			turn_back();
-		}
-		just_turned = 0;
-	} else if (dist_left > MAX_DIST_SIDE) {
-		set_rgb(255, 0, 0);
-		if (!just_turned) delay(FORESEE/v_max);
-		turn_left();
-		just_turned = 1;
-	} else if (dist_right > MAX_DIST_SIDE) {
-		set_rgb(0, 0, 255);
-		if (!just_turned) delay(FORESEE/v_max);
-		turn_right();
-		just_turned = 1;
+	if (correction > 0) {
+		motor.motor0Forward(127-abs(correction));
+		motor.motor1Forward(127);
+	} else {
+		motor.motor0Forward(127);
+		motor.motor1Forward(127-abs(correction));
 	}
+	if (dist_front < 150) {
+		turn_back();
+	}
+	just_turned = 0;
 }
 
 // TODO: implement this function
@@ -341,6 +372,14 @@ void debug_abort()
 {
 	debug_pause(0);
 	while (1);
+}
+
+void set_pos()
+{
+	// Set instant position
+	dist_left = get_distance(SHARP_LEFT);
+	dist_right = get_distance(SHARP_RIGHT);
+	dist_front = get_distance(SHARP_FRONT);
 }
 
 /**

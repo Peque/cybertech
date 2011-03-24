@@ -18,25 +18,33 @@
 #define SHARP_FRONT 14         // Front sensor in A0
 #define SHARP_LEFT 15          // Left sensor in A1
 #define SHARP_RIGHT 16         // Right sensor in A2
-#define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
+#define SHARP_AREAD_N 5        // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
+#define MAX_DIST_SIDE 400      // Max. distance considering a side wall
+#define MAX_DIST_FRONT 500     // Min. distance considering a front wall
 
 // PID
-#define Kp 0.1
-#define Ki 0
-#define Kd 0
-unsigned long prev_time;
-float prev_err;
+#define Kp 0.5
+#define Ki 0.0
+#define Kd 0.0
+unsigned long prev_time;     // Previous time
+float prev_err;              // Previous error
+float correction;            // PID's output
 
 // Instant position variables
 float dist_left, dist_right, dist_front;
 
 // Configuration
+#define LANE_WIDTH 500.0    // Distance between walls in the maze
+#define DIAMETER 112.0      // Distance between wheels
+#define FORESEE 100.0       // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)
+#define PI 3.141592654      // [...]
 #define CONFIG_DIST 150     // Distance for sensors' reading in mm
-#define CONFIG_PREC 30      // Sets the sensors' reading distance precision in mm (+/-)
+#define CONFIG_PREC 40      // Sets the sensors' reading distance precision in mm (+/-)
+float v_max = 0.7;          // Max speed in m/s
 int choose_left = 1;        // Left by default
-int t_turn_back = 250;      // Time in ms to turn back
 int initialized = 0;        // Boolean variable to know if the robot is already initialized
+int just_turned = 0;
 
 // RGB LED
 #define LED_RED 9
@@ -61,42 +69,20 @@ void setup()
 	pinMode(LED_RED, OUTPUT);
 	pinMode(LED_GREEN, OUTPUT);
 	pinMode(LED_BLUE, OUTPUT);
+
+	// Initialization
+	initialization();
 }
 
 void loop() 
 {
-	// Initialization
-	if (!initialized) initialization();
-
-	float output;
-
 	// Set instant position
 	dist_left = get_distance(SHARP_LEFT);
 	dist_right = get_distance(SHARP_RIGHT);
 	dist_front = get_distance(SHARP_FRONT);
 
-	output = pid_output();
-	
-	if (output > 127) output = 127;
-	if (output < -127) output = -127;
-
-	if (get_distance(SHARP_FRONT) > 200) {
-		if (output > 0) {
-			motor.motor0Forward(127-abs(output));
-			motor.motor1Forward(127);
-			set_rgb(0, 2*abs(output), 0);
-		} else {
-			motor.motor0Forward(127);
-			motor.motor1Forward(127-abs(output));
-			set_rgb(0, 0, 2*abs(output));
-		}
-	} else {
-		motor.motor0Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
-		motor.motor1Coast();        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
-		set_rgb(255, 0, 0);
-		turn_back();
-		if (get_distance(SHARP_FRONT) < 200) delay(5000);
-	}
+	if (simple_way()) move_forward();
+	else solve_node();
 }
 
 /**
@@ -181,12 +167,32 @@ float pid_output()
  */
 void turn_back()
 {
-	motor.motor0Forward(125);
-	motor.motor1Reverse(125);
-	delay(t_turn_back);
-	motor.motor0Forward(0);        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
-	motor.motor1Reverse(0);        // Lets the motor turn freely (TODO: avoid this for being weight dependent)
+	motor.motor0Forward(127);
+	motor.motor1Reverse(127);
+	delay(PI*DIAMETER/(2*v_max));
+	motor.motor0Forward(0);
+	motor.motor1Reverse(0);
 	delay(300);
+}
+
+void turn_right()   // TODO: merge turn_right() and turn_left() into one simple function
+{
+	if (!just_turned) delay(FORESEE/v_max);
+	motor.motor1Forward(80); // TODO: speed dependent... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	motor.motor0Forward(127);
+	delay(700); // TODO: speed dependent... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/v_max (?)
+	just_turned = 1;
+	// debug_pause(3000);
+}
+
+void turn_left()
+{
+	if (!just_turned) delay((FORESEE-100)/v_max);
+	motor.motor1Forward(127);
+	motor.motor0Forward(80); // TODO: speed dependent... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	delay(700); // TODO: speed dependent... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/v_max (?)
+	just_turned = 1;
+	// debug_pause(3000);
 }
 
 void initialization()
@@ -206,20 +212,21 @@ void initialization()
 	}
 	
 	time = millis();
-	motor.motor0Forward(125);
-	motor.motor1Reverse(125);
+	motor.motor1Forward(127);
+	motor.motor0Reverse(127);
 	delay(100);
-	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 50);
+	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
 	delay(100);
-	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 50);
-	t_turn_back = (millis() - time) / 4;
-	motor.motor0Forward(0);
-	motor.motor1Reverse(0);
+	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
+	v_max = 2*PI*DIAMETER/(millis()-time);
+	motor.motor1Forward(0);
+	motor.motor0Reverse(0);
 
 	for (int i=0; i<4; i++) {
 		delay(1000);
 		turn_back();
 	}
+	
 	delay(5000);
 	
 	while (get_config(0) != 1) {
@@ -273,22 +280,69 @@ int get_config(uint8_t interrupt)
 	return 0;
 }
 
-// TODO: implement this function
 int simple_way()
 {
-	return 0;
+	return 1;
+	/*
+	if ((dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) || \
+	(dist_front < MAX_DIST_FRONT && (dist_left < MAX_DIST_SIDE || dist_right < MAX_DIST_SIDE))) {
+		// set_rgb(0, 255, 0);
+		return 1;
+	} else {
+		// set_rgb(255, 0, 0);
+		return 0;
+	}*/
+}
+
+void move_forward()
+{
+	if (dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) {
+		set_rgb(0, 255, 0);
+		correction = pid_output();
+		// Fix corrections out of range
+		if (correction > 127) correction = 127;
+		if (correction < -127) correction = -127;
+
+		if (correction > 0) {
+			motor.motor0Forward(127-abs(correction));
+			motor.motor1Forward(127);
+		} else {
+			motor.motor0Forward(127);
+			motor.motor1Forward(127-abs(correction));
+		}
+		if (dist_front < 300) {
+			set_rgb(0, 0, 0);
+			turn_back();
+		}
+		just_turned = 0;
+	} else if (dist_left > MAX_DIST_SIDE) {
+		set_rgb(255, 0, 0);
+		turn_left();
+	} else if (dist_right > MAX_DIST_SIDE) {
+		set_rgb(0, 0, 255);
+		turn_right();
+	}
 }
 
 // TODO: implement this function
-int move_forward()
+void solve_node()
 {
-	return 0;
+	// For now, just abort:
+	abort();
 }
 
-// TODO: implement this function
-int solve_node()
+void debug_pause(int ms)
 {
-	return 0;
+	motor.motor0Forward(0);
+	motor.motor1Forward(0);
+	set_rgb(0, 0, 0);
+	delay(ms);
+}
+
+void debug_abort()
+{
+	debug_pause(0);
+	while (1);
 }
 
 /**

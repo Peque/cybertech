@@ -20,11 +20,11 @@
 #define SHARP_RIGHT 16         // Right sensor in A2
 #define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
-#define MAX_DIST_SIDE 400      // Max. distance considering a side wall
+#define MAX_DIST_SIDE 500      // Max. distance considering a side wall
 #define MAX_DIST_FRONT 600     // Min. distance considering a front wall
 
 // PID
-#define Kp 1
+#define Kp 0.8
 #define Ki 0.0
 #define Kd 0.0
 unsigned long prev_time;     // Previous time
@@ -184,7 +184,7 @@ void turn_right()   // TODO: merge turn_right() and turn_left() into one simple 
 {
 	set_rgb(0, 0, 255);
 	motor.motor0Forward(127);
-	motor.motor1Forward(75); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	motor.motor1Forward(77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
 
@@ -201,7 +201,7 @@ void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simp
 void turn_left()
 {
 	set_rgb(255, 0, 0);
-	motor.motor0Forward(75); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	motor.motor0Forward(77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
 	motor.motor1Forward(127);
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }

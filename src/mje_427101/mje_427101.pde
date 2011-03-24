@@ -41,7 +41,7 @@ float dist_left, dist_right, dist_front;
 #define PI 3.141592654      // [...]
 #define CONFIG_DIST 150     // Distance for sensors' reading in mm
 #define CONFIG_PREC 40      // Sets the sensors' reading distance precision in mm (+/-)
-float v_max = 0.7;          // Max speed in m/s
+float v_max = 0.54;         // Max speed in m/s
 int choose_left = 1;        // Left by default
 int initialized = 0;        // Boolean variable to know if the robot is already initialized
 int just_turned = 0;
@@ -71,7 +71,7 @@ void setup()
 	pinMode(LED_BLUE, OUTPUT);
 
 	// Initialization
-	initialization();
+//	initialization();
 }
 
 void loop() 
@@ -177,22 +177,16 @@ void turn_back()
 
 void turn_right()   // TODO: merge turn_right() and turn_left() into one simple function
 {
-	if (!just_turned) delay(FORESEE/v_max);
-	motor.motor1Forward(80); // TODO: speed dependent... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	motor.motor1Forward(127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER));
 	motor.motor0Forward(127);
-	delay(700); // TODO: speed dependent... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/v_max (?)
-	just_turned = 1;
-	// debug_pause(3000);
+	delay((PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max*1.1)); // TODO: fix this 1.1 factor!
 }
 
 void turn_left()
 {
-	if (!just_turned) delay((FORESEE-100)/v_max);
 	motor.motor1Forward(127);
-	motor.motor0Forward(80); // TODO: speed dependent... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
-	delay(700); // TODO: speed dependent... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/v_max (?)
-	just_turned = 1;
-	// debug_pause(3000);
+	motor.motor0Forward(127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER));
+	delay((PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max*1.1)); // TODO: fix this 1.1 factor!
 }
 
 void initialization()
@@ -317,10 +311,14 @@ void move_forward()
 		just_turned = 0;
 	} else if (dist_left > MAX_DIST_SIDE) {
 		set_rgb(255, 0, 0);
+		if (!just_turned) delay(FORESEE/v_max);
 		turn_left();
+		just_turned = 1;
 	} else if (dist_right > MAX_DIST_SIDE) {
 		set_rgb(0, 0, 255);
+		if (!just_turned) delay(FORESEE/v_max);
 		turn_right();
+		just_turned = 1;
 	}
 }
 

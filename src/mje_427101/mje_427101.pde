@@ -389,12 +389,12 @@ void set_rgb(uint8_t red, uint8_t green, uint8_t blue)
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/04/01
  */
-void set_speed(position motor, int speed)
+void set_speed(position motor_position, int speed)
 {
 	// Fix incorrect values for speed
 	speed = (speed > 127) ? 127 : (speed < -127) ? -127 : speed;
 
-	switch (motor) {
+	switch (motor_position) {
 		case FRONT :
 			if (speed > 0) {
 				motor.motor0Forward(speed);

@@ -29,7 +29,6 @@
 #define Kd 0.0
 unsigned long prev_time;     // Previous time
 float prev_err;              // Previous error
-float correction;            // PID's output
 
 // Instant position variables
 float dist_left, dist_right, dist_front;
@@ -172,50 +171,6 @@ void initialization()
 	initialized = 1;
 }
 
-int way_simple()
-{
-	motor.motor0Forward(127);
-	motor.motor1Forward(127);
-	if (!just_turned) delay(200); // TODO: this should depend on speed...  FORESEE/v_max
-
-	set_pos();
-
-	if (dist_front < MAX_DIST_FRONT) {
-		if (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)
-			return 1;
-	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_FRONT) {
-			return 1;
-	} else return 0;
-}
-
-int way_straight()
-{
-	set_pos();
-	if (dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) return 1;
-	else return 0;
-}
-
-void move_forward()
-{
-	set_rgb(0, 255, 0);
-	correction = pid_output();
-	// Fix corrections out of range
-	if (correction > 127) correction = 127;
-	if (correction < -127) correction = -127;
-
-	if (correction > 0) {
-		motor.motor0Forward(127-abs(correction));
-		motor.motor1Forward(127);
-	} else {
-		motor.motor0Forward(127);
-		motor.motor1Forward(127-abs(correction));
-	}
-	if (dist_front < 150) {
-		turn_back();
-	}
-	just_turned = 0;
-}
-
 // TODO: implement this function
 void solve_node()
 {
@@ -327,6 +282,30 @@ float get_distance(uint8_t sensor)
     * voltage:
     */
     return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
+}
+
+/**
+ * @brief Move forward between two side walls.
+ *
+ * The move_forward() function is used when there's no chance to turn
+ * for the robot: it will move straight between the two side walls.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/04/01
+ */
+void move_forward()
+{
+	float correction;
+	correction = pid_output();
+
+	// Fix corrections out of range
+	correction = (correction > 127) ? 127 : (correction < -127) ? -127 : correction;
+
+	set_speed(LEFT, 127 - (correction ? abs(correction) : 0));
+	set_speed(RIGHT, 127 - (correction ? 0 : abs(correction)));
+
+	if (dist_front < 150) turn_back();
+	just_turned = 0;
 }
 
 /**
@@ -457,4 +436,48 @@ void turn_back()
 	delay(PI*DIAMETER/(2*v_max));
 	set_speed(FRONT, 0);
 	delay(100);
+}
+
+/**
+ * @brief Check if the robot must turn left or must turn right.
+ *
+ * The way_simple() function can check if the robot must turn left or
+ * must turn right (that means there's a bend but not a node) and
+ * returns TRUE or FALSE depending on that.
+ *
+ * @return TRUE or FALSE if the robot must turn right or must turn left.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/04/01
+ */
+int way_simple()
+{
+	set_speed(FRONT, 127);
+	if (!just_turned) delay(200); // TODO: this should depend on speed...  FORESEE/v_max
+
+	set_pos();
+
+	if (dist_front < MAX_DIST_FRONT) {
+		if (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)
+			return 1;
+	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_FRONT) {
+			return 1;
+	} else return 0;
+}
+
+/**
+ * @brief Check for any chances to turn.
+ *
+ * The way_straight() function can check if the robot is between two
+ * side walls (there's no chance to turn) and returns TRUE or FALSE
+ * depending on that.
+ *
+ * @return TRUE or FALSE if it is or it is not a straight way (can't turn).
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/04/01
+ */
+int way_straight()
+{
+	set_pos();
+	if (dist_left < MAX_DIST_SIDE && dist_right < MAX_DIST_SIDE) return 1;
+	else return 0;
 }

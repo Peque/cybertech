@@ -17,9 +17,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <CompactQik2s9v1.h>
-#include <NewSoftSerial.h>
+
 #include <mje_427101.h>
+
 
 // PID variables
 unsigned long prev_time;     // Previous time
@@ -35,18 +35,14 @@ int initialized = 0;        // Boolean variable to know if the robot is already 
 int just_turned = 0;
 
 
-NewSoftSerial motorSerial =  NewSoftSerial(rxPin, txPin);
-CompactQik2s9v1 motor = CompactQik2s9v1(&motorSerial,rstPin);
-
 void setup()
 {
 	// Serial setup
 	Serial.begin(9600);
-	motorSerial.begin(9600);
 
 	// Motor setup
-	motor.begin();
-	motor.stopBothMotors();
+	init_qik();
+	set_speed(FRONT, 0);
 
 	// LED setup
 	pinMode(LED_RED, OUTPUT);
@@ -89,8 +85,8 @@ void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simp
 void turn_left()
 {
 	set_rgb(255, 0, 0);
-	motor.motor0Forward(77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
-	motor.motor1Forward(127);
+	set_speed(LEFT, 77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	set_speed(RIGHT, 127);
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
 
@@ -124,15 +120,14 @@ void initialization()
 	}
 
 	time = millis();
-	motor.motor1Forward(127);
-	motor.motor0Reverse(127);
+	set_speed(RIGHT, 127);
+	set_speed(LEFT, -127);
 	delay(100);
 	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
 	delay(100);
 	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
 	v_max = 2*PI*DIAMETER/(millis()-time);
-	motor.motor1Forward(0);
-	motor.motor0Reverse(0);
+	set_speed(FRONT, 0);
 
 	for (int i=0; i<4; i++) {
 		delay(1000);
@@ -265,6 +260,18 @@ float get_distance(uint8_t sensor)
     return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
 }
 
+void init_qik()
+{
+	digitalWrite(qik_rstPin, LOW);
+	delay(100);
+	digitalWrite(qik_rstPin, HIGH);
+	delay(10);
+
+	Serial.print(INITIALPACKET, BYTE);
+
+	delay(100);
+}
+
 /**
  * @brief Move forward between two side walls.
  *
@@ -370,32 +377,56 @@ void set_rgb(uint8_t red, uint8_t green, uint8_t blue)
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/04/01
  */
-void set_speed(position motor_position, int speed)
+void set_speed(position motor_position, int speed_fr)
 {
+	uint8_t speed, FORWARD;
+
 	// Fix incorrect values for speed
-	speed = (speed > 127) ? 127 : (speed < -127) ? -127 : speed;
+	speed_fr = (speed_fr > 127) ? 127 : (speed_fr < -127) ? -127 : speed_fr;
+
+	FORWARD = (speed_fr < 0) ? 0 : 1;
+	speed = abs(speed_fr);
 
 	switch (motor_position) {
 		case FRONT :
-			if (speed > 0) {
-				motor.motor0Forward(speed);
-				motor.motor1Forward(speed);
+			if (FORWARD) {
+				// motor0Forward
+				Serial.print(MOTOR0FORWARDPACKET, BYTE);
+				Serial.print(speed, BYTE);
+				// motor1Forward
+				Serial.print(MOTOR1FORWARDPACKET, BYTE);
+				Serial.print(speed, BYTE);
 			} else {
-				motor.motor0Reverse(speed);
-				motor.motor1Reverse(speed);
+				Serial.print(MOTOR0REVERSEPACKET, BYTE);
+				Serial.print(speed, BYTE);
+				Serial.print(MOTOR1REVERSEPACKET, BYTE);
+				Serial.print(speed, BYTE);
 			}
 			break;
 		case LEFT :
-			if (speed > 0) motor.motor0Forward(speed);
-			else motor.motor0Reverse(speed);
+			if (FORWARD) {
+				Serial.print(MOTOR0FORWARDPACKET, BYTE);
+				Serial.print(speed, BYTE);
+			} else {
+				Serial.print(MOTOR1REVERSEPACKET, BYTE);
+				Serial.print(speed, BYTE);
+			}
 			break;
 		case RIGHT :
-			if (speed > 0) motor.motor1Forward(speed);
-			else motor.motor1Reverse(speed);
+			if (FORWARD) {
+				Serial.print(MOTOR1FORWARDPACKET, BYTE);
+				Serial.print(speed, BYTE);
+			} else {
+				Serial.print(MOTOR1REVERSEPACKET, BYTE);
+				Serial.print(speed, BYTE);
+			}
 			break;
 		default :
-			motor.motor0Forward(0);
-			motor.motor1Forward(0);
+			// Stop both motors
+			Serial.print(MOTOR0FORWARDPACKET, BYTE);
+			Serial.print(0, BYTE);
+			Serial.print(MOTOR1FORWARDPACKET, BYTE);
+			Serial.print(0, BYTE);
 			break;
 	}
 }

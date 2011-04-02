@@ -21,18 +21,19 @@
 #ifndef mje_427101_h
 #define mje_427101_h
 
+#include "WProgram.h"
 #include "WConstants.h"
 
 
 // Software serial:
 /*
  * Important:
- *     The rxPin goes to the Qik's "TX" pin
- *     The txPin goes to the Qik's "RX" pin
+ *     The qik_rxPin goes to the Qik's "TX" pin
+ *     The qik_txPin goes to the Qik's "RX" pin
  */
-#define txPin 2
-#define rxPin 3
-#define rstPin 4
+#define qik_rxPin 0
+#define qik_txPin 1
+#define qik_rstPin 2
 
 // SHARP sensors
 #define SHARP_FRONT 14         // Front sensor in A0
@@ -55,6 +56,23 @@
 #define PI 3.141592654      // [...]
 #define CONFIG_DIST 150     // Distance for sensors' reading in mm
 #define CONFIG_PREC 40      // Sets the sensors' reading distance precision in mm (+/-)
+
+// Bytes used to talk to the motor controller Qik2s9v1
+#define INITIALPACKET 0xAA
+#define MOTOR0FORWARDPACKET 0x88
+#define MOTOR0FORWARDFASTPACKET 0x89
+#define MOTOR0REVERSEPACKET 0x8A
+#define MOTOR0REVERSEFASTPACKET 0x8B
+#define MOTOR1FORWARDPACKET 0x8C
+#define MOTOR1FORWARDFASTPACKET 0x8D
+#define MOTOR1REVERSEPACKET 0x8E
+#define MOTOR1REVERSEFASTPACKET 0x8F
+#define MOTOR0COASTPACKET 0x86
+#define MOTOR1COASTPACKET 0x87
+#define FWVERSIONPACKET 0x81
+#define ERRORPACKET 0x82
+#define GETCONFIG 0x83
+#define SETCONFIG 0x84
 
 // Type for positions
 typedef enum position { FRONT, LEFT, RIGHT };

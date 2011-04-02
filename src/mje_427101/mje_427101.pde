@@ -289,8 +289,8 @@ void move_forward()
 	// Fix corrections out of range
 	correction = (correction > 127) ? 127 : (correction < -127) ? -127 : correction;
 
-	set_speed(LEFT, 127 - (correction ? abs(correction) : 0));
-	set_speed(RIGHT, 127 - (correction ? 0 : abs(correction)));
+	set_speed(LEFT, 127 - ((correction < 0) ? 0 : abs(correction)));
+	set_speed(RIGHT, 127 - ((correction < 0) ? abs(correction) : 0));
 
 	if (dist_front < 150) turn_back();
 	just_turned = 0;

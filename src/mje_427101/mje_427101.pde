@@ -390,33 +390,39 @@ void set_speed(position motor_position, int speed_fr)
 	switch (motor_position) {
 		case FRONT :
 			if (FORWARD) {
-				// motor0Forward
+				// Motor 0 forward at speed
 				Serial.print(MOTOR0FORWARDPACKET, BYTE);
 				Serial.print(speed, BYTE);
-				// motor1Forward
+				// Motor 1 forward at speed
 				Serial.print(MOTOR1FORWARDPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			} else {
+				// Motor 0 reverse at speed
 				Serial.print(MOTOR0REVERSEPACKET, BYTE);
 				Serial.print(speed, BYTE);
+				// Motor 1 reverse at speed
 				Serial.print(MOTOR1REVERSEPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			}
 			break;
 		case LEFT :
 			if (FORWARD) {
+				// Motor 0 forward at speed
 				Serial.print(MOTOR0FORWARDPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			} else {
-				Serial.print(MOTOR1REVERSEPACKET, BYTE);
+				// Motor 1 reverse at speed
+				Serial.print(MOTOR0REVERSEPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			}
 			break;
 		case RIGHT :
 			if (FORWARD) {
+				// Motor 1 forward at speed
 				Serial.print(MOTOR1FORWARDPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			} else {
+				// Motor 1 reverse at speed
 				Serial.print(MOTOR1REVERSEPACKET, BYTE);
 				Serial.print(speed, BYTE);
 			}

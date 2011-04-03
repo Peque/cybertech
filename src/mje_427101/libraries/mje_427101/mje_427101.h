@@ -35,6 +35,10 @@
 #define qik_txPin 1
 #define qik_rstPin 2
 
+// Time constants
+#define TIME_TO_PASSTHROUGH 650 // TODO: this should depend on speed...  LANE_WIDTH/v_max
+#define TIME_TO_RECHECK 180 // TODO: this should depend on speed...  FORESEE/v_max
+
 // SHARP sensors
 #define SHARP_FRONT 14         // Front sensor in A0
 #define SHARP_LEFT 15          // Left sensor in A1

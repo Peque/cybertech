@@ -30,9 +30,9 @@ float dist_left, dist_right, dist_front;
 
 // Configuration variables
 float v_max = 0.54;         // Max speed in m/s
-int choose_left = 1;        // Left by default
-int initialized = 0;        // Boolean variable to know if the robot is already initialized
-int just_turned = 0;
+int CHOOSE_LEFT = 1;        // Left by default
+int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
+int JUST_TURNED = 0;
 
 
 void setup()
@@ -50,7 +50,7 @@ void setup()
 	pinMode(LED_BLUE, OUTPUT);
 
 	// Initialization
-//	initialization();
+//	init_mje();
 	delay(5000);
 }
 
@@ -66,14 +66,14 @@ void turn()
 	if (dist_left > MAX_DIST_SIDE) turn_left();
 	else if (dist_right > MAX_DIST_SIDE) turn_right();
 	else if (dist_right < MAX_DIST_SIDE) turn_back();
-	just_turned = 1;
+	JUST_TURNED = 1;
 }
 
 void turn_right()   // TODO: merge turn_right() and turn_left() into one simple function
 {
 	set_rgb(0, 0, 255);
 	set_speed(LEFT, 127);
-	set_speed(RIGHT, 77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	set_speed(RIGHT, 70); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
 
@@ -85,7 +85,7 @@ void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simp
 void turn_left()
 {
 	set_rgb(255, 0, 0);
-	set_speed(LEFT, 77); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+	set_speed(LEFT, 70); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
 	set_speed(RIGHT, 127);
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
@@ -97,13 +97,28 @@ void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simpl
 
 void turn_none()
 {
-	/*
-	 * If there's any side-wall, we should try to maintain the distance.
-	 * That should help us for avoid bumping into walls...
-	 */
+	unsigned long time = millis();
+	float dist_0;
+
+	if (dist_right < MAX_DIST_SIDE) {
+		set_rgb(0, 0, 255);
+		dist_0 = dist_right;
+		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, dist_0);
+		set_rgb(0, 0, 0);
+	} else if (dist_left < MAX_DIST_SIDE) {
+		set_rgb(255, 0, 0);
+		dist_0 = dist_left;
+		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, dist_0);
+		set_rgb(0, 0, 0);
+	} else {
+		set_rgb(0, 255, 0);
+		set_speed(FRONT, 127);
+		while (millis() - time < TIME_TO_PASSTHROUGH);
+		set_rgb(0, 0, 0);
+	}
 }
 
-void initialization()
+void init_mje()
 {
 	unsigned long time = millis();
 	int conf;
@@ -112,10 +127,10 @@ void initialization()
 		if (((millis() - time)/500) % 2 == 0) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
 	} while (conf < 2);
-	if (conf == 2) choose_left = 1;
-	else choose_left = 0;
+	if (conf == 2) CHOOSE_LEFT = 1;
+	else CHOOSE_LEFT = 0;
 	while (get_config(1) != 1) {
-		if (choose_left) set_rgb(255, 0, 0);
+		if (CHOOSE_LEFT) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
 	}
 
@@ -144,14 +159,32 @@ void initialization()
 	set_rgb(0, 255, 0);
 	delay(2000);
 
-	initialized = 1;
+	INITIALIZED = 1;
 }
 
-// TODO: implement this function
 void solve_node()
 {
-	// For now, just abort:
-	abort();
+	if (CHOOSE_LEFT) {
+		if (dist_left > MAX_DIST_SIDE) turn_left();
+		else if (dist_front > MAX_DIST_FRONT) turn_none();
+		else turn_right();
+	} else {
+		if (dist_right > MAX_DIST_SIDE) turn_right();
+		else if (dist_front > MAX_DIST_FRONT) turn_none();
+		else turn_left();
+	}
+}
+
+void speed_up()
+{
+	int i = 1;
+	while (i < 128) {
+		set_speed(RIGHT, i);
+		i += 5;
+		set_speed(LEFT, i);
+		i += 5;
+	}
+	set_speed(FRONT, 127);
 }
 
 /**
@@ -260,6 +293,16 @@ float get_distance(uint8_t sensor)
     return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
 }
 
+/**
+ * @brief Initializes Qik2s9v1 serial motor controller.
+ *
+ * The init_qik() function initializes the Qik2s9v1 serial motor
+ * controller, reseting the device and sending the initial packet byte
+ * to start the comunication.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/02/24
+ */
 void init_qik()
 {
 	digitalWrite(qik_rstPin, LOW);
@@ -284,7 +327,7 @@ void init_qik()
 void move_forward()
 {
 	float correction;
-	correction = pid_output();
+	correction = pid_both();
 
 	// Fix corrections out of range
 	correction = (correction > 127) ? 127 : (correction < -127) ? -127 : correction;
@@ -293,13 +336,28 @@ void move_forward()
 	set_speed(RIGHT, 127 - ((correction < 0) ? abs(correction) : 0));
 
 	if (dist_front < 150) turn_back();
-	just_turned = 0;
+	JUST_TURNED = 0;
+}
+
+void move_through(position wall_pos, float distance)
+{
+	float correction;
+
+	set_pos();
+
+	correction = pid_single(wall_pos, distance);
+
+	// Fix corrections out of range
+	correction = (correction > 127) ? 127 : (correction < -127) ? -127 : correction;
+
+	set_speed(LEFT, 127 - ((correction < 0) ? 0 : abs(correction)));
+	set_speed(RIGHT, 127 - ((correction < 0) ? abs(correction) : 0));
 }
 
 /**
  * @brief Returns PID output
  *
- * The pid_output() function performs a proportional, integral and
+ * The pid_both() function performs a proportional, integral and
  * derivative controller:
  * @f[
  * output = Kp*err + Ki*integral + Kd*derivative
@@ -311,7 +369,7 @@ void move_forward()
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/03/20
  */
-float pid_output()
+float pid_both()
 {
 	float err, integral, derivative, output;
 	unsigned long dt, time;
@@ -321,6 +379,27 @@ float pid_output()
 	dt = time - prev_time;
 
 	err = dist_left - dist_right;
+	integral += err*dt;
+	derivative = (err - prev_err)/dt;
+
+	output = Kp*err + Ki*integral + Kd*derivative;
+	prev_time = time;
+	prev_err = err;
+
+	return output;
+}
+
+float pid_single(position wall_pos, float distance)
+{
+	float err, integral, derivative, output;
+	unsigned long dt, time;
+
+	time = millis();
+
+	dt = time - prev_time;
+
+	if (wall_pos == LEFT) err = dist_left - distance;
+	else err = dist_right - distance;
 	integral += err*dt;
 	derivative = (err - prev_err)/dt;
 
@@ -470,7 +549,7 @@ void turn_back()
 int way_simple()
 {
 	set_speed(FRONT, 127);
-	if (!just_turned) delay(200); // TODO: this should depend on speed...  FORESEE/v_max
+	if (!JUST_TURNED) delay(TIME_TO_RECHECK);
 
 	set_pos();
 

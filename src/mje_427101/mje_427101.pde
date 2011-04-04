@@ -69,7 +69,7 @@ void turn()
 	JUST_TURNED = 1;
 }
 
-void turn_right()   // TODO: merge turn_right() and turn_left() into one simple function
+void turn_right()   // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
 {
 	set_rgb(0, 0, 255);
 	set_speed(LEFT, 127);
@@ -79,10 +79,34 @@ void turn_right()   // TODO: merge turn_right() and turn_left() into one simple 
 
 void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
 {
-	// TODO: implement this function
+	unsigned long time = millis();
+	float dist_0 = dist_left;
+
+	if (dist_0 < MAX_DIST_SIDE) {
+		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(LEFT, dist_0);
+	} else {
+		set_speed(FRONT, 127);
+		delay(TIME_TO_PASSTHROUGH/2);
+	}
+
+	set_speed(LEFT, 127);
+	set_speed(RIGHT, -127);
+	delay(PI*DIAMETER/(4*v_max));
+	set_speed(FRONT, 0); // Do we need this?
+
+	set_pos();
+	time = millis();
+	dist_0 = dist_left;
+
+	if (dist_0 < MAX_DIST_SIDE) {
+		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(LEFT, dist_0);
+	} else {
+		set_speed(FRONT, 127);
+		delay(TIME_TO_PASSTHROUGH/2);
+	}
 }
 
-void turn_left()
+void turn_left() // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
 {
 	set_rgb(255, 0, 0);
 	set_speed(LEFT, 70); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
@@ -92,7 +116,31 @@ void turn_left()
 
 void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
 {
-	// TODO: implement this function
+	unsigned long time = millis();
+	float dist_0 = dist_right;
+
+	if (dist_0 < MAX_DIST_SIDE) {
+		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(RIGHT, dist_0);
+	} else {
+		set_speed(FRONT, 127);
+		delay(TIME_TO_PASSTHROUGH/2);
+	}
+
+	set_speed(RIGHT, 127);
+	set_speed(LEFT, -127);
+	delay(PI*DIAMETER/(4*v_max));
+	set_speed(FRONT, 0); // Do we need this?
+
+	set_pos();
+	time = millis();
+	dist_0 = dist_right;
+
+	if (dist_0 < MAX_DIST_SIDE) {
+		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(RIGHT, dist_0);
+	} else {
+		set_speed(FRONT, 127);
+		delay(TIME_TO_PASSTHROUGH/2);
+	}
 }
 
 void turn_none()
@@ -173,18 +221,6 @@ void solve_node()
 		else if (dist_front > MAX_DIST_FRONT) turn_none();
 		else turn_left();
 	}
-}
-
-void speed_up()
-{
-	int i = 1;
-	while (i < 128) {
-		set_speed(RIGHT, i);
-		i += 5;
-		set_speed(LEFT, i);
-		i += 5;
-	}
-	set_speed(FRONT, 127);
 }
 
 /**
@@ -339,6 +375,17 @@ void move_forward()
 	JUST_TURNED = 0;
 }
 
+/**
+ * @brief Move through the maze keeping an eye on one side wall.
+ *
+ * The move_through() function is used to move straight when there is
+ * only one side wall available.
+ *
+ * @param[in] wall_pos Wall to keep an eye on.
+ * @param[in] distance Initial distance from that wall.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/04/03
+ */
 void move_through(position wall_pos, float distance)
 {
 	float correction;
@@ -358,7 +405,7 @@ void move_through(position wall_pos, float distance)
  * @brief Returns PID output
  *
  * The pid_both() function performs a proportional, integral and
- * derivative controller:
+ * derivative controller for staying in the middle of two side walls:
  * @f[
  * output = Kp*err + Ki*integral + Kd*derivative
  * @f]
@@ -389,6 +436,23 @@ float pid_both()
 	return output;
 }
 
+/**
+ * @brief Returns PID output
+ *
+ * The pid_single() function performs a proportional, integral and
+ * derivative controller for keeping distance from a side wall:
+ * @f[
+ * output = Kp*err + Ki*integral + Kd*derivative
+ * @f]
+ * For now, we have not implemented the integral and derivative control
+ * (Ki = Kd = 0).
+ *
+ * @param[in] wall_pos Wall to keep distance from.
+ * @param[in] distance Initial distance from that wall.
+ * @return PID output
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/04/03
+ */
 float pid_single(position wall_pos, float distance)
 {
 	float err, integral, derivative, output;

@@ -221,6 +221,7 @@ void solve_node()
 		else if (dist_front > MAX_DIST_FRONT) turn_none();
 		else turn_left();
 	}
+	JUST_TURNED = 1;
 }
 
 /**

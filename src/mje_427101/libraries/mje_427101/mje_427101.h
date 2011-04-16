@@ -36,7 +36,7 @@
 #define qik_rstPin 2
 
 // Time constants
-#define TIME_TO_PASSTHROUGH 650 // TODO: this should depend on speed...  LANE_WIDTH/v_max
+#define TIME_TO_PASSTHROUGH 900 // TODO: this should depend on speed...  LANE_WIDTH/v_max
 #define TIME_TO_RECHECK 180 // TODO: this should depend on speed...  FORESEE/v_max
 
 // SHARP sensors
@@ -49,7 +49,7 @@
 #define MAX_DIST_FRONT 600     // Min. distance considering a front wall
 
 // PID
-#define Kp 0.8
+#define Kp 0.5
 #define Ki 0.0
 #define Kd 0.0
 

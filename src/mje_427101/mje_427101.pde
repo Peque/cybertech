@@ -24,12 +24,13 @@
 // PID variables
 unsigned long prev_time;     // Previous time
 float prev_err;              // Previous error
+float integral;				 // ???
 
 // Instant position variables
 float dist_left, dist_right, dist_front;
 
 // Configuration variables
-float v_max = 0.54;         // Max speed in m/s
+float v_max = 0.55;         // Max speed in m/s
 int CHOOSE_LEFT = 1;        // Left by default
 int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
 int JUST_TURNED = 0;
@@ -56,15 +57,18 @@ void setup()
 
 void loop()
 {
-	while (way_straight()) move_forward();
+	while (way_straight()) {
+		set_rgb(0, 255, 0);
+		move_forward();
+	}
 	if (way_simple()) turn();
 	else solve_node();
 }
 
 void turn()
 {
-	if (dist_left > MAX_DIST_SIDE) turn_left();
-	else if (dist_right > MAX_DIST_SIDE) turn_right();
+	if (dist_left > MAX_DIST_SIDE) turn_left_simple();
+	else if (dist_right > MAX_DIST_SIDE) turn_right_simple();
 	else if (dist_right < MAX_DIST_SIDE) turn_back();
 	JUST_TURNED = 1;
 }
@@ -79,31 +83,39 @@ void turn_right()   // TODO: merge all turning functions into one single functio
 
 void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
 {
+	set_rgb(0, 0, 255);
 	unsigned long time = millis();
 	float dist_0 = dist_left;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(LEFT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(LEFT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2);
+		delay(TIME_TO_PASSTHROUGH/3.);
 	}
 
+	set_rgb(255, 0, 0);
 	set_speed(LEFT, 127);
-	set_speed(RIGHT, -127);
-	delay(PI*DIAMETER/(4*v_max));
-	set_speed(FRONT, 0); // Do we need this?
+	set_speed(RIGHT, 0);
+	delay(PI*DIAMETER/(2.5*v_max));
+	// set_speed(FRONT, 0); // Do we need this?
+	// delay(2000);
 
+	set_rgb(0, 0, 255);
 	set_pos();
 	time = millis();
 	dist_0 = dist_left;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(LEFT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(LEFT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2);
+		delay(TIME_TO_PASSTHROUGH/2.5);
 	}
+	// set_speed(FRONT, 0); // Do we need this?
+	// delay(2000);
+	set_speed(FRONT, 127);
+	delay(100);
 }
 
 void turn_left() // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
@@ -116,31 +128,39 @@ void turn_left() // TODO: merge all turning functions into one single function "
 
 void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
 {
+	set_rgb(255, 0, 0);
 	unsigned long time = millis();
 	float dist_0 = dist_right;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(RIGHT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(RIGHT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2);
+		delay(TIME_TO_PASSTHROUGH/3.);
 	}
 
+	set_rgb(0, 0, 255);
 	set_speed(RIGHT, 127);
-	set_speed(LEFT, -127);
-	delay(PI*DIAMETER/(4*v_max));
-	set_speed(FRONT, 0); // Do we need this?
+	set_speed(LEFT, 0);
+	delay(PI*DIAMETER/(2.5*v_max));
+	// set_speed(FRONT, 0); // Do we need this?
+	// delay(2000);
 
+	set_rgb(255, 0, 0);
 	set_pos();
 	time = millis();
 	dist_0 = dist_right;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/2) move_through(RIGHT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(RIGHT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2);
+		delay(TIME_TO_PASSTHROUGH/2.5);
 	}
+	// set_speed(FRONT, 0); // Do we need this?
+	// delay(2000);
+	set_speed(FRONT, 127);
+	delay(100);
 }
 
 void turn_none()
@@ -153,16 +173,22 @@ void turn_none()
 		dist_0 = dist_right;
 		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, dist_0);
 		set_rgb(0, 0, 0);
+		// set_speed(FRONT, 0); // Do we need this?
+		// delay(2000);
 	} else if (dist_left < MAX_DIST_SIDE) {
 		set_rgb(255, 0, 0);
 		dist_0 = dist_left;
 		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, dist_0);
 		set_rgb(0, 0, 0);
+		// set_speed(FRONT, 0); // Do we need this?
+		// delay(2000);
 	} else {
 		set_rgb(0, 255, 0);
 		set_speed(FRONT, 127);
 		while (millis() - time < TIME_TO_PASSTHROUGH);
 		set_rgb(0, 0, 0);
+		// set_speed(FRONT, 0); // Do we need this?
+		// delay(2000);
 	}
 }
 
@@ -213,13 +239,13 @@ void init_mje()
 void solve_node()
 {
 	if (CHOOSE_LEFT) {
-		if (dist_left > MAX_DIST_SIDE) turn_left();
+		if (dist_left > MAX_DIST_SIDE) turn_left_simple();
 		else if (dist_front > MAX_DIST_FRONT) turn_none();
-		else turn_right();
+		else turn_right_simple();
 	} else {
-		if (dist_right > MAX_DIST_SIDE) turn_right();
+		if (dist_right > MAX_DIST_SIDE) turn_right_simple();
 		else if (dist_front > MAX_DIST_FRONT) turn_none();
-		else turn_left();
+		else turn_left_simple();
 	}
 	JUST_TURNED = 1;
 }
@@ -463,8 +489,8 @@ float pid_single(position wall_pos, float distance)
 
 	dt = time - prev_time;
 
-	if (wall_pos == LEFT) err = dist_left - distance;
-	else err = dist_right - distance;
+	if (wall_pos == LEFT) err = 2.*(dist_left - distance);
+	else err = 2.*(distance - dist_right);
 	integral += err*dt;
 	derivative = (err - prev_err)/dt;
 

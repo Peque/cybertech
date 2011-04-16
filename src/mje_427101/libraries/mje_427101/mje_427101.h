@@ -40,13 +40,15 @@
 #define TIME_TO_RECHECK 180 // TODO: this should depend on speed...  FORESEE/v_max
 
 // SHARP sensors
-#define SHARP_FRONT 14         // Front sensor in A0
-#define SHARP_LEFT 15          // Left sensor in A1
-#define SHARP_RIGHT 16         // Right sensor in A2
-#define SHARP_AREAD_N 10       // Repeat SHARP analogRead N times
-#define SHARP_AREAD_DELAY 0    // Delay between readings (ms)
-#define MAX_DIST_SIDE 500      // Max. distance considering a side wall
-#define MAX_DIST_FRONT 600     // Min. distance considering a front wall
+#define SHARP_FRONT 14				 // Front sensor in A0
+#define SHARP_LEFT 15				 // Left sensor in A1
+#define SHARP_RIGHT 16				 // Right sensor in A2
+#define SHARP_AREAD_N 10			 // Repeat SHARP analogRead N times
+#define SHARP_AREAD_DELAY 0			 // Delay between readings (ms)
+#define MAX_DIST_SIDE 500			 // Max. distance considering a side wall
+#define MAX_DIST_FRONT 600			 // Min. distance considering a front wall
+// #define NOM_DIST_SIDE 275			 // Nominal distance to a side wall
+#define NEW_WALL_CONTACT_DIST 375	 // Distance at which a new wall should appear when exiting a node
 
 // PID
 #define Kp 0.5

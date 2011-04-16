@@ -1,0 +1,5 @@
+"integral"	should be a global variable ???
+		if not, what are we adding to ???
+		should reset before calling PID ???
+		if not, prior values will be held ???
+

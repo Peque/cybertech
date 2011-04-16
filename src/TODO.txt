@@ -1,0 +1,4 @@
+replace measured	'dist_0'		by calculated 'CONSTANT'  --->	IMPOSSIBLE !!!
+
+replace all 'FORMULAE including CONSTANTS' by appropiate 'CONSTANTS' ???
+

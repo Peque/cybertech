@@ -1,6 +1,0 @@
-"integral"	debería estar como variable global para el PID ???
-		si no, sobre qué acumulas ???
-		habría que inicializarla al empezar cada PID ???
-		si no, lo anterior se mantienen ???
-		
-

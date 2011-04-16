@@ -30,7 +30,7 @@ float integral;				 // ???
 float dist_left, dist_right, dist_front;
 
 // Configuration variables
-float v_max = 0.55;         // Max speed in m/s
+float v_max = 0.5;         // Max speed in m/s
 int CHOOSE_LEFT = 1;        // Left by default
 int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
 int JUST_TURNED = 0;
@@ -88,34 +88,31 @@ void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simp
 	float dist_0 = dist_left;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(LEFT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through(LEFT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/3.);
+		delay(TIME_TO_PASSTHROUGH/3.75);
 	}
 
 	set_rgb(255, 0, 0);
 	set_speed(LEFT, 127);
 	set_speed(RIGHT, 0);
-	delay(PI*DIAMETER/(2.5*v_max));
+	delay(PI*DIAMETER/(2.75*v_max));
 	// set_speed(FRONT, 0); // Do we need this?
 	// delay(2000);
 
 	set_rgb(0, 0, 255);
 	set_pos();
 	time = millis();
-	dist_0 = dist_left;
 
-	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(LEFT, dist_0);
+	if (dist_left < MAX_DIST_SIDE) {
+		turn_none();
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2.5);
+		delay(TIME_TO_PASSTHROUGH/2.);
 	}
 	// set_speed(FRONT, 0); // Do we need this?
 	// delay(2000);
-	set_speed(FRONT, 127);
-	delay(100);
 }
 
 void turn_left() // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
@@ -133,34 +130,31 @@ void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simpl
 	float dist_0 = dist_right;
 
 	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(RIGHT, dist_0);
+		while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through(RIGHT, dist_0);
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/3.);
+		delay(TIME_TO_PASSTHROUGH/3.75);
 	}
 
 	set_rgb(0, 0, 255);
 	set_speed(RIGHT, 127);
 	set_speed(LEFT, 0);
-	delay(PI*DIAMETER/(2.5*v_max));
+	delay(PI*DIAMETER/(2.75*v_max));
 	// set_speed(FRONT, 0); // Do we need this?
 	// delay(2000);
 
 	set_rgb(255, 0, 0);
 	set_pos();
 	time = millis();
-	dist_0 = dist_right;
 
-	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.) move_through(RIGHT, dist_0);
+	if (dist_right < MAX_DIST_SIDE) {
+		turn_none();
 	} else {
 		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2.5);
+		delay(TIME_TO_PASSTHROUGH/2.);
 	}
 	// set_speed(FRONT, 0); // Do we need this?
 	// delay(2000);
-	set_speed(FRONT, 127);
-	delay(100);
 }
 
 void turn_none()
@@ -171,14 +165,18 @@ void turn_none()
 	if (dist_right < MAX_DIST_SIDE) {
 		set_rgb(0, 0, 255);
 		dist_0 = dist_right;
-		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, dist_0);
+		while (dist_right < MAX_DIST_SIDE && dist_left > NEW_WALL_CONTACT_DIST) move_through(RIGHT, dist_0);
+		set_speed(FRONT, 127);
+		delay(375);
 		set_rgb(0, 0, 0);
 		// set_speed(FRONT, 0); // Do we need this?
 		// delay(2000);
 	} else if (dist_left < MAX_DIST_SIDE) {
 		set_rgb(255, 0, 0);
 		dist_0 = dist_left;
-		while (millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, dist_0);
+		while (dist_left < MAX_DIST_SIDE && dist_right > NEW_WALL_CONTACT_DIST) move_through(LEFT, dist_0);
+		set_speed(FRONT, 127);
+		delay(375);
 		set_rgb(0, 0, 0);
 		// set_speed(FRONT, 0); // Do we need this?
 		// delay(2000);
@@ -621,7 +619,7 @@ void turn_back()
 {
 	set_speed(LEFT, 127);
 	set_speed(RIGHT, -127);
-	delay(PI*DIAMETER/(2*v_max));
+	delay(PI*DIAMETER/(1.85*v_max));
 	set_speed(FRONT, 0);
 	delay(100);
 }

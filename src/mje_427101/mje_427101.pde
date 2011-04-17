@@ -92,7 +92,7 @@ void turn(position turn_to) {
 		dist_0 = (turn_to == LEFT) ? dist_right : dist_left;
 
 		if (dist_0 < MAX_DIST_SIDE) {
-			while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through((turn_to == LEFT) RIGHT : LEFT, dist_0);
+			while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through((turn_to == LEFT) ? RIGHT : LEFT, dist_0);
 		} else {
 			set_speed(FRONT, 127);
 			delay(TIME_TO_PASSTHROUGH/3.75);
@@ -248,11 +248,11 @@ void debug_pause(int ms)
  * parameter "interrupt": 0 to stop blinking, 1 to exit function).
  *
  * @param[in] interrupt Toggle it to 1 if you want to exit get_config() after confirmation.
- * @return Sensor which has confirmed the reading: 0 for FRONT, 1 for LEFT, 2 for RIGHT and -1 for NONE.
+ * @return Sensor which has confirmed the reading: FRONT, LEFT or RIGHT. Will return BACK if the confirmation failed.
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/03/22
  */
-int get_config(uint8_t interrupt)
+position get_config(uint8_t interrupt)
 {
 	unsigned long time = millis();
 	for (uint8_t i = 0; i < 3; i++) {
@@ -265,13 +265,13 @@ int get_config(uint8_t interrupt)
 				// Confirm and return value after 3 seconds
 				if (millis() - time > 3000) {
 					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
-					return i;
+					return (position) i;
 				}
 			}
 		}
 	}
 	// Failed to confirm configuration settings
-	return -1;
+	return BACK;
 }
 
 /**

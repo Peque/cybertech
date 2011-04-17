@@ -2,6 +2,18 @@
 = Look for TODO tags in sources
 ================================================================================
 
+
+ESSENTIAL
+--------------------------------------------------------------------------------
+* Change type position for easy rotation: FRONT, RIGHT, BACK, LEFT
+* Set new orientation after turning
+* Define new type for nodes
+* Solve a defined vector of nodes
+* Record nodes while exploring
+
+
+MINOR
+--------------------------------------------------------------------------------
 * Replace measured 'dist_0' by calculated 'CONSTANT' (?)
 * Replace all 'FORMULAE including CONSTANTS' by appropiate 'CONSTANTS' (?)
 * Review PID's integral part (never used, so never checked)

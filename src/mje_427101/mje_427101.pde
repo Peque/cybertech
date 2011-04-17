@@ -51,8 +51,7 @@ void setup()
 	pinMode(LED_BLUE, OUTPUT);
 
 	// Initialization
-//	init_mje();
-	delay(5000);
+	init_mje();
 }
 
 void loop()
@@ -194,13 +193,17 @@ void init_mje()
 {
 	unsigned long time = millis();
 	int conf;
+
+	// Select which way to choose (left/right)
 	do {
 		conf = get_config(0);
 		if (((millis() - time)/500) % 2 == 0) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
-	} while (conf < 2);
+	} while (conf < 2); // Repeat until we get RIGHT or LEFT configuration
 	if (conf == 2) CHOOSE_LEFT = 1;
 	else CHOOSE_LEFT = 0;
+
+/*
 	while (get_config(1) != 1) {
 		if (CHOOSE_LEFT) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
@@ -222,7 +225,9 @@ void init_mje()
 	}
 
 	delay(5000);
+*/
 
+	// Wait for confirmation before starting
 	while (get_config(0) != 1) {
 		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
 		else set_rgb(0, 0, 0);
@@ -230,6 +235,7 @@ void init_mje()
 
 	set_rgb(0, 255, 0);
 	delay(2000);
+	set_rgb(0, 0, 0);
 
 	INITIALIZED = 1;
 }

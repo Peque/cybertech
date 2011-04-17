@@ -60,19 +60,69 @@ void loop()
 		set_rgb(0, 255, 0);
 		move_forward();
 	}
-	if (way_simple()) turn();
+	if (way_simple()) {
+		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
+		else if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
+		else if (dist_right < MAX_DIST_SIDE) turn(BACK);
+	}
 	else solve_node();
 }
 
-void turn()
-{
-	if (dist_left > MAX_DIST_SIDE) turn_left_simple();
-	else if (dist_right > MAX_DIST_SIDE) turn_right_simple();
-	else if (dist_right < MAX_DIST_SIDE) turn_back();
+void turn(position turn_to) {
+
+	unsigned long time = millis();
+	float dist_0;
+
+	if (turn_to == FRONT) {
+		if (dist_right < MAX_DIST_SIDE) {
+			dist_0 = dist_right;
+			while (dist_right < MAX_DIST_SIDE && dist_left > NEW_WALL_CONTACT_DIST) move_through(RIGHT, dist_0);
+			set_speed(FRONT, 127);
+			delay(375);
+		} else if (dist_left < MAX_DIST_SIDE) {
+			dist_0 = dist_left;
+			while (dist_left < MAX_DIST_SIDE && dist_right > NEW_WALL_CONTACT_DIST) move_through(LEFT, dist_0);
+			set_speed(FRONT, 127);
+			delay(375);
+		} else {
+			set_speed(FRONT, 127);
+			while (millis() - time < TIME_TO_PASSTHROUGH);
+		}
+	} else if (turn_to == LEFT || turn_to == RIGHT) {
+		dist_0 = (turn_to == LEFT) ? dist_right : dist_left;
+
+		if (dist_0 < MAX_DIST_SIDE) {
+			while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through((turn_to == LEFT) RIGHT : LEFT, dist_0);
+		} else {
+			set_speed(FRONT, 127);
+			delay(TIME_TO_PASSTHROUGH/3.75);
+		}
+
+		set_speed((turn_to == LEFT) ? RIGHT : LEFT, 127);
+		set_speed((turn_to == LEFT) ? LEFT : RIGHT, 0);
+		delay(PI*DIAMETER/(2.75*v_max));
+
+		set_pos();
+		time = millis();
+
+		if (dist_left < MAX_DIST_SIDE) {
+			turn(FRONT);
+		} else {
+			set_speed(FRONT, 127);
+			delay(TIME_TO_PASSTHROUGH/2.);
+		}
+	} else if (turn_to == BACK) {
+		set_speed(LEFT, 127);
+		set_speed(RIGHT, -127);
+		delay(PI*DIAMETER/(1.85*v_max));
+		set_speed(FRONT, 0);
+		delay(100);
+	}
+
 	JUST_TURNED = 1;
 }
 
-void turn_right()   // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
+void turn_right_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
 {
 	set_rgb(0, 0, 255);
 	set_speed(LEFT, 127);
@@ -80,41 +130,7 @@ void turn_right()   // TODO: merge all turning functions into one single functio
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
 
-void turn_right_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
-{
-	set_rgb(0, 0, 255);
-	unsigned long time = millis();
-	float dist_0 = dist_left;
-
-	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through(LEFT, dist_0);
-	} else {
-		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/3.75);
-	}
-
-	set_rgb(255, 0, 0);
-	set_speed(LEFT, 127);
-	set_speed(RIGHT, 0);
-	delay(PI*DIAMETER/(2.75*v_max));
-	// set_speed(FRONT, 0); // Do we need this?
-	// delay(2000);
-
-	set_rgb(0, 0, 255);
-	set_pos();
-	time = millis();
-
-	if (dist_left < MAX_DIST_SIDE) {
-		turn_none();
-	} else {
-		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2.);
-	}
-	// set_speed(FRONT, 0); // Do we need this?
-	// delay(2000);
-}
-
-void turn_left() // TODO: merge all turning functions into one single function "turn(position, simple/complex)"
+void turn_left_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
 {
 	set_rgb(255, 0, 0);
 	set_speed(LEFT, 70); // TODO: this should depend on speed... 127*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
@@ -122,89 +138,22 @@ void turn_left() // TODO: merge all turning functions into one single function "
 	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 }
 
-void turn_left_simple()   // TODO: merge turn_right_simple() and turn_left_simple() into one simple function
-{
-	set_rgb(255, 0, 0);
-	unsigned long time = millis();
-	float dist_0 = dist_right;
-
-	if (dist_0 < MAX_DIST_SIDE) {
-		while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through(RIGHT, dist_0);
-	} else {
-		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/3.75);
-	}
-
-	set_rgb(0, 0, 255);
-	set_speed(RIGHT, 127);
-	set_speed(LEFT, 0);
-	delay(PI*DIAMETER/(2.75*v_max));
-	// set_speed(FRONT, 0); // Do we need this?
-	// delay(2000);
-
-	set_rgb(255, 0, 0);
-	set_pos();
-	time = millis();
-
-	if (dist_right < MAX_DIST_SIDE) {
-		turn_none();
-	} else {
-		set_speed(FRONT, 127);
-		delay(TIME_TO_PASSTHROUGH/2.);
-	}
-	// set_speed(FRONT, 0); // Do we need this?
-	// delay(2000);
-}
-
-void turn_none()
-{
-	unsigned long time = millis();
-	float dist_0;
-
-	if (dist_right < MAX_DIST_SIDE) {
-		set_rgb(0, 0, 255);
-		dist_0 = dist_right;
-		while (dist_right < MAX_DIST_SIDE && dist_left > NEW_WALL_CONTACT_DIST) move_through(RIGHT, dist_0);
-		set_speed(FRONT, 127);
-		delay(375);
-		set_rgb(0, 0, 0);
-		// set_speed(FRONT, 0); // Do we need this?
-		// delay(2000);
-	} else if (dist_left < MAX_DIST_SIDE) {
-		set_rgb(255, 0, 0);
-		dist_0 = dist_left;
-		while (dist_left < MAX_DIST_SIDE && dist_right > NEW_WALL_CONTACT_DIST) move_through(LEFT, dist_0);
-		set_speed(FRONT, 127);
-		delay(375);
-		set_rgb(0, 0, 0);
-		// set_speed(FRONT, 0); // Do we need this?
-		// delay(2000);
-	} else {
-		set_rgb(0, 255, 0);
-		set_speed(FRONT, 127);
-		while (millis() - time < TIME_TO_PASSTHROUGH);
-		set_rgb(0, 0, 0);
-		// set_speed(FRONT, 0); // Do we need this?
-		// delay(2000);
-	}
-}
-
 void init_mje()
 {
 	unsigned long time = millis();
-	int conf;
+	position conf;
 
 	// Select which way to choose (left/right)
 	do {
 		conf = get_config(0);
 		if (((millis() - time)/500) % 2 == 0) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
-	} while (conf < 2); // Repeat until we get RIGHT or LEFT configuration
-	if (conf == 2) CHOOSE_LEFT = 1;
-	else CHOOSE_LEFT = 0;
+	} while ((conf != LEFT) && (conf != RIGHT)); // Repeat until we get RIGHT or LEFT configuration
+	if (conf == LEFT) CHOOSE_LEFT = 1;
+	else if (conf == RIGHT) CHOOSE_LEFT = 0;
 
 /*
-	while (get_config(1) != 1) {
+	while (get_config(1) != 0) {
 		if (CHOOSE_LEFT) set_rgb(255, 0, 0);
 		else set_rgb(0, 0, 255);
 	}
@@ -221,14 +170,14 @@ void init_mje()
 
 	for (int i=0; i<4; i++) {
 		delay(1000);
-		turn_back();
+		turn(BACK);
 	}
 
 	delay(5000);
 */
 
 	// Wait for confirmation before starting
-	while (get_config(0) != 1) {
+	while (get_config(0) != 0) {
 		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
 		else set_rgb(0, 0, 0);
 	}
@@ -243,13 +192,13 @@ void init_mje()
 void solve_node()
 {
 	if (CHOOSE_LEFT) {
-		if (dist_left > MAX_DIST_SIDE) turn_left_simple();
-		else if (dist_front > MAX_DIST_FRONT) turn_none();
-		else turn_right_simple();
+		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
+		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
+		else turn(RIGHT);
 	} else {
-		if (dist_right > MAX_DIST_SIDE) turn_right_simple();
-		else if (dist_front > MAX_DIST_FRONT) turn_none();
-		else turn_left_simple();
+		if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
+		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
+		else turn(LEFT);
 	}
 	JUST_TURNED = 1;
 }
@@ -299,30 +248,30 @@ void debug_pause(int ms)
  * parameter "interrupt": 0 to stop blinking, 1 to exit function).
  *
  * @param[in] interrupt Toggle it to 1 if you want to exit get_config() after confirmation.
- * @return Sensor which has confirmed the reading: 1 for FRONT, 2 for LEFT, 3 for RIGHT and 0 for NONE.
+ * @return Sensor which has confirmed the reading: 0 for FRONT, 1 for LEFT, 2 for RIGHT and -1 for NONE.
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2011/03/22
  */
 int get_config(uint8_t interrupt)
 {
 	unsigned long time = millis();
-	for (uint8_t i = 1; i < 4; i++) {
+	for (uint8_t i = 0; i < 3; i++) {
 		// Check de appropiate distance
-		if (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) {
+		if (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
 			// Check continuous reading
-			while (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) {
-				if (((millis() - time)/50) % 2 == 0) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
+			while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
+				if (((millis() - time)/50) % 2 == 0) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
 				else set_rgb(0, 0, 0);
 				// Confirm and return value after 3 seconds
 				if (millis() - time > 3000) {
-					if (!interrupt) while (abs((int) get_distance(13 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==2 ? 255 : 0, i==1 ? 255 : 0, i==3 ? 255 : 0);
+					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
 					return i;
 				}
 			}
 		}
 	}
 	// Failed to confirm configuration settings
-	return 0;
+	return -1;
 }
 
 /**
@@ -402,7 +351,7 @@ void move_forward()
 	set_speed(LEFT, 127 - ((correction < 0) ? 0 : abs(correction)));
 	set_speed(RIGHT, 127 - ((correction < 0) ? abs(correction) : 0));
 
-	if (dist_front < 150) turn_back();
+	if (dist_front < 150) turn(BACK);
 	JUST_TURNED = 0;
 }
 
@@ -609,25 +558,6 @@ void set_speed(position motor_position, int speed_fr)
 			Serial.print(0, BYTE);
 			break;
 	}
-}
-
-/**
- * @brief Tells the robot to turn back.
- *
- * The robot will turn back and wait for a brief period of time to
- * continue moving around. This function is supposed to be used only
- * while mapping the maze (the first time).
- *
- * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
- * @date 2011/03/22
- */
-void turn_back()
-{
-	set_speed(LEFT, 127);
-	set_speed(RIGHT, -127);
-	delay(PI*DIAMETER/(1.85*v_max));
-	set_speed(FRONT, 0);
-	delay(100);
 }
 
 /**

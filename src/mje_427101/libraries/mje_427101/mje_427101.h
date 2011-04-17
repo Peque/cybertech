@@ -47,6 +47,7 @@
 #define SHARP_AREAD_DELAY 0             // Delay between readings (ms)
 #define MAX_DIST_SIDE 500               // Max. distance considering a side wall
 #define MAX_DIST_FRONT 600              // Min. distance considering a front wall
+#define DIST_TURN_BACK 150              // Distance from sensor to front wall to turn back
 // #define NOM_DIST_SIDE 275            // Nominal distance to a side wall
 #define NEW_WALL_CONTACT_DIST 375       // Distance at which a new wall should appear when exiting a node
 
@@ -56,12 +57,14 @@
 #define Kd 0.0
 
 // Configuration
+#define MAX_SPEED 127       // Max motor speed  (absolute value)
 #define LANE_WIDTH 500.0    // Distance between walls in the maze
 #define DIAMETER 112.0      // Distance between wheels
 #define FORESEE 100.0       // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)
 #define PI 3.141592654      // [...]
 #define CONFIG_DIST 150     // Distance for sensors' reading in mm
 #define CONFIG_PREC 40      // Sets the sensors' reading distance precision in mm (+/-)
+#define CONFIG_TIME 3000    // Time to confirm configuracion in ms
 
 // Bytes used to talk to the motor controller Qik2s9v1
 #define INITIALPACKET 0xAA

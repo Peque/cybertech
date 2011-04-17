@@ -1,1 +1,8 @@
-Look for TODO tags in sources.
+================================================================================
+= Look for TODO tags in sources
+================================================================================
+
+* Replace measured 'dist_0' by calculated 'CONSTANT' (?)
+* Replace all 'FORMULAE including CONSTANTS' by appropiate 'CONSTANTS' (?)
+* Review PID's integral part (never used, so never checked)
+

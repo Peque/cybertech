@@ -33,7 +33,9 @@ float dist_left, dist_right, dist_front;
 // float v_max = 0.54;		// Max speed in mm/ms
 int CHOOSE_LEFT = 1;		// Left by default
 int INITIALIZED = 0;		// Boolean variable to know if the robot is already initialized
-// int JUST_TURNED = 0;		// ???
+
+// Orientation
+position orientation = LEFT;
 
 
 void setup()
@@ -119,6 +121,8 @@ void turn(position turn_to) {
 			}
 			delay(DELAY_EXIT_NODE);
 		}
+		if (turn_to == LEFT) orientation = (position) ((orientation + 3) % 4);
+		else orientation = (position) ((orientation + 1) % 4);
 	} else if (turn_to == BACK) {
 		set_rgb(0, 0, 255);
 		set_speed(LEFT, MAX_SPEED);
@@ -126,6 +130,7 @@ void turn(position turn_to) {
 		delay(DELAY_TURN_BACK);
 		set_speed(RIGHT, MAX_SPEED);
 		delay(TIME_TO_RECHECK);
+		orientation = (position) ((orientation + 2) % 4);
 	}
 }
 

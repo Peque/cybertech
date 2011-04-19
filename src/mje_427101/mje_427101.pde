@@ -22,18 +22,17 @@
 
 
 // PID variables
-unsigned long prev_time;     // Previous time
-float prev_err;              // Previous error
-float integral;				 // ???
+unsigned long prev_time;    // Previous time
+float prev_err;             // Previous error
+float integral;             // ???
 
 // Instant position variables
 float dist_left, dist_right, dist_front;
 
 // Configuration variables
-// float v_max = 0.54;		// Max speed in mm/ms
-int CHOOSE_LEFT = 1;		// Left by default
-int INITIALIZED = 0;		// Boolean variable to know if the robot is already initialized
-// int JUST_TURNED = 0;		// ???
+// float v_max = 0.54;         // Max speed in mm/ms
+int CHOOSE_LEFT = 1;        // Left by default
+int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
 
 
 void setup()
@@ -72,26 +71,45 @@ void loop()
 void turn(position turn_to) {
 
 	unsigned long time = millis();
-	float dist_0;
+	float dist_0, prev_dist_left, prev_dist_right;
 
 	if (turn_to == FRONT) {
 		set_rgb(255, 0, 0);
 		if (dist_right < MAX_DIST_SIDE) {
 			dist_0 = dist_right;
-			while (dist_right < MAX_DIST_SIDE && dist_left > NEW_WALL_CONTACT_DIST) move_through(RIGHT, dist_0);
+			prev_dist_left = dist_left + 10.;
+			while (dist_right < MAX_DIST_SIDE) {
+				move_through(RIGHT, dist_0);
+				if (dist_left < MAX_DIST_SIDE && (prev_dist_left - dist_left) < 0.) break;
+				prev_dist_left = dist_left;
+			}
 			set_speed(FRONT, MAX_SPEED);
-			delay(DELAY_EXIT_NODE);
+			delay(TIME_TO_RECHECK);
 		} else if (dist_left < MAX_DIST_SIDE) {
 			dist_0 = dist_left;
-			while (dist_left < MAX_DIST_SIDE && dist_right > NEW_WALL_CONTACT_DIST) move_through(LEFT, dist_0);
+			prev_dist_right = dist_right + 10.;
+			while (dist_left < MAX_DIST_SIDE) {
+				move_through(LEFT, dist_0);
+				if (dist_right < MAX_DIST_SIDE && (prev_dist_right - dist_right) < 0.) break;
+				prev_dist_right = dist_right;
+			}
 			set_speed(FRONT, MAX_SPEED);
-			delay(DELAY_EXIT_NODE);
+			delay(TIME_TO_RECHECK);
 		} else {
 			set_speed(FRONT, MAX_SPEED);
-			while (millis() - time < TIME_TO_PASSTHROUGH);
+			prev_dist_left = dist_left + 10.;
+			prev_dist_right = dist_right + 10.;
+			while (1) {
+				set_pos();
+				if ((dist_left < MAX_DIST_SIDE && (prev_dist_left - dist_left) < 0.) || \
+					(dist_right < MAX_DIST_SIDE && (prev_dist_right - dist_right) < 0.)) break;
+				prev_dist_left = dist_left;
+				prev_dist_right = dist_right;
+			}
+			delay(TIME_TO_RECHECK);
 		}
 	} else if (turn_to == LEFT || turn_to == RIGHT) {
-		set_rgb(0, 0, 255);
+		set_rgb(255, 0, 0);
 		dist_0 = (turn_to == LEFT) ? dist_right : dist_left;
 
 		if (dist_0 < MAX_DIST_SIDE) {
@@ -101,24 +119,15 @@ void turn(position turn_to) {
 			while (millis() - time < TIME_TO_TURN);
 		}
 
-		set_rgb(255, 0, 0);
+		set_rgb(0, 0, 255);
 		set_speed((turn_to == LEFT) ? RIGHT : LEFT, MAX_SPEED);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, 0);
 		delay(DELAY_TURNING);
+		set_speed((turn_to == LEFT) ? LEFT : RIGHT, MAX_SPEED);
+		delay(TIME_TO_RECHECK);
 
-		set_rgb(0, 0, 255);
 		set_pos();
-		time = millis();
-
-		if ((turn_to == LEFT) ? dist_right : dist_left < MAX_DIST_SIDE) {
-			turn(FRONT);
-		} else {
-			set_speed(FRONT, MAX_SPEED);
-			while (dist_left > NEW_WALL_CONTACT_DIST && dist_right > NEW_WALL_CONTACT_DIST) {
-				set_pos();
-			}
-			delay(DELAY_EXIT_NODE);
-		}
+		turn(FRONT);
 	} else if (turn_to == BACK) {
 		set_rgb(0, 0, 255);
 		set_speed(LEFT, MAX_SPEED);

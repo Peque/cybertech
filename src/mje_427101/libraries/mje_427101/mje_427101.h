@@ -36,11 +36,12 @@
 #define qik_rstPin 2
 
 // Time constants
-// #define TIME_TO_PASSTHROUGH 926        // TODO: this should depend on speed...      LANE_WIDTH/v_max
-#define TIME_TO_RECHECK 160            // TODO: this should depend on speed...      FORESEE/v_max
-#define TIME_TO_TURN 160               // TODO: this should depend on speed ???
-#define DELAY_TURNING 320              // TODO: this should depend on speed...      2*PI*DIAMETER/(4*v_max)
-#define DELAY_TURN_BACK 320            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
+#define TIME_TO_PASSTHROUGH 600        // TODO: this should depend on speed...      LANE_WIDTH/v_max
+#define TIME_TO_EXIT_NODE 375          // TODO: this should depend on speed ???
+#define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
+#define TIME_TO_TURN 140               // TODO: this should depend on speed ???
+#define DELAY_TURNING 280              // TODO: this should depend on speed...      2*PI*DIAMETER/(4*v_max)
+#define DELAY_TURN_BACK 280            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
 #define SHARP_LEFT 14                  // Left sensor in A0
@@ -51,10 +52,10 @@
 #define MAX_DIST_SIDE 450.             // Max. distance considering a side wall
 #define MAX_DIST_FRONT 600.            // Min. distance considering a front wall
 #define DIST_TURN_BACK 150.            // Distance from sensor to front wall to turn back
-// #define NOM_DIST_SIDE 276.             // Nominal distance to a side wall
+// #define NOM_DIST_SIDE 276.          // Nominal distance to a side wall
 
 // PID
-#define Kp .5
+#define Kp .6
 #define Ki 0.
 #define Kd 0.
 

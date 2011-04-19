@@ -74,66 +74,41 @@ void loop()
 void turn(position turn_to) {
 
 	unsigned long time = millis();
-	float dist_0, prev_dist_left, prev_dist_right;
+	float dist_0;
 
 	if (turn_to == FRONT) {
 		set_rgb(255, 0, 0);
 		if (dist_right < MAX_DIST_SIDE) {
 			dist_0 = dist_right;
-			prev_dist_left = dist_left + 10.;
-			while (dist_right < MAX_DIST_SIDE) {
-				move_through(RIGHT, dist_0);
-				if (dist_left < MAX_DIST_SIDE && (prev_dist_left - dist_left) < 0.) break;
-				prev_dist_left = dist_left;
-			}
+			while (dist_right < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, dist_0);
 			set_speed(FRONT, MAX_SPEED);
 			delay(TIME_TO_RECHECK);
 		} else if (dist_left < MAX_DIST_SIDE) {
 			dist_0 = dist_left;
-			prev_dist_right = dist_right + 10.;
-			while (dist_left < MAX_DIST_SIDE) {
-				move_through(LEFT, dist_0);
-				if (dist_right < MAX_DIST_SIDE && (prev_dist_right - dist_right) < 0.) break;
-				prev_dist_right = dist_right;
-			}
+			while (dist_left < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, dist_0);
 			set_speed(FRONT, MAX_SPEED);
 			delay(TIME_TO_RECHECK);
 		} else {
 			set_speed(FRONT, MAX_SPEED);
-			prev_dist_left = dist_left + 10.;
-			prev_dist_right = dist_right + 10.;
-			while (1) {
-				set_pos();
-				if ((dist_left < MAX_DIST_SIDE && (prev_dist_left - dist_left) < 0.) || \
-					(dist_right < MAX_DIST_SIDE && (prev_dist_right - dist_right) < 0.)) break;
-				prev_dist_left = dist_left;
-				prev_dist_right = dist_right;
-			}
+			while (millis() - time < TIME_TO_PASSTHROUGH);
 			delay(TIME_TO_RECHECK);
 		}
 	} else if (turn_to == LEFT || turn_to == RIGHT) {
-		set_rgb(255, 0, 0);
-		dist_0 = (turn_to == LEFT) ? dist_right : dist_left;
-
-		if (dist_0 < MAX_DIST_SIDE) {
-			while (millis() - time < TIME_TO_TURN) move_through((turn_to == LEFT) ? RIGHT : LEFT, dist_0);
-		} else {
-			set_speed(FRONT, MAX_SPEED);
-			while (millis() - time < TIME_TO_TURN);
-		}
-
 		set_rgb(0, 0, 255);
+		set_speed(FRONT, MAX_SPEED);
+		while (millis() - time < TIME_TO_TURN);
+
+		set_rgb(255, 0, 0);
 		set_speed((turn_to == LEFT) ? RIGHT : LEFT, MAX_SPEED);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, 0);
 		delay(DELAY_TURNING);
+		set_rgb(0, 0, 255);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, MAX_SPEED);
-		delay(TIME_TO_RECHECK);
+		delay(TIME_TO_EXIT_NODE);
 
 		if (turn_to == LEFT) orientation = (position) ((orientation + 3) % 4);
 		else orientation = (position) ((orientation + 1) % 4);
 
-		set_pos();
-		turn(FRONT);
 	} else if (turn_to == BACK) {
 		set_rgb(0, 0, 255);
 		set_speed(LEFT, MAX_SPEED);
@@ -141,6 +116,7 @@ void turn(position turn_to) {
 		delay(DELAY_TURN_BACK);
 		set_speed(RIGHT, MAX_SPEED);
 		delay(TIME_TO_RECHECK);
+
 		orientation = (position) ((orientation + 2) % 4);
 	}
 }

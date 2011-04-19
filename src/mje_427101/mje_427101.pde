@@ -184,7 +184,7 @@ void init_mje()
 */
 
 	// Wait for confirmation before starting
-	while (get_config(0) != 0) {
+	while (get_config(0) != FRONT) {
 		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
 		else set_rgb(0, 0, 0);
 	}
@@ -266,11 +266,11 @@ position get_config(uint8_t interrupt)
 		if (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
 			// Check continuous reading
 			while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
-				if (((millis() - time)/50) % 2 == 0) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
+				if (((millis() - time)/50) % 2 == 0) set_rgb(i==0 ? 255 : 0, i==1 ? 255 : 0, i==2 ? 255 : 0);
 				else set_rgb(0, 0, 0);
 				// Confirm and return value after 3 seconds
 				if (millis() - time > CONFIG_TIME) {
-					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
+					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==0 ? 255 : 0, i==1 ? 255 : 0, i==2 ? 255 : 0);
 					return (position) i;
 				}
 			}

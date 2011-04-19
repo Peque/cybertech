@@ -95,13 +95,18 @@ void turn(position turn_to) {
 		}
 	} else if (turn_to == LEFT || turn_to == RIGHT) {
 		set_rgb(0, 0, 255);
-		set_speed(FRONT, MAX_SPEED);
-		while (millis() - time < TIME_TO_TURN);
+		if (dist_front < MAX_DIST_FRONT) {
+			set_speed(FRONT, MAX_SPEED);
+			while (dist_front > DIST_TURNING) set_pos();
+		} else {
+			set_speed(FRONT, MAX_SPEED);
+			while (millis() - time < TIME_TO_TURN);
+		}
 
 		set_rgb(255, 0, 0);
 		set_speed((turn_to == LEFT) ? RIGHT : LEFT, MAX_SPEED);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, 0);
-		delay(DELAY_TURNING);
+		delay((turn_to == LEFT) ? DELAY_TURNING_LEFT : DELAY_TURNING_RIGHT);
 		set_rgb(0, 0, 255);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, MAX_SPEED);
 		delay(TIME_TO_EXIT_NODE);

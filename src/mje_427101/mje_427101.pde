@@ -30,9 +30,12 @@ float integral;             // ???
 float dist_left, dist_right, dist_front;
 
 // Configuration variables
-// float v_max = 0.54;         // Max speed in mm/ms
+// float v_max = 0.54;      // Max speed in mm/ms
 int CHOOSE_LEFT = 1;        // Left by default
 int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
+
+// Orientation
+position orientation = LEFT;
 
 
 void setup()
@@ -126,6 +129,9 @@ void turn(position turn_to) {
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, MAX_SPEED);
 		delay(TIME_TO_RECHECK);
 
+		if (turn_to == LEFT) orientation = (position) ((orientation + 3) % 4);
+		else orientation = (position) ((orientation + 1) % 4);
+
 		set_pos();
 		turn(FRONT);
 	} else if (turn_to == BACK) {
@@ -135,6 +141,7 @@ void turn(position turn_to) {
 		delay(DELAY_TURN_BACK);
 		set_speed(RIGHT, MAX_SPEED);
 		delay(TIME_TO_RECHECK);
+		orientation = (position) ((orientation + 2) % 4);
 	}
 }
 
@@ -193,7 +200,7 @@ void init_mje()
 */
 
 	// Wait for confirmation before starting
-	while (get_config(0) != 0) {
+	while (get_config(0) != FRONT) {
 		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
 		else set_rgb(0, 0, 0);
 	}
@@ -275,11 +282,11 @@ position get_config(uint8_t interrupt)
 		if (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
 			// Check continuous reading
 			while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) {
-				if (((millis() - time)/50) % 2 == 0) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
+				if (((millis() - time)/50) % 2 == 0) set_rgb(i==0 ? 255 : 0, i==1 ? 255 : 0, i==2 ? 255 : 0);
 				else set_rgb(0, 0, 0);
 				// Confirm and return value after 3 seconds
 				if (millis() - time > CONFIG_TIME) {
-					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==1 ? 255 : 0, i==0 ? 255 : 0, i==2 ? 255 : 0);
+					if (!interrupt) while (abs((int) get_distance(14 + i) - CONFIG_DIST) < CONFIG_PREC) set_rgb(i==0 ? 255 : 0, i==1 ? 255 : 0, i==2 ? 255 : 0);
 					return (position) i;
 				}
 			}

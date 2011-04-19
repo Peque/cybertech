@@ -43,8 +43,8 @@
 #define DELAY_TURN_BACK 320            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
-#define SHARP_FRONT 14                 // Front sensor in A0
-#define SHARP_LEFT 15                  // Left sensor in A1
+#define SHARP_LEFT 14                  // Left sensor in A0
+#define SHARP_FRONT 15                 // Front sensor in A1
 #define SHARP_RIGHT 16                 // Right sensor in A2
 #define SHARP_AREAD_N 100              // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0            // Delay between readings (ms)
@@ -86,7 +86,7 @@
 #define SETCONFIG 0x84
 
 // Type for positions
-typedef enum position { FRONT, LEFT, RIGHT, BACK };
+typedef enum position { LEFT, FRONT, RIGHT, BACK };
 
 // RGB LED
 #define LED_RED 9

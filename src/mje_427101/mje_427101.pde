@@ -41,6 +41,8 @@ unsigned current_node = 0;
 unsigned last_node = 0;
 int GOING_BACK = 0;
 
+// Orientation
+position orientation;
 
 void setup()
 {
@@ -348,7 +350,7 @@ void node_remove()
 	--last_node;
 }
 
-void node_exit()
+int node_exit()
 {
 	if (node_stack[last_node].left > 1) {
 		if (node_stack[last_node].right < 1 && \

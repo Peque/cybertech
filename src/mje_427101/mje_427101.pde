@@ -35,6 +35,12 @@ int CHOOSE_LEFT = 1;		// Left by default
 int INITIALIZED = 0;		// Boolean variable to know if the robot is already initialized
 // int JUST_TURNED = 0;		// ???
 
+// Stack variables
+node node_stack[MAX_N_NODES];
+unsigned current_node = 0;
+unsigned last_node = 0;
+int GOING_BACK = 0;
+
 
 void setup()
 {
@@ -198,15 +204,229 @@ void init_mje()
 
 void solve_node()
 {
+	if (!GOING_BACK) node_add();
+	else node_update();
+
 	if (CHOOSE_LEFT) {
-		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
-		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
-		else turn(RIGHT);
+		if (orientation == LEFT) {
+			if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(LEFT);
+			} else if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(RIGHT);
+			}
+		} else if (orientation == FRONT) {
+			if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(LEFT);
+			} else if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(RIGHT);
+			}
+		} else if (orientation == RIGHT) {
+			if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(LEFT);
+			} else if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(RIGHT);
+			}
+		} else if (orientation == BACK) {
+			if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(LEFT);
+			} else if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(RIGHT);
+			}
+		}
 	} else {
-		if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
-		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
-		else turn(LEFT);
+		if (orientation == LEFT) {
+			if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(RIGHT);
+			} else if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(LEFT);
+			}
+		} else if (orientation == FRONT) {
+			if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(RIGHT);
+			} else if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(LEFT);
+			}
+		} else if (orientation == RIGHT) {
+			if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(RIGHT);
+			} else if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].front > 1) {
+				if ((node_stack[last_node].front == 3) || \
+				    (node_stack[last_node].front == 2 && node_exit())) turn(LEFT);
+			}
+		} else if (orientation == BACK) {
+			if (node_stack[last_node].left > 1) {
+				if ((node_stack[last_node].left == 3) || \
+				    (node_stack[last_node].left == 2 && node_exit())) turn(RIGHT);
+			} else if (node_stack[last_node].back > 1) {
+				if ((node_stack[last_node].back == 3) || \
+				    (node_stack[last_node].back == 2 && node_exit())) turn(FRONT);
+			} else if (node_stack[last_node].right > 1) {
+				if ((node_stack[last_node].right == 3) || \
+				    (node_stack[last_node].right == 2 && node_exit())) turn(LEFT);
+			}
+		}
 	}
+}
+
+void node_add()
+{
+	/*
+	 * 0 Means that direction is closed
+	 * 1 Means you already went that way and you didn't find the end
+	 * 2 Means you already passed that way, but you may need to go the
+	 *   way back in case there's not another choice
+	 * 3 Means an opened way you didn't try
+	 */
+	++last_node;
+	if (orientation == LEFT) {
+		node_stack[last_node].back = (dist_left > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].left = (dist_front > MAX_DIST_FRONT) ? 3 : 0;
+		node_stack[last_node].front = (dist_right > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].right = 2;
+	} else if (orientation == FRONT) {
+		node_stack[last_node].left = (dist_left > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].front = (dist_front > MAX_DIST_FRONT) ? 3 : 0;
+		node_stack[last_node].right = (dist_right > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].back = 2;
+	} else if (orientation == RIGHT) {
+		node_stack[last_node].front = (dist_left > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].right = (dist_front > MAX_DIST_FRONT) ? 3 : 0;
+		node_stack[last_node].back = (dist_right > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].left = 2;
+	} else if (orientation == BACK) {
+		node_stack[last_node].right = (dist_left > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].back = (dist_front > MAX_DIST_FRONT) ? 3 : 0;
+		node_stack[last_node].left = (dist_right > MAX_DIST_SIDE) ? 3 : 0;
+		node_stack[last_node].front = 2;
+	}
+}
+
+void node_update()
+{
+	if (orientation == LEFT) node_stack[last_node].right = 1;
+	else if (orientation == FRONT) node_stack[last_node].back = 1;
+	else if (orientation == RIGHT) node_stack[last_node].left = 1;
+	else if (orientation == BACK) node_stack[last_node].front = 1;
+}
+
+void node_remove()
+{
+	--last_node;
+}
+
+void node_exit()
+{
+	if (node_stack[last_node].left > 1) {
+		if (node_stack[last_node].right < 1 && \
+	     node_stack[last_node].front < 1 && \
+	     node_stack[last_node].back < 1) {
+			node_remove();
+			return 1;
+		}
+	} else if (node_stack[last_node].right > 1) {
+		if (node_stack[last_node].front < 1 && \
+		 node_stack[last_node].back < 1) {
+			node_remove();
+			return 1;
+		}
+	} else if (node_stack[last_node].front > 1) {
+		if (node_stack[last_node].back < 1) {
+			node_remove();
+			return 1;
+		}
+	} else if (node_stack[last_node].back > 1) {
+		node_remove();
+		return 1;
+	}
+	return 0;
+}
+
+// Before solve_maze, we should initialize current_node to 0
+int solve_maze()
+{
+	while (way_straight()) move_forward();
+	if (way_simple()) {
+		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
+		else if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
+		else if (dist_right < MAX_DIST_SIDE) turn(BACK);
+	}
+	else {
+		if (current_node <= last_node) {
+			if (CHOOSE_LEFT) {
+				if (orientation == LEFT) {
+					if (node_stack[current_node].back > 1) turn(LEFT);
+					else if (node_stack[current_node].left > 1) turn(FRONT);
+					else if (node_stack[current_node].front > 1) turn(RIGHT);
+				} else if (orientation == FRONT) {
+					if (node_stack[current_node].left > 1) turn(LEFT);
+					else if (node_stack[current_node].front > 1) turn(FRONT);
+					else if (node_stack[current_node].right > 1) turn(RIGHT);
+				} else if (orientation == RIGHT) {
+					if (node_stack[current_node].front > 1) turn(LEFT);
+					else if (node_stack[current_node].right > 1) turn(FRONT);
+					else if (node_stack[current_node].back > 1) turn(RIGHT);
+				} else if (orientation == BACK) {
+					if (node_stack[current_node].right > 1) turn(LEFT);
+					else if (node_stack[current_node].back > 1) turn(FRONT);
+					else if (node_stack[current_node].left > 1) turn(RIGHT);
+				}
+			} else {
+				if (orientation == LEFT) {
+					if (node_stack[current_node].front > 1) turn(RIGHT);
+					else if (node_stack[current_node].left > 1) turn(FRONT);
+					else if (node_stack[current_node].back > 1) turn(LEFT);
+				} else if (orientation == FRONT) {
+					if (node_stack[current_node].right > 1) turn(RIGHT);
+					else if (node_stack[current_node].front > 1) turn(FRONT);
+					else if (node_stack[current_node].left > 1) turn(LEFT);
+				} else if (orientation == RIGHT) {
+					if (node_stack[current_node].back > 1) turn(RIGHT);
+					else if (node_stack[current_node].right > 1) turn(FRONT);
+					else if (node_stack[current_node].front > 1) turn(LEFT);
+				} else if (orientation == BACK) {
+					if (node_stack[current_node].left > 1) turn(RIGHT);
+					else if (node_stack[current_node].back > 1) turn(FRONT);
+					else if (node_stack[current_node].right > 1) turn(LEFT);
+				}
+			}
+			current_node++;
+		} else return 0;
+	}
+	return 1;
 }
 
 /**

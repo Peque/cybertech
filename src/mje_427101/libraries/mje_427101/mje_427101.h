@@ -95,6 +95,23 @@ typedef enum position { FRONT, LEFT, RIGHT, BACK };
 #define LED_GREEN 10
 #define LED_BLUE 11
 
+// Type for nodes
+/*
+ * We dicussed about using a dynamic stack or a vector. We're finally
+ * using the vector for safe-memory reasons (the current struct uses
+ * 1 Byte of memory for each node vs. 16 Bytes for a simple-linked
+ * stack and 24 Bytes for a double-linked stack).
+ */
+typedef struct {
+	unsigned char left : 2;
+	unsigned char front : 2;
+	unsigned char right : 2;
+	unsigned char back : 2;
+} node;
+
+// Max number of nodes
+#define MAX_N_NODES 100
+
 
 class mje_427101
 {

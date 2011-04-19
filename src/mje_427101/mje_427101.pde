@@ -65,7 +65,6 @@ void loop()
 	if (way_simple()) {
 		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
 		else if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
-		else turn(BACK);
 	}
 	else solve_node();
 }
@@ -581,6 +580,7 @@ int way_simple()
 {
 	set_pos();
 	if (dist_front < MAX_DIST_FRONT && (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)) return 1;
+	else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_SIDE) return 1;
 	else return 0;
 }
 

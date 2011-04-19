@@ -30,10 +30,10 @@ float integral;				 // ???
 float dist_left, dist_right, dist_front;
 
 // Configuration variables
-float v_max = 0.5;         // Max speed in m/s
-int CHOOSE_LEFT = 1;        // Left by default
-int INITIALIZED = 0;        // Boolean variable to know if the robot is already initialized
-int JUST_TURNED = 0;
+// float v_max = 0.54;		// Max speed in mm/ms
+int CHOOSE_LEFT = 1;		// Left by default
+int INITIALIZED = 0;		// Boolean variable to know if the robot is already initialized
+// int JUST_TURNED = 0;		// ???
 
 
 void setup()
@@ -60,10 +60,12 @@ void loop()
 		set_rgb(0, 255, 0);
 		move_forward();
 	}
+	set_speed(FRONT, MAX_SPEED);
+	delay(TIME_TO_RECHECK);
 	if (way_simple()) {
 		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
 		else if (dist_right > MAX_DIST_SIDE) turn(RIGHT);
-		else if (dist_right < MAX_DIST_SIDE) turn(BACK);
+		else turn(BACK);
 	}
 	else solve_node();
 }
@@ -74,34 +76,38 @@ void turn(position turn_to) {
 	float dist_0;
 
 	if (turn_to == FRONT) {
+		set_rgb(255, 0, 0);
 		if (dist_right < MAX_DIST_SIDE) {
 			dist_0 = dist_right;
 			while (dist_right < MAX_DIST_SIDE && dist_left > NEW_WALL_CONTACT_DIST) move_through(RIGHT, dist_0);
 			set_speed(FRONT, MAX_SPEED);
-			delay(375);
+			delay(DELAY_EXIT_NODE);
 		} else if (dist_left < MAX_DIST_SIDE) {
 			dist_0 = dist_left;
 			while (dist_left < MAX_DIST_SIDE && dist_right > NEW_WALL_CONTACT_DIST) move_through(LEFT, dist_0);
 			set_speed(FRONT, MAX_SPEED);
-			delay(375);
+			delay(DELAY_EXIT_NODE);
 		} else {
 			set_speed(FRONT, MAX_SPEED);
 			while (millis() - time < TIME_TO_PASSTHROUGH);
 		}
 	} else if (turn_to == LEFT || turn_to == RIGHT) {
+		set_rgb(0, 0, 255);
 		dist_0 = (turn_to == LEFT) ? dist_right : dist_left;
 
 		if (dist_0 < MAX_DIST_SIDE) {
-			while (millis() - time < TIME_TO_PASSTHROUGH/3.75) move_through((turn_to == LEFT) ? RIGHT : LEFT, dist_0);
+			while (millis() - time < TIME_TO_TURN) move_through((turn_to == LEFT) ? RIGHT : LEFT, dist_0);
 		} else {
 			set_speed(FRONT, MAX_SPEED);
-			while (millis() - time < TIME_TO_PASSTHROUGH/3.75);
+			while (millis() - time < TIME_TO_TURN);
 		}
 
+		set_rgb(255, 0, 0);
 		set_speed((turn_to == LEFT) ? RIGHT : LEFT, MAX_SPEED);
 		set_speed((turn_to == LEFT) ? LEFT : RIGHT, 0);
-		delay(PI*DIAMETER/(2.75*v_max));
+		delay(DELAY_TURNING);
 
+		set_rgb(0, 0, 255);
 		set_pos();
 		time = millis();
 
@@ -109,34 +115,36 @@ void turn(position turn_to) {
 			turn(FRONT);
 		} else {
 			set_speed(FRONT, MAX_SPEED);
-			delay(TIME_TO_PASSTHROUGH/2.);
+			while (dist_left > NEW_WALL_CONTACT_DIST && dist_right > NEW_WALL_CONTACT_DIST) {
+				set_pos();
+			}
+			delay(DELAY_EXIT_NODE);
 		}
 	} else if (turn_to == BACK) {
+		set_rgb(0, 0, 255);
 		set_speed(LEFT, MAX_SPEED);
 		set_speed(RIGHT, -MAX_SPEED);
-		delay(PI*DIAMETER/(1.85*v_max));
-		set_speed(FRONT, 0);
-		delay(100);
+		delay(DELAY_TURN_BACK);
+		set_speed(RIGHT, MAX_SPEED);
+		delay(TIME_TO_RECHECK);
+	}
+}
+
+/*
+	void turn_right_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
+	{
+		set_speed(LEFT, MAX_SPEED);
+		set_speed(RIGHT, 70); // TODO: this should depend on speed... MAX_SPEED*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+		delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
 	}
 
-	JUST_TURNED = 1;
-}
-
-void turn_right_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
-{
-	set_rgb(0, 0, 255);
-	set_speed(LEFT, MAX_SPEED);
-	set_speed(RIGHT, 70); // TODO: this should depend on speed... MAX_SPEED*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
-	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
-}
-
-void turn_left_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
-{
-	set_rgb(255, 0, 0);
-	set_speed(LEFT, 70); // TODO: this should depend on speed... MAX_SPEED*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
-	set_speed(RIGHT, MAX_SPEED);
-	delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
-}
+	void turn_left_fast() // TODO: merge all turning functions into one single function "turn(position, normal/fast)"
+	{
+		set_speed(LEFT, 70); // TODO: this should depend on speed... MAX_SPEED*(LANE_WIDTH-DIAMETER)/(LANE_WIDTH+DIAMETER) (?)
+		set_speed(RIGHT, MAX_SPEED);
+		delay(650); // TODO: this should depend on speed... (PI/2*(LANE_WIDTH/2+DIAMETER/2))/(v_max) (?)
+	}
+*/
 
 void init_mje()
 {
@@ -200,7 +208,6 @@ void solve_node()
 		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
 		else turn(LEFT);
 	}
-	JUST_TURNED = 1;
 }
 
 /**
@@ -352,7 +359,6 @@ void move_forward()
 	set_speed(RIGHT, MAX_SPEED - ((correction < 0) ? abs(correction) : 0));
 
 	if (dist_front < DIST_TURN_BACK) turn(BACK);
-	JUST_TURNED = 0;
 }
 
 /**
@@ -573,17 +579,9 @@ void set_speed(position motor_position, int speed_fr)
  */
 int way_simple()
 {
-	set_speed(FRONT, MAX_SPEED);
-	if (!JUST_TURNED) delay(TIME_TO_RECHECK);
-
 	set_pos();
-
-	if (dist_front < MAX_DIST_FRONT) {
-		if (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)
-			return 1;
-	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_FRONT) {
-			return 1;
-	} else return 0;
+	if (dist_front < MAX_DIST_FRONT && (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)) return 1;
+	else return 0;
 }
 
 /**

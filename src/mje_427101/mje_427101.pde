@@ -43,9 +43,6 @@ unsigned current_node = 0;
 unsigned last_node = 0;
 int GOING_BACK = 0;
 
-// Orientation
-position orientation;
-
 void setup()
 {
 	// Serial setup

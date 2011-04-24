@@ -5,8 +5,6 @@
 
 ESSENTIAL
 --------------------------------------------------------------------------------
-* Change type position for easy rotation: LEFT, FRONT, RIGHT, BACK
-* Set new orientation after turning
 * Define new type for nodes
 * Solve a defined vector of nodes
 * Record nodes while exploring

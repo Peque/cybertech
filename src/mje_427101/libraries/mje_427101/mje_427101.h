@@ -36,38 +36,39 @@
 #define qik_rstPin 2
 
 // Time constants
-#define TIME_TO_PASSTHROUGH 900        // TODO: this should depend on speed...      LANE_WIDTH/v_max
-#define TIME_TO_RECHECK 50             // TODO: this should depend on speed...      FORESEE/v_max
-#define TIME_TO_TURN 250               // TODO: this should depend on speed ???
-#define DELAY_EXIT_NODE 250            // TODO: this should depend on speed ???
-#define DELAY_TURNING 290              // TODO: this should depend on speed...      2*PI*DIAMETER/(4*v_max)
-#define DELAY_TURN_BACK 290            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
+#define TIME_TO_PASSTHROUGH 600        // TODO: this should depend on speed...      LANE_WIDTH/v_max
+#define TIME_TO_EXIT_NODE 375          // TODO: this should depend on speed ???
+#define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
+#define TIME_TO_TURN 140               // TODO: this should depend on speed ???
+#define DELAY_TURNING_LEFT 290         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
+#define DELAY_TURNING_RIGHT 270        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
+#define DELAY_TURN_BACK 280            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
 #define SHARP_LEFT 14                  // Left sensor in A0
 #define SHARP_FRONT 15                 // Front sensor in A1
 #define SHARP_RIGHT 16                 // Right sensor in A2
-#define SHARP_AREAD_N 50               // Repeat SHARP analogRead N times
+#define SHARP_AREAD_N 100              // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0            // Delay between readings (ms)
-#define MAX_DIST_SIDE 500              // Max. distance considering a side wall
-#define MAX_DIST_FRONT 600             // Min. distance considering a front wall
-#define DIST_TURN_BACK 150             // Distance from sensor to front wall to turn back
-#define NEW_WALL_CONTACT_DIST 300      // Distance at which a new wall should appear when exiting a node
-// #define NOM_DIST_SIDE 275           // Nominal distance to a side wall
+#define MAX_DIST_SIDE 450.             // Max. distance considering a side wall
+#define MAX_DIST_FRONT 600.            // Min. distance considering a front wall
+#define DIST_TURN_BACK 150.            // Distance from sensor to front wall to turn back
+#define DIST_TURNING 350.            // Distance from sensor to front wall to turn either left or right
+// #define NOM_DIST_SIDE 276.          // Nominal distance to a side wall
 
 // PID
-#define Kp 0.5
-#define Ki 0.0
-#define Kd 0.0
+#define Kp .5
+#define Ki 0.
+#define Kd 0.
 
 // Configuration
 #define MAX_SPEED 127         // Max motor speed  (absolute value)
-#define LANE_WIDTH 500.0      // Distance between walls in the maze
-#define DIAMETER 112.0        // Distance between wheels
-#define FORESEE 100.0         // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)
-#define PI 3.141592654        // [...]
-#define CONFIG_DIST 150       // Distance for sensors' reading in mm
-#define CONFIG_PREC 50        // Sets the sensors' reading distance precision in mm (+/-)
+#define LANE_WIDTH 500.       // Distance between walls in the maze
+#define DIAMETER 112.         // Distance between wheels
+#define FORESEE 100.          // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)
+#define PI 3.1415926536       // [...]
+#define CONFIG_DIST 150.      // Distance for sensors' reading in mm
+#define CONFIG_PREC 50.       // Sets the sensors' reading distance precision in mm (+/-)
 #define CONFIG_TIME 2000      // Time to confirm configuracion in ms
 
 // Bytes used to talk to the motor controller Qik2s9v1

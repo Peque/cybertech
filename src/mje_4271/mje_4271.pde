@@ -28,10 +28,11 @@
 #define TIME_TO_TURN 100
 
 // Change lane
-#define TIME_TO_CHANGE 80
-#define TIME_TO_LEAVE_LANE 500
+#define TIME_TO_CHANGE 60
+#define TIME_TO_LEAVE_LANE 200
+#define TIME_TO_FIND_NEW_PATH 200
 #define INITIAL_LANE_PIN 8         // Set this to high if LEFT_LANE
-#define DISTANCE_TO_CHANGE 0 //350     // Distance from the robot to the object in mm
+#define DISTANCE_TO_CHANGE 350     // Distance from the robot to the object in mm
 int LEFT_LANE;
 
 // Software serial:
@@ -306,24 +307,32 @@ void change_lane()
 
 void change_to_right()
 {
-	LEFT_LANE = 0;
 	set_speed_left(MOTOR_MAX_SPEED);
 	set_speed_right(-MOTOR_MAX_SPEED);
 	delay(TIME_TO_CHANGE);
-	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_right(MOTOR_MAX_SPEED/2);
+	set_speed_left(MOTOR_MAX_SPEED/2);
 	delay(TIME_TO_LEAVE_LANE);
 	while (no_line_found());
+	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_left(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_FIND_NEW_PATH);
+	LEFT_LANE = 0;
 }
 
 void change_to_left()
 {
-	LEFT_LANE = 1;
 	set_speed_right(MOTOR_MAX_SPEED);
 	set_speed_left(-MOTOR_MAX_SPEED);
 	delay(TIME_TO_CHANGE);
-	set_speed_left(MOTOR_MAX_SPEED);
+	set_speed_left(MOTOR_MAX_SPEED/2);
+	set_speed_right(MOTOR_MAX_SPEED/2);
 	delay(TIME_TO_LEAVE_LANE);
 	while (no_line_found());
+	set_speed_left(MOTOR_MAX_SPEED);
+	set_speed_right(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_FIND_NEW_PATH);
+	LEFT_LANE = 1;
 }
 
 int no_line_found()

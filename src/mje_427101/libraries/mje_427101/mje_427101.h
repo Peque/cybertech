@@ -41,7 +41,7 @@
 #define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
 #define TIME_TO_TURN 140               // TODO: this should depend on speed ???
 #define DELAY_TURNING_LEFT 290         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
-#define DELAY_TURNING_RIGHT 270        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
+#define DELAY_TURNING_RIGHT 250        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
 #define DELAY_TURN_BACK 280            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
@@ -57,7 +57,7 @@
 // #define NOM_DIST_SIDE 276.          // Nominal distance to a side wall
 
 // PID
-#define Kp .5
+#define Kp .3
 #define Ki 0.
 #define Kd 0.
 

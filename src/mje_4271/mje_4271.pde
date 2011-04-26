@@ -15,10 +15,10 @@
 #define MIN_READ_VALUE 300
 #define MAX_READ_VALUE 300
 #define SHARP_SENSOR 14
-#define SHARP_AREAD_N 10
+#define SHARP_AREAD_N 50
 
 // Motor definitions
-#define MOTOR_MAX_SPEED 90	       // Max motor speed (absolute value)
+#define MOTOR_MAX_SPEED 127	       // Max motor speed (absolute value)
 #define MOTOR_BREAK_SPEED 0       // Break one wheel to find the path again
 #define Kp 50.
 #define Kd 15000.
@@ -28,7 +28,7 @@
 #define TIME_TO_CHANGE 80
 #define TIME_TO_LEAVE_LANE 500
 #define INITIAL_LANE_PIN 8         // Set this to high if LEFT_LANE
-#define DISTANCE_TO_CHANGE 350     // Distance from the robot to the object in mm
+#define DISTANCE_TO_CHANGE 0 //350     // Distance from the robot to the object in mm
 int LEFT_LANE;
 
 // Software serial:
@@ -242,10 +242,10 @@ void find_path()
 {
 	if (TURN_LEFT) {
 		set_speed_right(MOTOR_MAX_SPEED);
-		set_speed_left(MOTOR_BREAK_SPEED);
+		set_speed_left(-MOTOR_MAX_SPEED);
 	} else {
 		set_speed_left(MOTOR_MAX_SPEED);
-		set_speed_right(MOTOR_BREAK_SPEED);
+		set_speed_right(-MOTOR_MAX_SPEED);
 	}
 	integral = 0;
 }

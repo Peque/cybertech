@@ -24,6 +24,9 @@
 #define Kd 15000.
 #define Ki 0.0005
 
+// Bend 90º
+#define TIME_TO_TURN 100
+
 // Change lane
 #define TIME_TO_CHANGE 80
 #define TIME_TO_LEAVE_LANE 500
@@ -240,12 +243,21 @@ void speed_regulation()
 
 void find_path()
 {
+	unsigned long time = millis();
 	if (TURN_LEFT) {
 		set_speed_right(MOTOR_MAX_SPEED);
 		set_speed_left(-MOTOR_MAX_SPEED);
+		while ((millis() - time < TIME_TO_TURN) && (no_line_found()));
+
 	} else {
 		set_speed_left(MOTOR_MAX_SPEED);
 		set_speed_right(-MOTOR_MAX_SPEED);
+		while ((millis() - time < TIME_TO_TURN) && (no_line_found()));
+	}
+	if (no_line_found()) {
+		set_speed_left(MOTOR_MAX_SPEED);
+		set_speed_right(MOTOR_MAX_SPEED);
+		while (no_line_found());
 	}
 	integral = 0;
 }
@@ -316,8 +328,6 @@ void change_to_left()
 
 int no_line_found()
 {
-	set_speed_right(MOTOR_MAX_SPEED);
-	set_speed_left(MOTOR_MAX_SPEED);
 	for (int i=0; i<SENSOR_N; i++) if (analogRead(IR_pins[i]) > MIN_READ_VALUE) return 0;
 	return 1;
 }

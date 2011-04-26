@@ -12,18 +12,24 @@
 #define IR_K3 5
 #define IR_K4 7
 #define MIDDLE_LINE ((IR_K4 + IR_K0)/2)
-#define MIN_READ_VALUE 40
-#define MAX_READ_VALUE 600
+#define MIN_READ_VALUE 300
+#define MAX_READ_VALUE 300
+#define SHARP_SENSOR 14
+#define SHARP_AREAD_N 10
 
 // Motor definitions
-#define MOTOR_LEFT_SPEED_PIN 11
-#define MOTOR_LEFT_DIR_PIN 9
-#define MOTOR_RIGHT_SPEED_PIN 10
-#define MOTOR_RIGHT_DIR_PIN 8
-#define MOTOR_MAX_SPEED 100        // Max motor speed (absolute value)
+#define MOTOR_MAX_SPEED 90	       // Max motor speed (absolute value)
+#define MOTOR_BREAK_SPEED 0       // Break one wheel to find the path again
 #define Kp 50.
-#define Kd 10000.
-#define Ki 0.001
+#define Kd 15000.
+#define Ki 0.0005
+
+// Change lane
+#define TIME_TO_CHANGE 80
+#define TIME_TO_LEAVE_LANE 500
+#define INITIAL_LANE_PIN 8         // Set this to high if LEFT_LANE
+#define DISTANCE_TO_CHANGE 350     // Distance from the robot to the object in mm
+int LEFT_LANE;
 
 // Software serial:
 /*
@@ -63,6 +69,7 @@ uint8_t IR_pins[SENSOR_N], IR_factors[SENSOR_N];
 float line_position;
 float vm_left, vm_right;
 float error;
+uint8_t TURN_LEFT = 0;
 
 // PID variables
 float err, prev_err, integral, derivative;
@@ -76,10 +83,7 @@ void setup()
 	Serial.begin(9600);
 
 	// Initialize pins
-	pinMode(MOTOR_LEFT_SPEED_PIN, OUTPUT);
-	pinMode(MOTOR_LEFT_DIR_PIN, OUTPUT);
-	pinMode(MOTOR_RIGHT_SPEED_PIN, OUTPUT);
-	pinMode(MOTOR_RIGHT_DIR_PIN, OUTPUT);
+	pinMode(INITIAL_LANE_PIN, INPUT);
 	IR_pins = { IR_0, IR_1, IR_2, IR_3, IR_4 };
 	IR_factors = { IR_K0, IR_K1, IR_K2, IR_K3, IR_K4 };
 
@@ -87,6 +91,10 @@ void setup()
 	init_qik();
 	set_speed_left(0);
 	set_speed_right(0);
+
+	// Initialize lane
+	if (digitalRead(INITIAL_LANE_PIN) == HIGH) LEFT_LANE = 1;
+	else LEFT_LANE = 0;
 }
 
 void loop()
@@ -94,12 +102,12 @@ void loop()
 	asign();
 	line_position = set_line_pos();
 	correction = pid_output();
-	Serial.println(correction);
 	if (line_position) {
 		speed_regulation();
 	} else {
 		find_path();
 	}
+	change_lane();
 //	debug_serial();
 //	set_distance();
 //	speed_regulation();
@@ -109,6 +117,8 @@ void asign()
 {
 	for (int i=0; i<SENSOR_N; i++) {
 		IR[i] = analogRead(IR_pins[i]);
+		if (i == 0 && IR[0] > MIN_READ_VALUE) TURN_LEFT = 1;
+		if (i == SENSOR_N - 1 && IR[SENSOR_N - 1] > MIN_READ_VALUE) TURN_LEFT = 0;
 	}
 }
 
@@ -230,4 +240,84 @@ void speed_regulation()
 
 void find_path()
 {
+	if (TURN_LEFT) {
+		set_speed_right(MOTOR_MAX_SPEED);
+		set_speed_left(MOTOR_BREAK_SPEED);
+	} else {
+		set_speed_left(MOTOR_MAX_SPEED);
+		set_speed_right(MOTOR_BREAK_SPEED);
+	}
+	integral = 0;
+}
+
+/**
+ * @brief Returns distance from sensor to the reflective object in mm.
+ *
+ * The get_distance(uint8_t sensor) function calculates de distance
+ * from the specified sensor to the reflective object and returns this
+ * value in cm. The distance is calculated this way:
+ * @f[
+ * distance = 270/(5.0/1023*Vs)
+ * @f]
+ * Where Vs is the sensor's analog input reading (0V -> 0, 5V -> 1023)
+ * and 270 is the constant scale factor (V*mm).
+ *
+ * @param[in] sensor Name of the sensor's analog input.
+ * @return Linearized output of the distance from sensor to the reflective object in mm.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/15
+ */
+float get_distance()
+{
+    uint8_t i;
+    float Vsm = 0; // Average sensor's input voltage
+    for (i = 0; i < SHARP_AREAD_N; i++) {
+        Vsm += analogRead(SHARP_SENSOR);
+    }
+    Vsm /= SHARP_AREAD_N;
+    /*
+    * In its simplest form, the linearizing equation can be that the
+    * distance to the reflective object is approximately equal to a
+    * constant scale factor (~270 V*mm) divided by the sensor’s output
+    * voltage:
+    */
+    return 270/(5.0/1023*Vsm); // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
+}
+
+void change_lane()
+{
+	if (get_distance() < DISTANCE_TO_CHANGE) {
+		if (LEFT_LANE) change_to_right();
+		else change_to_left();
+	}
+}
+
+void change_to_right()
+{
+	LEFT_LANE = 0;
+	set_speed_left(MOTOR_MAX_SPEED);
+	set_speed_right(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_CHANGE);
+	set_speed_right(MOTOR_MAX_SPEED);
+	delay(TIME_TO_LEAVE_LANE);
+	while (no_line_found());
+}
+
+void change_to_left()
+{
+	LEFT_LANE = 1;
+	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_left(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_CHANGE);
+	set_speed_left(MOTOR_MAX_SPEED);
+	delay(TIME_TO_LEAVE_LANE);
+	while (no_line_found());
+}
+
+int no_line_found()
+{
+	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_left(MOTOR_MAX_SPEED);
+	for (int i=0; i<SENSOR_N; i++) if (analogRead(IR_pins[i]) > MIN_READ_VALUE) return 0;
+	return 1;
 }

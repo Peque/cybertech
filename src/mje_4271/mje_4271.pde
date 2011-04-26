@@ -13,15 +13,17 @@
 #define IR_K4 7
 #define MIDDLE_LINE ((IR_K4 + IR_K0)/2)
 #define MIN_READ_VALUE 40
-#define MAX_READ_VALUE 100
+#define MAX_READ_VALUE 600
 
 // Motor definitions
 #define MOTOR_LEFT_SPEED_PIN 11
 #define MOTOR_LEFT_DIR_PIN 9
 #define MOTOR_RIGHT_SPEED_PIN 10
 #define MOTOR_RIGHT_DIR_PIN 8
-#define MOTOR_MAX_SPEED 60        // Max motor speed (absolute value)
-#define INC 10
+#define MOTOR_MAX_SPEED 100        // Max motor speed (absolute value)
+#define Kp 50.
+#define Kd 10000.
+#define Ki 0.001
 
 // Software serial:
 /*
@@ -62,6 +64,11 @@ float line_position;
 float vm_left, vm_right;
 float error;
 
+// PID variables
+float err, prev_err, integral, derivative;
+unsigned long dt, time, prev_time;
+float correction;
+
 
 void setup()
 {
@@ -86,8 +93,9 @@ void loop()
 {
 	asign();
 	line_position = set_line_pos();
+	correction = pid_output();
+	Serial.println(correction);
 	if (line_position) {
-		error = line_position - MIDDLE_LINE;
 		speed_regulation();
 	} else {
 		find_path();
@@ -127,7 +135,7 @@ void set_speed_left(int speed_fr)
 
 void set_speed_right(int speed_fr)
 {
-	uint8_t speed, FORWARD;
+	int speed, FORWARD;
 
 	// Fix incorrect values for speed
 	speed_fr = (speed_fr > MOTOR_MAX_SPEED) ? MOTOR_MAX_SPEED : (speed_fr < -MOTOR_MAX_SPEED) ? -MOTOR_MAX_SPEED : speed_fr;
@@ -189,23 +197,35 @@ float set_line_pos()
 	return cont ? aux/cont : 0;
 }
 
+float pid_output()
+{
+	float output;
+
+	time = millis();
+
+	dt = time - prev_time;
+
+	err = line_position - MIDDLE_LINE;
+	integral += err*dt;
+	derivative = (err - prev_err)/dt;
+
+	output = Kp*err + Ki*integral + Kd*derivative;
+
+	prev_time = time;
+	prev_err = err;
+
+	return output;
+}
+
 void speed_regulation()
 {
-	if (error < 0) { // Turn right
-		if (vm_right < MOTOR_MAX_SPEED) vm_right += INC*abs(error);
-		else vm_left -= INC*abs(error);
-	} else if (error > 0) { // Turn left
-		if (vm_left < MOTOR_MAX_SPEED) vm_left += INC*abs(error);
-		else vm_right -= INC*abs(error);
-	} else {
-		if (vm_left < MOTOR_MAX_SPEED) vm_left += INC*abs(error);
-		if (vm_right < MOTOR_MAX_SPEED) vm_right += INC*abs(error);
+	if (correction < 0) { // Turn left
+		set_speed_left(MOTOR_MAX_SPEED + correction);
+		set_speed_right(MOTOR_MAX_SPEED);
+	} else { // Turn right
+		set_speed_right(MOTOR_MAX_SPEED - correction);
+		set_speed_left(MOTOR_MAX_SPEED);
 	}
-	// Correct values out of range
-	vm_left = (vm_left > MOTOR_MAX_SPEED) ? MOTOR_MAX_SPEED : (vm_left < 0) ? 0 : vm_left;
-	vm_right = (vm_right > MOTOR_MAX_SPEED) ? MOTOR_MAX_SPEED : (vm_right < 0) ? 0 : vm_right;
-	set_speed_left( (int) vm_left);
-	set_speed_right( (int )vm_right);
 }
 
 void find_path()

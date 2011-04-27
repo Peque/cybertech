@@ -23,7 +23,7 @@
 // PID variables
 unsigned long prev_time;    // Previous time
 float prev_err;             // Previous error
-float integral;             // ???
+float integral;             // PID Integral sum
 
 // Instant position variables
 float dist_left, dist_right, dist_front;
@@ -402,7 +402,7 @@ void move_through(position wall_pos, float distance)
  */
 float pid_both()
 {
-	float err, integral, derivative, output;
+	float err, derivative, output;
 	unsigned long dt, time;
 
 	time = millis();
@@ -439,7 +439,7 @@ float pid_both()
  */
 float pid_single(position wall_pos, float distance)
 {
-	float err, integral, derivative, output;
+	float err, derivative, output;
 	unsigned long dt, time;
 
 	time = millis();

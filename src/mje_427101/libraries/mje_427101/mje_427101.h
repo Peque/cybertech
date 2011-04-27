@@ -58,8 +58,8 @@
 
 // PID
 #define Kp .3
-#define Ki 0.
-#define Kd 0.
+#define Ki 0.00001
+#define Kd 100.
 
 // Configuration
 #define MAX_SPEED 127         // Max motor speed  (absolute value)

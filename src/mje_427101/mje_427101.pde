@@ -76,18 +76,18 @@ void loop()
 void turn(position turn_to) {
 
 	unsigned long time = millis();
-	float dist_0;
+	//float dist_0;
 
 	if (turn_to == FRONT) {
 		set_rgb(255, 0, 0);
 		if (dist_right < MAX_DIST_SIDE) {
-			dist_0 = dist_right;
-			while (dist_right < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, dist_0);
+			//dist_0 = dist_right;
+			while (dist_right < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(RIGHT, NOM_DIST_SIDE);
 			set_speed(FRONT, MAX_SPEED);
 			delay(TIME_TO_RECHECK);
 		} else if (dist_left < MAX_DIST_SIDE) {
-			dist_0 = dist_left;
-			while (dist_left < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, dist_0);
+			//dist_0 = dist_left;
+			while (dist_left < MAX_DIST_SIDE && millis() - time < TIME_TO_PASSTHROUGH) move_through(LEFT, NOM_DIST_SIDE);
 			set_speed(FRONT, MAX_SPEED);
 			delay(TIME_TO_RECHECK);
 		} else {

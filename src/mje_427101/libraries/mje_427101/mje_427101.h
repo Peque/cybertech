@@ -40,7 +40,7 @@
 #define TIME_TO_EXIT_NODE 375          // TODO: this should depend on speed ???
 #define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
 #define TIME_TO_TURN 150               // TODO: this should depend on speed ???
-#define DELAY_TURNING_LEFT 290         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
+#define DELAY_TURNING_LEFT 270         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
 #define DELAY_TURNING_RIGHT 270        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
 #define DELAY_TURN_BACK 270            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
@@ -54,7 +54,7 @@
 #define MAX_DIST_FRONT 600.            // Min. distance considering a front wall
 #define DIST_TURN_BACK 150.            // Distance from sensor to front wall to turn back
 #define DIST_TURNING 325.              // Distance from sensor to front wall to turn either left or right
-// #define NOM_DIST_SIDE 276.          // Nominal distance to a side wall
+#define NOM_DIST_SIDE 270          // Nominal distance to a side wall
 
 // PID
 #define Kp .3

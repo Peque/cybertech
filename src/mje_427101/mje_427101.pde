@@ -20,6 +20,8 @@
 
 #include <mje_427101.h>
 
+// Node number
+int node_number = 0;
 
 // PID variables
 unsigned long prev_time;    // Previous time
@@ -195,7 +197,19 @@ void init_mje()
 
 void solve_node()
 {
-	if (CHOOSE_LEFT) {
+	if (node_number == 0) {
+		turn(FRONT);
+		node_number++;
+	} else if (node_number == 1) {
+		turn(LEFT);
+		node_number++;
+	} else if (node_number == 2) {
+		turn(FRONT);
+		node_number++;
+	} else if (node_number == 3) {
+		turn(LEFT);
+		node_number++;
+	} else if (CHOOSE_LEFT) {
 		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
 		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
 		else turn(RIGHT);

@@ -39,9 +39,9 @@
 #define TIME_TO_PASSTHROUGH 600        // TODO: this should depend on speed...      LANE_WIDTH/v_max
 #define TIME_TO_EXIT_NODE 375          // TODO: this should depend on speed ???
 #define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
-#define TIME_TO_TURN 140               // TODO: this should depend on speed ???
-#define DELAY_TURNING_LEFT 300         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
-#define DELAY_TURNING_RIGHT 260        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
+#define TIME_TO_TURN 150               // TODO: this should depend on speed ???
+#define DELAY_TURNING_LEFT 290         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
+#define DELAY_TURNING_RIGHT 270        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
 #define DELAY_TURN_BACK 270            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors

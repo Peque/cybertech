@@ -42,7 +42,7 @@
 #define TIME_TO_TURN 140               // TODO: this should depend on speed ???
 #define DELAY_TURNING_LEFT 300         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
 #define DELAY_TURNING_RIGHT 260        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
-#define DELAY_TURN_BACK 280            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
+#define DELAY_TURN_BACK 270            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
 #define SHARP_LEFT 14                  // Left sensor in A0

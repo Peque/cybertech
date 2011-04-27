@@ -40,8 +40,8 @@
 #define TIME_TO_EXIT_NODE 375          // TODO: this should depend on speed ???
 #define TIME_TO_RECHECK 140            // TODO: this should depend on speed...      FORESEE/v_max
 #define TIME_TO_TURN 140               // TODO: this should depend on speed ???
-#define DELAY_TURNING_LEFT 290         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
-#define DELAY_TURNING_RIGHT 250        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
+#define DELAY_TURNING_LEFT 300         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
+#define DELAY_TURNING_RIGHT 260        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
 #define DELAY_TURN_BACK 280            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
 
 // SHARP sensors
@@ -50,10 +50,10 @@
 #define SHARP_RIGHT 16                 // Right sensor in A2
 #define SHARP_AREAD_N 100              // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0            // Delay between readings (ms)
-#define MAX_DIST_SIDE 450.             // Max. distance considering a side wall
+#define MAX_DIST_SIDE 400.             // Max. distance considering a side wall
 #define MAX_DIST_FRONT 600.            // Min. distance considering a front wall
 #define DIST_TURN_BACK 150.            // Distance from sensor to front wall to turn back
-#define DIST_TURNING 350.            // Distance from sensor to front wall to turn either left or right
+#define DIST_TURNING 325.              // Distance from sensor to front wall to turn either left or right
 // #define NOM_DIST_SIDE 276.          // Nominal distance to a side wall
 
 // PID
@@ -63,6 +63,7 @@
 
 // Configuration
 #define MAX_SPEED 127         // Max motor speed  (absolute value)
+#define MAX_CORRECTION 40     // Max correction (absolute value)
 #define LANE_WIDTH 500.       // Distance between walls in the maze
 #define DIAMETER 112.         // Distance between wheels
 #define FORESEE 100.          // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)

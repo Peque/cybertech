@@ -349,7 +349,7 @@ void move_forward()
 	correction = pid_both();
 
 	// Fix corrections out of range
-	correction = (correction > MAX_SPEED) ? MAX_SPEED : (correction < -MAX_SPEED) ? -MAX_SPEED : correction;
+	correction = (correction > MAX_CORRECTION) ? MAX_CORRECTION : (correction < -MAX_CORRECTION) ? -MAX_CORRECTION : correction;
 
 	set_speed(LEFT, MAX_SPEED - ((correction < 0) ? 0 : abs(correction)));
 	set_speed(RIGHT, MAX_SPEED - ((correction < 0) ? abs(correction) : 0));
@@ -377,7 +377,7 @@ void move_through(position wall_pos, float distance)
 	correction = pid_single(wall_pos, distance);
 
 	// Fix corrections out of range
-	correction = (correction > MAX_SPEED) ? MAX_SPEED : (correction < -MAX_SPEED) ? -MAX_SPEED : correction;
+	correction = (correction > MAX_CORRECTION) ? MAX_CORRECTION : (correction < -MAX_CORRECTION) ? -MAX_CORRECTION : correction;
 
 	set_speed(LEFT, MAX_SPEED - ((correction < 0) ? 0 : abs(correction)));
 	set_speed(RIGHT, MAX_SPEED - ((correction < 0) ? abs(correction) : 0));

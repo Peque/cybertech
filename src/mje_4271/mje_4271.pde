@@ -196,6 +196,7 @@ void debug_serial()
 		Serial.print(IR[i]);
 		Serial.print("	");
 	}
+	Serial.println(get_distance());
 	Serial.println(" ");
 }
 

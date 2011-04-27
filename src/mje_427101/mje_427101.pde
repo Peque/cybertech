@@ -20,9 +20,6 @@
 
 #include <mje_427101.h>
 
-// Node number
-int node_number = 0;
-
 // PID variables
 unsigned long prev_time;    // Previous time
 float prev_err;             // Previous error
@@ -121,8 +118,11 @@ void turn(position turn_to) {
 		set_speed(LEFT, MAX_SPEED);
 		set_speed(RIGHT, -MAX_SPEED);
 		delay(DELAY_TURN_BACK);
-		set_speed(RIGHT, MAX_SPEED);
+		set_speed(FRONT, 0);
 		delay(TIME_TO_RECHECK);
+		set_speed(FRONT, MAX_SPEED);
+		delay(2*TIME_TO_RECHECK);
+//debug_pause(2000);
 
 		orientation = (position) ((orientation + 2) % 4);
 	}
@@ -197,19 +197,7 @@ void init_mje()
 
 void solve_node()
 {
-	if (node_number == 0) {
-		turn(FRONT);
-		node_number++;
-	} else if (node_number == 1) {
-		turn(LEFT);
-		node_number++;
-	} else if (node_number == 2) {
-		turn(FRONT);
-		node_number++;
-	} else if (node_number == 3) {
-		turn(LEFT);
-		node_number++;
-	} else if (CHOOSE_LEFT) {
+	if (CHOOSE_LEFT) {
 		if (dist_left > MAX_DIST_SIDE) turn(LEFT);
 		else if (dist_front > MAX_DIST_FRONT) turn(FRONT);
 		else turn(RIGHT);

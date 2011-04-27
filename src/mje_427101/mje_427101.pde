@@ -583,7 +583,7 @@ int way_simple()
 			return 1;
 	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_SIDE)
 			return 1;
-	else return 0;
+	return 0;
 }
 
 /**

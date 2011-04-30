@@ -5,14 +5,4 @@
 
 ESSENTIAL
 --------------------------------------------------------------------------------
-* Define new type for nodes
-* Solve a defined vector of nodes
-* Record nodes while exploring
-
-
-MINOR
---------------------------------------------------------------------------------
-* Replace measured 'dist_0' by calculated 'CONSTANT' (?)
-* Replace all 'FORMULAE including CONSTANTS' by appropiate 'CONSTANTS' (?)
-* Review PID's integral part (never used, so never checked)
-
+* Improve change_lane() function

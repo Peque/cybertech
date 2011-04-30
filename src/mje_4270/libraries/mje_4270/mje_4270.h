@@ -1,5 +1,5 @@
 /*
- *    mje_427101.h
+ *    mje_4270.h
  *
  *    Copyright (C) 2011 Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  *
@@ -18,8 +18,8 @@
  */
 
 
-#ifndef mje_427101_h
-#define mje_427101_h
+#ifndef mje_4270_h
+#define mje_4270_h
 
 #include "WProgram.h"
 #include "WConstants.h"
@@ -99,7 +99,7 @@ typedef enum position { LEFT, FRONT, RIGHT, BACK };
 #define LED_BLUE 11
 
 
-class mje_427101
+class mje_4270
 {
 	public:
 

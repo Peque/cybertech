@@ -1,5 +1,5 @@
 /*
- *    mje_427101.pde
+ *    mje_4270.pde
  *
  *    Copyright (C) 2011 Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  *
@@ -18,7 +18,7 @@
  */
 
 
-#include <mje_427101.h>
+#include <mje_4270.h>
 
 // PID variables
 unsigned long prev_time;    // Previous time

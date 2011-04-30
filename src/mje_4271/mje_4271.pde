@@ -15,7 +15,7 @@
 #define MIN_READ_VALUE 300
 #define MAX_READ_VALUE 300
 #define SHARP_SENSOR 14
-#define SHARP_AREAD_N 60
+#define SHARP_AREAD_N 100
 
 // Motor definitions
 #define MOTOR_MAX_SPEED 127	       // Max motor speed (absolute value)
@@ -32,7 +32,7 @@
 #define PIN_PUSH_RIGHT 7
 #define TIME_BACKWARDS 600
 #define TIME_TO_CHANGE 100
-#define TIME_TO_LEAVE_LANE 500
+#define TIME_TO_LEAVE_LANE 700
 #define TIME_TO_FIND_NEW_PATH 100
 #define INITIAL_LANE_PIN 8         // Set this to high if LEFT_LANE
 #define DISTANCE_TO_CHANGE 350     // Distance from the robot to the object in mm

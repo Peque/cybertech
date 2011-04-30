@@ -15,7 +15,7 @@
 #define MIN_READ_VALUE 300
 #define MAX_READ_VALUE 300
 #define SHARP_SENSOR 14
-#define SHARP_AREAD_N 50
+#define SHARP_AREAD_N 100
 
 // Motor definitions
 #define MOTOR_MAX_SPEED 127	       // Max motor speed (absolute value)
@@ -28,10 +28,14 @@
 #define TIME_TO_TURN 100
 
 // Change lane
-#define TIME_TO_CHANGE 80
-#define TIME_TO_LEAVE_LANE 500
+#define PIN_PUSH_LEFT 6
+#define PIN_PUSH_RIGHT 7
+#define TIME_BACKWARDS 600
+#define TIME_TO_CHANGE 100
+#define TIME_TO_LEAVE_LANE 700
+#define TIME_TO_FIND_NEW_PATH 100
 #define INITIAL_LANE_PIN 8         // Set this to high if LEFT_LANE
-#define DISTANCE_TO_CHANGE 0 //350     // Distance from the robot to the object in mm
+#define DISTANCE_TO_CHANGE 350     // Distance from the robot to the object in mm
 int LEFT_LANE;
 
 // Software serial:
@@ -195,6 +199,7 @@ void debug_serial()
 		Serial.print(IR[i]);
 		Serial.print("	");
 	}
+	Serial.println(get_distance());
 	Serial.println(" ");
 }
 
@@ -298,7 +303,11 @@ float get_distance()
 
 void change_lane()
 {
-	if (get_distance() < DISTANCE_TO_CHANGE) {
+	get_distance(); // TODO: remove this!!
+	if (digitalRead(PIN_PUSH_LEFT) == HIGH || digitalRead(PIN_PUSH_RIGHT) == HIGH) {
+		set_speed_right(-MOTOR_MAX_SPEED/2);
+		set_speed_left(-MOTOR_MAX_SPEED/2);
+		delay(TIME_BACKWARDS);
 		if (LEFT_LANE) change_to_right();
 		else change_to_left();
 	}
@@ -306,24 +315,32 @@ void change_lane()
 
 void change_to_right()
 {
-	LEFT_LANE = 0;
 	set_speed_left(MOTOR_MAX_SPEED);
 	set_speed_right(-MOTOR_MAX_SPEED);
 	delay(TIME_TO_CHANGE);
-	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_right(MOTOR_MAX_SPEED/2);
+	set_speed_left(MOTOR_MAX_SPEED/2);
 	delay(TIME_TO_LEAVE_LANE);
 	while (no_line_found());
+	set_speed_right(MOTOR_MAX_SPEED);
+	set_speed_left(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_FIND_NEW_PATH);
+	LEFT_LANE = 0;
 }
 
 void change_to_left()
 {
-	LEFT_LANE = 1;
 	set_speed_right(MOTOR_MAX_SPEED);
 	set_speed_left(-MOTOR_MAX_SPEED);
 	delay(TIME_TO_CHANGE);
-	set_speed_left(MOTOR_MAX_SPEED);
+	set_speed_left(MOTOR_MAX_SPEED/2);
+	set_speed_right(MOTOR_MAX_SPEED/2);
 	delay(TIME_TO_LEAVE_LANE);
 	while (no_line_found());
+	set_speed_left(MOTOR_MAX_SPEED);
+	set_speed_right(-MOTOR_MAX_SPEED);
+	delay(TIME_TO_FIND_NEW_PATH);
+	LEFT_LANE = 1;
 }
 
 int no_line_found()

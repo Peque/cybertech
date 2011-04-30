@@ -161,30 +161,6 @@ void init_mje()
 	if (conf == LEFT) CHOOSE_LEFT = 1;
 	else if (conf == RIGHT) CHOOSE_LEFT = 0;
 
-/*
-	while (get_config(1) != 0) {
-		if (CHOOSE_LEFT) set_rgb(255, 0, 0);
-		else set_rgb(0, 0, 255);
-	}
-
-	time = millis();
-	set_speed(RIGHT, MAX_SPEED);
-	set_speed(LEFT, -MAX_SPEED);
-	delay(100);
-	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
-	delay(100);
-	while (abs((int) get_distance(SHARP_FRONT) - CONFIG_DIST) > CONFIG_PREC + 20);
-	v_max = 2*PI*DIAMETER/(millis()-time);
-	set_speed(FRONT, 0);
-
-	for (int i=0; i<4; i++) {
-		delay(1000);
-		turn(BACK);
-	}
-
-	delay(5000);
-*/
-
 	// Wait for confirmation before starting
 	while (get_config(0) != FRONT) {
 		if (((millis() - time)/200) % 2 == 0) set_rgb(0, 255, 0);
@@ -194,6 +170,26 @@ void init_mje()
 	set_rgb(0, 255, 0);
 	delay(2000);
 	set_rgb(0, 0, 0);
+
+/*
+	// Select random way (left/right)
+	randomSeed((int) get_distance(SHARP_FRONT));
+	int random_num = random(1000);
+	CHOOSE_LEFT = (random_num % 2) ? 1 : 0;
+
+	// Delay before starting
+	if (CHOOSE_LEFT) {
+		while (millis() - time < 5000) {
+			if (((millis() - time)/100) % 2 == 0) set_rgb(255, 0, 0);
+			else set_rgb(0, 0, 0);
+		}
+	} else {
+		while (millis() - time < 5000) {
+			if (((millis() - time)/100) % 2 == 0) set_rgb(0, 0, 255);
+			else set_rgb(0, 0, 0);
+		}
+	}
+*/
 
 	INITIALIZED = 1;
 }

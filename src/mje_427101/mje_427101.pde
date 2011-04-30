@@ -94,7 +94,8 @@ void turn(position turn_to) {
 		}
 	} else if (turn_to == LEFT || turn_to == RIGHT) {
 		set_rgb(0, 0, 255);
-		if (dist_front < MAX_DIST_FRONT) {
+		// Recheck a front wall reading (may be a wrong reading if sunlight present):
+		if (dist_front < MAX_DIST_FRONT && get_distance(SHARP_FRONT) < MAX_DIST_FRONT && get_distance(SHARP_FRONT) < MAX_DIST_FRONT) {
 			set_speed(FRONT, MAX_SPEED);
 			while (dist_front > DIST_TURNING) set_pos();
 		} else {
@@ -115,13 +116,15 @@ void turn(position turn_to) {
 
 	} else if (turn_to == BACK) {
 		set_rgb(0, 0, 255);
+		set_speed(FRONT, 0);
+		delay(TURN_BACK_PAUSE);
 		set_speed(LEFT, MAX_SPEED);
 		set_speed(RIGHT, -MAX_SPEED);
 		delay(DELAY_TURN_BACK);
 		set_speed(FRONT, 0);
-		delay(TIME_TO_RECHECK);
-		set_speed(FRONT, MAX_SPEED);
-		delay(2*TIME_TO_RECHECK);
+		delay(TURN_BACK_PAUSE);
+//		set_speed(FRONT, MAX_SPEED);
+//		delay(TIME_TO_RECHECK);
 //debug_pause(2000);
 
 		orientation = (position) ((orientation + 2) % 4);
@@ -578,7 +581,8 @@ void set_speed(position motor_position, int speed_fr)
 int way_simple()
 {
 	set_pos();
-	if (dist_front < MAX_DIST_FRONT) {
+	// Recheck a front wall reading (may be a wrong reading if sunlight present):
+	if (dist_front < MAX_DIST_FRONT && get_distance(SHARP_FRONT) < MAX_DIST_FRONT && get_distance(SHARP_FRONT) < MAX_DIST_FRONT) {
 		if (dist_right < MAX_DIST_SIDE || dist_left < MAX_DIST_SIDE)
 			return 1;
 	} else if (dist_right < MAX_DIST_SIDE && dist_left < MAX_DIST_SIDE)

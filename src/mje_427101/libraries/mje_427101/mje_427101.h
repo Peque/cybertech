@@ -42,7 +42,8 @@
 #define TIME_TO_TURN 150               // TODO: this should depend on speed ???
 #define DELAY_TURNING_LEFT 270         // TODO: BOTH CONSTANTS SHOULD BE THE SAME !!!!!!!!
 #define DELAY_TURNING_RIGHT 270        //        and should depend on speed...      2*PI*DIAMETER/(4*v_max)
-#define DELAY_TURN_BACK 330            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
+#define DELAY_TURN_BACK 360            // TODO: this should depend on speed...      PI*DIAMETER/(2*v_max)
+#define TURN_BACK_PAUSE 80
 
 // SHARP sensors
 #define SHARP_LEFT 14                  // Left sensor in A0
@@ -51,10 +52,10 @@
 #define SHARP_AREAD_N 100              // Repeat SHARP analogRead N times
 #define SHARP_AREAD_DELAY 0            // Delay between readings (ms)
 #define MAX_DIST_SIDE 450.             // Max. distance considering a side wall
-#define MAX_DIST_FRONT 600.            // Min. distance considering a front wall
+#define MAX_DIST_FRONT 550.            // Min. distance considering a front wall
 #define DIST_TURN_BACK 150.            // Distance from sensor to front wall to turn back
 #define DIST_TURNING 325.              // Distance from sensor to front wall to turn either left or right
-#define NOM_DIST_SIDE 270          // Nominal distance to a side wall
+#define NOM_DIST_SIDE 250              // Nominal distance to a side wall
 
 // PID
 #define Kp .3

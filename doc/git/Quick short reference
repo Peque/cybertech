@@ -27,10 +27,11 @@ Working with branches:
 
 Initial configuration:
 =====================================================================
-git clone ssh://USERNAME@mje-robots.git.sourceforge.net/gitroot/mje-robots/mje-robots
+git clone git@github.com:Peque/cybertech.git
 git config --global user.name "Your Name" (you need the "")
 git config --global user.email "Your email" (you need the "")
 git config -l (to check the configuration data)
+git remote add origin git@github.com:Peque/cybertech.git
 
 
 Tags:

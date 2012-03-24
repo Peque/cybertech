@@ -29,6 +29,6 @@ Now we are ready to commit the changes:
 $ git add README
 $ git commit
 
-The last thing we need to do is to push this change to the serer:
+The last thing we need to do is to push this change to the server:
 
 $ git push origin master

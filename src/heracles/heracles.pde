@@ -60,6 +60,15 @@
 // Configuration
 #define MAX_SPEED 255     // Max motor speed  (absolute value)
 
+// PID Constants
+#define Kp 50.
+#define Kd 3500.
+// #define Ki 0.0005
+
+// Line Follower Constants
+#define QTR_MIDDLE_LINE 3.5
+
+
 
 /*
  * TODO: create a header file to support type definitions
@@ -77,6 +86,12 @@
 // Global variables
 int qtr_sensors[QTR_NSENSORS];
 unsigned long current_time;
+
+// PID Variables
+float error, prev_error, integral, derivative;
+unsigned long dt, time, prev_time;
+float correction;
+float line_position;
 
 
 void setup()
@@ -101,21 +116,22 @@ void setup()
 
 void loop()
 {
+	qtrd_array_read();
+	qtrd_set_line_pos();
+	correction = qtrd_pid_output();
+	/*
+	Serial.print(correction);
+	Serial.print("     ");
+	Serial.println(line_position);
+	*/
+	motors_speed_regulation();
 
-	set_speed(RIGHT, -100);
+	if (line_position == -1) {
+		motors_stop();
+		while(1);
+	}
 
-	current_time = millis();
-	while (millis() - current_time < 1000);
-
-	set_speed(LEFT, 100);
-
-	current_time = millis();
-	while (millis() - current_time < 1000);
-
-	set_speed(FRONT, 0);
-
-	current_time = millis();
-	while (millis() - current_time < 1000);
+	delay (10);
 }
 
 
@@ -236,7 +252,7 @@ void qtrd_array_read(void)
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2012/03/24
  */
-void set_speed(uint8_t motor_position, int speed_fr)
+void motors_set_speed(uint8_t motor_position, int speed_fr)
 {
 	uint8_t speed, FORWARD;
 
@@ -297,5 +313,52 @@ void set_speed(uint8_t motor_position, int speed_fr)
 			digitalWrite(MR_IN0, HIGH);
 			digitalWrite(MR_IN1, HIGH);
 			break;
+	}
+}
+
+void qtrd_set_line_pos(void)
+{
+	float aux=0, cont=0;
+	int i;
+
+	for (i = 0; i < QTR_NSENSORS; i++) {
+		if (qtr_sensors[i]) {
+			aux += i;
+			cont += 1;
+		}
+	}
+
+	line_position = cont ? aux/cont : -1;
+}
+
+float qtrd_pid_output(void)
+{
+	float output;
+
+	time = millis();
+
+	dt = time - prev_time;
+
+	error = line_position - QTR_MIDDLE_LINE;
+//	integral += error*dt;
+
+	derivative = (error - prev_error)/dt;
+
+	if (qtr_sensors[0] || qtr_sensors[7]) output = 150*error + Kd*derivative;
+	else output = Kp*error + Kd*derivative; // + Ki*integral
+
+	prev_time = time;
+	prev_error = error;
+	return output;
+}
+
+void motors_speed_regulation(void)
+{
+		if (correction > 0) {
+		motors_set_speed(RIGHT, MAX_SPEED - correction);
+		motors_set_speed(LEFT, MAX_SPEED);
+	} else {
+		motors_set_speed(RIGHT, MAX_SPEED);
+		motors_set_speed(LEFT, MAX_SPEED + correction);
 	}
 }

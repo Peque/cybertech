@@ -49,25 +49,120 @@
 #define MUX_IN_0 5        // Pin: channel (less significant bit)
 #define MUX_IN_1 6        // Pin: channel (most significant bit)
 
+// Motor driver
+#define ML_IN0 7
+#define ML_IN1 13   // Pin 8 seems to be broken...
+#define ML_PWM 9
+#define MR_PWM 10
+#define MR_IN1 11
+#define MR_IN0 12
+
+// Configuration
+#define MAX_SPEED 255     // Max motor speed  (absolute value)
+
+
+/*
+ * TODO: create a header file to support type definitions
+ *
+ *   typedef enum { LEFT, FRONT, RIGHT, BACK } position;
+ *
+ * Use this tipe in motors_speed() function.
+ */
+#define FRONT 0
+#define RIGHT 1
+#define BACK 2
+#define LEFT 3
+
+
 // Global variables
 int qtr_sensors[QTR_NSENSORS];
+unsigned long current_time;
+
 
 void setup()
 {
 	// Serial setup:
 	Serial.begin(115200);
 
-	// Initialize pins
+	// Initialize sensor array and multiplexer pins
 	pinMode(QTR_LEDON, OUTPUT);
 	pinMode(MUX_IN_0, OUTPUT);
 	pinMode(MUX_IN_1, OUTPUT);
+
+	// Initialize motor pins
+	pinMode(ML_IN0, OUTPUT);
+	pinMode(ML_IN1, OUTPUT);
+	pinMode(ML_PWM, OUTPUT);
+	pinMode(MR_PWM, OUTPUT);
+	pinMode(MR_IN1, OUTPUT);
+	pinMode(MR_IN0, OUTPUT);
 }
+
 
 void loop()
 {
-	qtrd_array_read();
-	qtrd_array_debug();
+
+	set_speed(RIGHT, -100);
+
+	current_time = millis();
+	while (millis() - current_time < 1000);
+
+	set_speed(LEFT, 100);
+
+	current_time = millis();
+	while (millis() - current_time < 1000);
+
+	set_speed(FRONT, 0);
+
+	current_time = millis();
+	while (millis() - current_time < 1000);
 }
+
+
+/**
+ * @brief Turn off motors (set OUT1 and OUT2 to high impedance).
+ *
+ * The motors_stop() function turns off the motors with a coast effect.
+ *
+ * @warning
+ *   There is no danger involved in using this coast state, but
+ *   alternating between drive and brake produces a more linear
+ *   relationship between motor RPM and PWM duty cycle than does
+ *   alternating between drive and coast.
+
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2012/03/24
+ */
+void motors_stop()
+{
+	digitalWrite(ML_IN0, LOW);
+	digitalWrite(ML_IN1, LOW);
+	digitalWrite(MR_IN0, LOW);
+	digitalWrite(MR_IN1, LOW);
+}
+
+
+/**
+ * @brief Print the digital sensor array readings through the serial port.
+ *
+ * For debugging purpouses, the qtrd_array_debug() function allows you
+ * to easily print the digital sensor array reading through the serial
+ * port.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2012/03/24
+ */
+void qtrd_array_debug(void)
+{
+	int i;
+
+	for (i = 0; i < QTR_NSENSORS; i++) {
+		Serial.print(qtr_sensors[i]);
+		Serial.print("	");
+	}
+	Serial.println(" ");
+}
+
 
 /**
  * @brief Read data from the digital reflectance sensor array.
@@ -128,23 +223,79 @@ void qtrd_array_read(void)
 	digitalWrite(QTR_LEDON, LOW);
 }
 
+
 /**
- * @brief Print the digital sensor array readings through the serial port.
+ * @brief Set motors' speed (speed up or break them).
  *
- * For debugging purpouses, the qtrd_array_debug() function allows you
- * to easily print the digital sensor array reading through the serial
- * port.
+ * The set_speed(position motor, int speed) function sets the speed of
+ * the right (RIGHT), left (LEFT) or both motors (FRONT). It can make
+ * the motors break.
  *
+ * @param[in] motor_position Motor position (left, right or both).
+ * @param[in] speed_fr Value for speed.
  * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  * @date 2012/03/24
  */
-void qtrd_array_debug(void)
+void set_speed(uint8_t motor_position, int speed_fr)
 {
-	int i;
+	uint8_t speed, FORWARD;
 
-	for (i = 0; i < QTR_NSENSORS; i++) {
-		Serial.print(qtr_sensors[i]);
-		Serial.print("	");
+	// Fix incorrect values for speed
+	speed_fr = (speed_fr > MAX_SPEED) ? MAX_SPEED : (speed_fr < -MAX_SPEED) ? -MAX_SPEED : speed_fr;
+
+	FORWARD = (speed_fr < 0) ? 0 : 1;
+	speed = abs(speed_fr);
+
+	switch (motor_position) {
+		case FRONT :
+			if (FORWARD) {
+				// Motor 0 forward at speed
+				digitalWrite(ML_IN0, HIGH);
+				digitalWrite(ML_IN1, LOW);
+				// Motor 1 forward at speed
+				digitalWrite(MR_IN0, HIGH);
+				digitalWrite(MR_IN1, LOW);
+			} else {
+				// Motor 0 reverse at speed
+				digitalWrite(ML_IN0, LOW);
+				digitalWrite(ML_IN1, HIGH);
+				// Motor 1 reverse at speed
+				digitalWrite(MR_IN0, LOW);
+				digitalWrite(MR_IN1, HIGH);
+			}
+			analogWrite(ML_PWM, speed);
+			analogWrite(MR_PWM, speed);
+			break;
+		case LEFT :
+			if (FORWARD) {
+				// Motor 0 forward at speed
+				digitalWrite(ML_IN0, HIGH);
+				digitalWrite(ML_IN1, LOW);
+			} else {
+				// Motor 0 reverse at speed
+				digitalWrite(ML_IN0, LOW);
+				digitalWrite(ML_IN1, HIGH);
+			}
+			analogWrite(ML_PWM, speed);
+			break;
+		case RIGHT :
+			if (FORWARD) {
+				// Motor 1 forward at speed
+				digitalWrite(MR_IN0, HIGH);
+				digitalWrite(MR_IN1, LOW);
+			} else {
+				// Motor 1 reverse at speed
+				digitalWrite(MR_IN0, LOW);
+				digitalWrite(MR_IN1, HIGH);
+			}
+			analogWrite(MR_PWM, speed);
+			break;
+		default :
+			// Break both motors
+			digitalWrite(ML_IN0, HIGH);
+			digitalWrite(ML_IN1, HIGH);
+			digitalWrite(MR_IN0, HIGH);
+			digitalWrite(MR_IN1, HIGH);
+			break;
 	}
-	Serial.println(" ");
 }

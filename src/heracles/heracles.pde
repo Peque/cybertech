@@ -49,6 +49,13 @@
 #define MUX_IN_0 5        // Pin: channel (less significant bit)
 #define MUX_IN_1 6        // Pin: channel (most significant bit)
 
+//Battery Check
+#define POWER_BATTERY_PIN 0
+#define DIGITAL_BATTERY_PIN 1
+#define MIN_BATTERY_LEVEL 710 // 3.2V (experimental value)
+#define LOW_BATTERY_LEVEL 760 // 3.4V (experimental value)
+#define LED_BATTERY_PIN 8 // Pin 8 seems to provide 2.5V on HIGH, which is enough for a LED...
+
 // Motor driver
 #define ML_IN0 7
 #define ML_IN1 13   // Pin 8 seems to be broken...
@@ -111,6 +118,10 @@ void setup()
 	pinMode(MR_PWM, OUTPUT);
 	pinMode(MR_IN1, OUTPUT);
 	pinMode(MR_IN0, OUTPUT);
+
+	// Check batteries on start
+	pinMode(LED_BATTERY_PIN, OUTPUT);
+	check_batteries();
 }
 
 
@@ -119,11 +130,11 @@ void loop()
 	qtrd_array_read();
 	qtrd_set_line_pos();
 	correction = qtrd_pid_output();
-	/*
-	Serial.print(correction);
-	Serial.print("     ");
-	Serial.println(line_position);
-	*/
+/*
+-	Serial.print(correction);
+-	Serial.print("     ");
+-	Serial.println(line_position);
+-	*/
 	motors_speed_regulation();
 
 	if (line_position == -1) {
@@ -361,4 +372,20 @@ void motors_speed_regulation(void)
 		motors_set_speed(RIGHT, MAX_SPEED);
 		motors_set_speed(LEFT, MAX_SPEED + correction);
 	}
+}
+
+/*
+ * @brief It warns battery levels lower than the reference MIN_BATTERY_LEVEL
+ * @author Juan Herrero Macias <jn.herrerom@gmail.com>
+ * @date 2012/04/03
+ */
+void check_batteries()
+{
+	digitalWrite(LED_BATTERY_PIN, LOW);
+	if ((analogRead(POWER_BATTERY_PIN) < LOW_BATTERY_LEVEL) || \
+	  (analogRead(DIGITAL_BATTERY_PIN) < LOW_BATTERY_LEVEL) ) \
+		digitalWrite(LED_BATTERY_PIN, HIGH);
+	if  ((analogRead(POWER_BATTERY_PIN) < MIN_BATTERY_LEVEL) || \
+		(analogRead(DIGITAL_BATTERY_PIN) < MIN_BATTERY_LEVEL))
+			while (1);
 }

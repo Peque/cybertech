@@ -1,0 +1,12 @@
+How to connect to RS232 TTL Transceiver Module
+
+1. Go to Bluetooth Settings under System Settings and add a new device. A wizard will start. Search your bluetooth device and type the PIN of the bluetooth module (1234 by default)
+2. By now you will be paired with the device and will appear under the Devices window named as "linvor". Click on it and you will see its MAC adress.
+3. Once you know your paired bluetooth MAC adress open and type in your terminal
+		"rfcomm bind 0 [device MAC address]"
+	Now we can communicate with our paired device trough /dev/rfcomm0
+4. Download Putty for linux and set the following options:
+	-Host Name --> /dev/rfcomm0
+	-Speed --> Choose whatever you want (9600 baudrate by default)
+	-Connection type --> Serial
+5. Click Open and you're set =)

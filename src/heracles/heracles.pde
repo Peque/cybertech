@@ -1,7 +1,10 @@
 /*
  * heracles.pde
  *
- * Copyright 2012 Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * Copyright 2012
+ *
+ *   - Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ *   - Juan Herrero Macías <jn.herrerom@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,8 +53,8 @@
 #define MUX_IN_1 6        // Pin: channel (most significant bit)
 
 //Battery Check
-#define POWER_BATTERY_PIN 0
-#define DIGITAL_BATTERY_PIN 1
+#define POWER_BATTERY_PIN 1
+#define DIGITAL_BATTERY_PIN 2
 #define MIN_BATTERY_LEVEL 710 // 3.2V (experimental value)
 #define LOW_BATTERY_LEVEL 760 // 3.4V (experimental value)
 #define LED_BATTERY_PIN 8 // Pin 8 seems to provide 2.5V on HIGH, which is enough for a LED...
@@ -374,18 +377,53 @@ void motors_speed_regulation(void)
 	}
 }
 
-/*
- * @brief It warns battery levels lower than the reference MIN_BATTERY_LEVEL
- * @author Juan Herrero Macias <jn.herrerom@gmail.com>
+/**
+ * @brief Checks battery levels to protect them.
+ *
+ * It warns battery levels lower than the reference LOW_BATTERY_LEVEL
+ * and even aborts if the voltage is under MIN_BATTERY_LEVEL.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @author Juan Herrero Macías <jn.herrerom@gmail.com>
  * @date 2012/04/03
  */
 void check_batteries()
 {
 	digitalWrite(LED_BATTERY_PIN, LOW);
-	if ((analogRead(POWER_BATTERY_PIN) < LOW_BATTERY_LEVEL) || \
-	  (analogRead(DIGITAL_BATTERY_PIN) < LOW_BATTERY_LEVEL) ) \
-		digitalWrite(LED_BATTERY_PIN, HIGH);
-	if  ((analogRead(POWER_BATTERY_PIN) < MIN_BATTERY_LEVEL) || \
-		(analogRead(DIGITAL_BATTERY_PIN) < MIN_BATTERY_LEVEL))
+
+	uint16_t v_level;
+
+	v_level = analogRead(POWER_BATTERY_PIN);
+
+	if (v_level < LOW_BATTERY_LEVEL) {
+		if (v_level < MIN_BATTERY_LEVEL) {
+			Serial.print("Error: low voltage in power battery! (");
+			Serial.print(v_level);
+			Serial.print("/1023)\nAborting...");
+			digitalWrite(LED_BATTERY_PIN, HIGH);
 			while (1);
+		} else {
+			Serial.print("Warning: low voltage in power battery! (");
+			Serial.print(v_level);
+			Serial.print("/1023)\nAborting...");
+			digitalWrite(LED_BATTERY_PIN, HIGH);
+		}
+	}
+
+	v_level = analogRead(DIGITAL_BATTERY_PIN);
+
+	if (v_level < LOW_BATTERY_LEVEL) {
+		if (v_level < MIN_BATTERY_LEVEL) {
+			Serial.print("Error: low voltage in digital battery! (");
+			Serial.print(v_level);
+			Serial.print("/1023)\nAborting...");
+			digitalWrite(LED_BATTERY_PIN, HIGH);
+			while (1);
+		} else {
+			Serial.print("Warning: low voltage in digital battery! (");
+			Serial.print(v_level);
+			Serial.print("/1023)\nAborting...");
+			digitalWrite(LED_BATTERY_PIN, HIGH);
+		}
+	}
 }

@@ -102,6 +102,11 @@ float error, prev_error, integral, derivative;
 unsigned long dt, time, prev_time;
 float correction;
 float line_position;
+float last_line_position = 3.5;
+
+// Test Variables
+
+int counter = 0;
 
 
 void setup()
@@ -124,7 +129,7 @@ void setup()
 
 	// Check batteries on start
 	pinMode(LED_BATTERY_PIN, OUTPUT);
-	check_batteries();
+	//~ check_batteries();
 }
 
 
@@ -132,20 +137,42 @@ void loop()
 {
 	qtrd_array_read();
 	qtrd_set_line_pos();
-	correction = qtrd_pid_output();
-/*
--	Serial.print(correction);
--	Serial.print("     ");
--	Serial.println(line_position);
--	*/
-	motors_speed_regulation();
 
-	if (line_position == -1) {
-		motors_stop();
-		while(1);
+	// 90º detection
+
+	if (qtr_sensors[0] && qtr_sensors[1] && qtr_sensors[2]) {
+		motors_set_speed(LEFT, -MAX_SPEED);
+		motors_set_speed(RIGHT, MAX_SPEED);
+		delay(100);
 	}
 
-	delay (10);
+	if (qtr_sensors[7] && qtr_sensors[6] && qtr_sensors[5]) {
+		motors_set_speed(RIGHT, -MAX_SPEED);
+		motors_set_speed(LEFT, MAX_SPEED);
+		delay(100);
+	}
+
+	// If we are on the line
+
+	if (line_position != -1) {
+		correction = qtrd_pid_output();
+		motors_speed_regulation();
+		counter = 0;
+	} else {
+		correction = 0;
+		prev_time = millis();
+		if (last_line_position < QTR_MIDDLE_LINE) {
+			motors_set_speed(LEFT, 100 - (5 * counter));
+			motors_set_speed(RIGHT, MAX_SPEED);
+			counter++;
+		} else if (last_line_position > QTR_MIDDLE_LINE) {
+			motors_set_speed(RIGHT, 100 - (5 * counter));
+			motors_set_speed(LEFT, MAX_SPEED);
+			counter++;
+		}
+	}
+
+	delay (2);
 }
 
 
@@ -343,6 +370,7 @@ void qtrd_set_line_pos(void)
 	}
 
 	line_position = cont ? aux/cont : -1;
+	if  (line_position != -1) last_line_position = line_position;
 }
 
 float qtrd_pid_output(void)

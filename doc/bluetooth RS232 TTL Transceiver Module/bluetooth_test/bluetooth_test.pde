@@ -1,7 +1,9 @@
 /*
- * Bluetooth Test.pde
+ * bluetooth_test.pde
  *
- * Copyright 2012 Juan Herrero Macías <jn.herrerom@gmail.com>
+ * Copyright 2012
+ * 			 - Juan Herrero Macías <jn.herrerom@gmail.com>
+ * 			 - Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,15 +31,16 @@
  */
 
 #include <SoftwareSerial.h>
-#define STRING_LENGTH 256
 
-int ledpin=13;
+#define STRING_LENGTH 256
+#define LED_PIN 13;
+
 int i = 0;
+
 SoftwareSerial bluetooth(3, 2); // RX, TX
 
 void setup() {
-  pinMode(13, OUTPUT);  // pin 13 (on-board LED) as OUTPUT
-
+  pinMode(LED_PIN, OUTPUT);  // pin 13 (on-board LED) as OUTPUT
   bluetooth.begin (9600);
 }
 
@@ -58,16 +61,16 @@ void loop() {
 			bluetooth.println(string);
 
 			if ( !strcmp(string, "OFF\0") )  {      // if '0' was received led 13 is switched off
-				digitalWrite(ledpin, LOW);   	 // turn Off pin 13 off
+				digitalWrite(LED_PIN, LOW);   	 // turn Off pin 13 off
 				bluetooth.println("13 off");
 			}
 
 			if ( !strcmp(string, "ON\0") )  {       // if '1' was received led 13 on
-			  digitalWrite(ledpin = 13, HIGH); 	 // turn ON pin 13 on
+			  digitalWrite(ledpin = LED_PIN, HIGH); 	 // turn ON pin 13 on
 			  bluetooth.println("13 on");
 			}
-			string[0] = '\0';
-			i = 0;
+			string[0] = '\0';				//Erase the string
+			i = 0;					//Reset the counter
 			break;
 		}
 	}

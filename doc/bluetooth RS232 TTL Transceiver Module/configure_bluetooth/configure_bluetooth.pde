@@ -53,28 +53,28 @@
 		OK None
 */
 
-SoftwareSerial mySerial(3, 2); // RX, TX
+SoftwareSerial bluetooth(3, 2); // RX, TX
 
 void setup()
 {
 Serial.begin(CURRENT_BAUD_RATE);
-mySerial.begin(CURRENT_BAUD_RATE);
+bluetooth.begin(CURRENT_BAUD_RATE);
 
 delay(100);
-mySerial.print("AT");
+bluetooth.print("AT");
 delay(300);
-mySerial.print("AT+VERSION");
+bluetooth.print("AT+VERSION");
 delay(300);
 Serial.println("Introduce AT command (Supported commands are in this program code)");
 }
 
 void loop()
 {
-	if (mySerial.available()) {
-		Serial.write(mySerial.read());
-		if (!mySerial.available())
+	if (bluetooth.available()) {
+		Serial.write(bluetooth.read());
+		if (!bluetooth.available())
 		    Serial.println();
 	}
 	if (Serial.available())
-	mySerial.write(Serial.read());
+	bluetooth.write(Serial.read());
 }

@@ -33,7 +33,7 @@
 #include <SoftwareSerial.h>
 
 #define STRING_LENGTH 256
-#define LED_PIN 13;
+#define LED_PIN 13
 
 int i = 0;
 
@@ -66,7 +66,7 @@ void loop() {
 			}
 
 			if ( !strcmp(string, "ON\0") )  {       // if '1' was received led 13 on
-			  digitalWrite(ledpin = LED_PIN, HIGH); 	 // turn ON pin 13 on
+			  digitalWrite(LED_PIN, HIGH); 	 // turn ON pin 13 on
 			  bluetooth.println("13 on");
 			}
 			string[0] = '\0';				//Erase the string

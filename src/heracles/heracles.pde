@@ -632,3 +632,35 @@ void set_rgb(uint8_t red, uint8_t green, uint8_t blue)
     analogWrite(LED_GREEN, green);
     analogWrite(LED_BLUE, blue);
 }
+
+
+/**
+ * @brief Stop program execution.
+ *
+ * The debug_abort() function may be used for debugging, stopping the
+ * program execution for ever.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/02/24
+ */
+void debug_abort()
+{
+	debug_pause(0);
+	while (1);
+}
+
+/**
+ * @brief Pause program execution for a while.
+ *
+ * The debug_pause(int ms) function may be used for debugging, pausing
+ * the program execution for ms miliseconds.
+ *
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/02/24
+ */
+void debug_pause(int ms)
+{
+	set_speed(FRONT, 0);
+	set_rgb(0, 0, 0);
+	delay(ms);
+}

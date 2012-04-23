@@ -83,6 +83,11 @@
 // Line Follower Constants
 #define QTR_MIDDLE_LINE 3.5
 
+// RGB LED
+#define LED_RED 2
+#define LED_GREEN 3
+#define LED_BLUE 4
+
 
 
 /*
@@ -132,6 +137,11 @@ void setup()
 	pinMode(MR_IN1, OUTPUT);
 	pinMode(MR_IN0, OUTPUT);
 
+	// Initialize LED pins
+	pinMode(LED_RED, OUTPUT);
+	pinMode(LED_GREEN, OUTPUT);
+	pinMode(LED_BLUE, OUTPUT);
+
 	// Check batteries on start
 	pinMode(LED_BATTERY_PIN, OUTPUT);
 	//~ check_batteries();
@@ -141,6 +151,12 @@ void setup()
 void loop()
 {
 	sharp_debug();
+	set_rgb(255, 0, 0);
+	delay(1000);
+	set_rgb(0, 255, 0);
+	delay(1000);
+	set_rgb(0, 0, 255);
+	delay(1000);
 }
 
 /**
@@ -452,6 +468,7 @@ void motors_speed_regulation(void)
 	}
 }
 
+
 /**
  * @brief Checks battery levels to protect them.
  *
@@ -501,4 +518,24 @@ void check_batteries()
 			digitalWrite(LED_BATTERY_PIN, HIGH);
 		}
 	}
+}
+
+
+/**
+ * @brief Set RGB LED's colors.
+ *
+ * The set_rgb(uint8_t red, uint8_t green, uint8_t blue) function is
+ * used to change the brightness of the RGB LED's colors.
+ *
+ * @param[in] red Value for red color: from 0 to 255.
+ * @param[in] green Value for green color: from 0 to 255.
+ * @param[in] blue Value for blue color: from 0 to 255.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/19
+ */
+void set_rgb(uint8_t red, uint8_t green, uint8_t blue)
+{
+    analogWrite(LED_RED, red);
+    analogWrite(LED_GREEN, green);
+    analogWrite(LED_BLUE, blue);
 }

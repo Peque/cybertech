@@ -178,7 +178,7 @@ void loop()
  */
 float get_2Y0A21_distance(uint8_t sensor)
 {
-	float;
+	float Vo;
 
 	Vo = analogRead(sensor);
 

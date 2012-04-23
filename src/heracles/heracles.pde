@@ -67,6 +67,11 @@
 #define MR_IN1 11
 #define MR_IN0 12
 
+// SHARP sensors
+#define SHARP_LEFT 4                   // Left sensor in A4
+#define SHARP_FRONT 3                  // Front sensor in A3
+#define SHARP_RIGHT 2                  // Right sensor in A2
+
 // Configuration
 #define MAX_SPEED 255     // Max motor speed  (absolute value)
 
@@ -85,7 +90,7 @@
  *
  *   typedef enum { LEFT, FRONT, RIGHT, BACK } position;
  *
- * Use this tipe in motors_speed() function.
+ * Use this tipe in motors_set_speed() function.
  */
 #define FRONT 0
 #define RIGHT 1
@@ -135,44 +140,78 @@ void setup()
 
 void loop()
 {
-	qtrd_array_read();
-	qtrd_set_line_pos();
+	sharp_debug();
+}
 
-	// 90º detection
+/**
+ * @brief Returns distance from sensor SHARP 2Y0A21 to the reflective object in mm.
+ *
+ * The get_distance(uint8_t sensor) function calculates de distance
+ * from the specified sensor to the reflective object and returns this
+ * value in mm. The distance is calculated this way:
+ * @f[
+ * distance = 270/(5.0/1023*Vo)
+ * @f]
+ * Where Vo is the sensor's analog output reading (0V -> 0, 5V -> 1023),
+ * 270 is the constant scale factor (V*mm) and 10 is the correction (mm).
+ *
+ * @param[in] sensor Name of the sensor's analog input.
+ * @return Linearized output of the distance from sensor to the reflective object in mm.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2011/03/15
+ */
+float get_2Y0A21_distance(uint8_t sensor)
+{
+	float;
 
-	if (qtr_sensors[0] && qtr_sensors[1] && qtr_sensors[2]) {
-		motors_set_speed(LEFT, -MAX_SPEED);
-		motors_set_speed(RIGHT, MAX_SPEED);
-		delay(100);
-	}
+	Vo = analogRead(sensor);
 
-	if (qtr_sensors[7] && qtr_sensors[6] && qtr_sensors[5]) {
-		motors_set_speed(RIGHT, -MAX_SPEED);
-		motors_set_speed(LEFT, MAX_SPEED);
-		delay(100);
-	}
+    // Prevent incorrect values when the reflective surface is too far away:
+    Vo = Vo < 60 ? 60 : Vo;
 
-	// If we are on the line
+    /*
+    * In its simplest form, the linearizing equation can be that the
+    * distance to the reflective object is approximately equal to a
+    * constant scale factor (~270 V*mm) divided by the sensor’s output
+    * voltage minus a correction (~10 mm):
+    */
+    return 270/(5.0/1023*Vo)-10; // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
+}
 
-	if (line_position != -1) {
-		correction = qtrd_pid_output();
-		motors_speed_regulation();
-		counter = 0;
-	} else {
-		correction = 0;
-		prev_time = millis();
-		if (last_line_position < QTR_MIDDLE_LINE) {
-			motors_set_speed(LEFT, 100 - (5 * counter));
-			motors_set_speed(RIGHT, MAX_SPEED);
-			counter++;
-		} else if (last_line_position > QTR_MIDDLE_LINE) {
-			motors_set_speed(RIGHT, 100 - (5 * counter));
-			motors_set_speed(LEFT, MAX_SPEED);
-			counter++;
-		}
-	}
 
-	delay (2);
+/**
+ * @brief Returns distance from sensor SHARP 2D120X to the reflective object in mm.
+ *
+ * The get_distance(uint8_t sensor) function calculates de distance
+ * from the specified sensor to the reflective object and returns this
+ * value in mm. The distance is calculated this way:
+ * @f[
+ * distance = 132/(5.0/1023*Vo)-5
+ * @f]
+ * Where Vo is the sensor's analog output reading (0V -> 0, 5V -> 1023),
+ * 132 is the constant scale factor (V*mm) and 5 is the correction (mm).
+ *
+ * @param[in] sensor Name of the sensor's analog input.
+ * @return Linearized output of the distance from sensor to the reflective object in mm.
+ * @author Miguel Sánchez de León Peque <msdeleonpeque@gmail.com>
+ * @date 2012/04/23
+ */
+float get_2D120X_distance(uint8_t sensor)
+{
+    float Vo;
+
+    Vo = analogRead(sensor);
+
+	// Prevent incorrect values when the reflective surface is too far away:
+    Vo = Vo < 60 ? 60 : Vo;
+
+    /*
+    * In its simplest form, the linearizing equation can be that the
+    * distance to the reflective object is approximately equal to a
+    * constant scale factor (~132 V*mm) divided by the sensor’s output
+    * voltage minus a correction (~5 mm):
+    */
+    return 132/(5.0/1023*Vo)-5; // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
 }
 
 
@@ -220,6 +259,14 @@ void qtrd_array_debug(void)
 	Serial.println(" ");
 }
 
+void sharp_debug(void)
+{
+	Serial.print(get_2D120X_distance(SHARP_LEFT));
+	Serial.print("    \t");
+	Serial.print(get_2Y0A21_distance(SHARP_FRONT));
+	Serial.print("    \t");
+	Serial.println(get_2D120X_distance(SHARP_RIGHT));
+}
 
 /**
  * @brief Read data from the digital reflectance sensor array.

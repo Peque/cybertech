@@ -227,9 +227,14 @@ float get_2Y0A21_distance(uint8_t sensor)
  */
 float get_2D120X_distance(uint8_t sensor)
 {
+	uint8_t i;
     float Vo;
 
-    Vo = analogRead(sensor);
+    for (i = 0; i < SHARP_AREAD_N; i++) {
+        Vo += analogRead(sensor);
+    }
+
+	Vo /= SHARP_AREAD_N;
 
 	// Prevent incorrect values when the reflective surface is too far away:
     Vo = Vo < 60 ? 60 : Vo;

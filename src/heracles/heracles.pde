@@ -71,9 +71,17 @@
 #define SHARP_LEFT 4                   // Left sensor in A4
 #define SHARP_FRONT 3                  // Front sensor in A3
 #define SHARP_RIGHT 2                  // Right sensor in A2
+#define SHARP_AREAD_N 100              // Number of readings
 
 // Configuration
-#define MAX_SPEED 255     // Max motor speed  (absolute value)
+#define MAX_SPEED 255         // Max motor speed  (absolute value)
+#define LANE_WIDTH 300.       // Distance between walls in the maze
+#define DIAMETER 80.          // Distance between wheels
+#define FORESEE 100.          // Front reading distance for side sensors (from reflective object, supposed centered, to the wheels)
+#define PI 3.1415926536       // [...]
+#define CONFIG_DIST 150.      // Distance for sensors' reading in mm
+#define CONFIG_PREC 50.       // Sets the sensors' reading distance precision in mm (+/-)
+#define CONFIG_TIME 2000      // Time to confirm configuracion in ms
 
 // PID Constants
 #define Kp 50.
@@ -114,6 +122,10 @@ float correction;
 float line_position;
 float last_line_position = 3.5;
 
+// Configuration variables
+int CHOOSE_LEFT = 1;        // Left by default
+int8_t config_reading = -1;
+
 // Test Variables
 
 int counter = 0;
@@ -145,18 +157,14 @@ void setup()
 	// Check batteries on start
 	pinMode(LED_BATTERY_PIN, OUTPUT);
 	//~ check_batteries();
+
+	init_heracles();
 }
 
 
 void loop()
 {
 	sharp_debug();
-	set_rgb(255, 0, 0);
-	delay(1000);
-	set_rgb(0, 255, 0);
-	delay(1000);
-	set_rgb(0, 0, 255);
-	delay(1000);
 }
 
 /**
@@ -178,9 +186,14 @@ void loop()
  */
 float get_2Y0A21_distance(uint8_t sensor)
 {
-	float Vo;
+	uint8_t i;
+	float Vo = 0;
 
-	Vo = analogRead(sensor);
+	for (i = 0; i < SHARP_AREAD_N; i++) {
+        Vo += analogRead(sensor);
+    }
+
+	Vo /= SHARP_AREAD_N;
 
     // Prevent incorrect values when the reflective surface is too far away:
     Vo = Vo < 60 ? 60 : Vo;
@@ -228,6 +241,86 @@ float get_2D120X_distance(uint8_t sensor)
     * voltage minus a correction (~5 mm):
     */
     return 132/(5.0/1023*Vo)-5; // TODO: Linearize the output dividing the curve in 3-4 pieces (not very important though...)
+}
+
+
+float get_distance(uint8_t sensor)
+{
+	if (sensor == SHARP_FRONT) return get_2Y0A21_distance(sensor);
+	else return get_2D120X_distance(sensor);
+}
+
+
+/**
+ * TODO: write comments...
+ */
+int8_t get_config(uint8_t pin, uint8_t interrupt, uint8_t R, uint8_t G, uint8_t B)
+{
+	unsigned long time = millis();
+
+	// Check de appropiate distance
+	if (abs((int) get_distance(pin) - CONFIG_DIST) < CONFIG_PREC) {
+		// Check continuous reading
+		while (abs((int) get_distance(pin) - CONFIG_DIST) < CONFIG_PREC) {
+			if (((millis() - time)/50) % 2 == 0) set_rgb(R, G, B);
+			else set_rgb(0, 0, 0);
+			// Confirm and return value after 3 seconds
+			if (millis() - time > CONFIG_TIME) {
+				if (!interrupt) while (abs((int) get_distance(pin) - CONFIG_DIST) < CONFIG_PREC) set_rgb(R, G, B);
+				// Succeed to confirm configuration settings
+				set_rgb(0, 0, 0);
+				return pin;
+			}
+		}
+	}
+
+	// Failed to confirm configuration settings
+	set_rgb(0, 0, 0);
+	return 0;
+}
+
+
+/**
+ * TODO: write comments...
+ */
+void init_heracles(void)
+{
+	// Select which way to choose (left/right)
+	while (!(config_reading = get_config(4, 0, 255, 0, 0)) && \
+	       !(config_reading = get_config(2, 0, 0, 0, 255)));
+
+	if (config_reading == SHARP_LEFT) CHOOSE_LEFT = 1;
+	else CHOOSE_LEFT = 0;
+
+	// Wait for confirmation before starting
+	while (!(config_reading = get_config(3, 0, 0, 255, 0))) {
+		set_rgb(CHOOSE_LEFT ? 255 : 0, 0, CHOOSE_LEFT ? 0 : 255);
+	}
+
+	// Ready, steady, go!
+	set_rgb(0, 255, 0);
+	delay(2000);
+	set_rgb(0, 0, 0);
+
+/*
+	// Select random way (left/right)
+	randomSeed((int) get_distance(SHARP_FRONT));
+	int random_num = random(1000);
+	CHOOSE_LEFT = (random_num % 2) ? 1 : 0;
+
+	// Delay before starting
+	if (CHOOSE_LEFT) {
+		while (millis() - time < 5000) {
+			if (((millis() - time)/100) % 2 == 0) set_rgb(255, 0, 0);
+			else set_rgb(0, 0, 0);
+		}
+	} else {
+		while (millis() - time < 5000) {
+			if (((millis() - time)/100) % 2 == 0) set_rgb(0, 0, 255);
+			else set_rgb(0, 0, 0);
+		}
+	}
+*/
 }
 
 

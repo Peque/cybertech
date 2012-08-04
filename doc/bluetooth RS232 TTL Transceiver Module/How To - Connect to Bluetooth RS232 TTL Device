@@ -6,7 +6,7 @@ How to connect to RS232 TTL Transceiver Module
 		"rfcomm bind 0 [device MAC address]"
 	Now we can communicate with our paired device trough /dev/rfcomm0
 4. Download Putty for linux and set the following options:
-	-Host Name --> /dev/rfcomm0
+        -Connection type --> Serial
+	-Serial line --> /dev/rfcomm0
 	-Speed --> Choose whatever you want (9600 baudrate by default)
-	-Connection type --> Serial
 5. Click Open and you're set =)

@@ -1,5 +1,5 @@
 /*
- * bluetooth_test.pde
+ * bluetooth_test.ino
  *
  * Copyright 2012
  * 			 - Juan Herrero Macías <jn.herrerom@gmail.com>

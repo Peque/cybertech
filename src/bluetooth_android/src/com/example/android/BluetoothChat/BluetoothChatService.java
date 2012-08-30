@@ -48,9 +48,9 @@ public class BluetoothChatService {
 
     // Unique UUID for this application
     private static final UUID MY_UUID_SECURE =
-        UUID.fromString("fa87c0d0-afac-11de-8a39-0800200c9a66");
+        UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //fa87c0d0-afac-11de-8a39-0800200c9a66
     private static final UUID MY_UUID_INSECURE =
-        UUID.fromString("8ce255c0-200a-11e0-ac64-0800200c9a66");
+        UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //8ce255c0-200a-11e0-ac64-0800200c9a66
 
     // Member fields
     private final BluetoothAdapter mAdapter;
@@ -445,17 +445,35 @@ public class BluetoothChatService {
         public void run() {
             Log.i(TAG, "BEGIN mConnectedThread");
             byte[] buffer = new byte[1024];
+            int readBufferPosition = 0;
+            final byte delimiter = 10; //This is the ASCII code for a newline character
             int bytes;
 
             // Keep listening to the InputStream while connected
             while (true) {
                 try {
-                    // Read from the InputStream
-                    bytes = mmInStream.read(buffer);
-
-                    // Send the obtained bytes to the UI Activity
-                    mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, bytes, -1, buffer)
-                            .sendToTarget();
+                	int bytesAvailable = mmInStream.available();                        
+                    if(bytesAvailable > 0)
+                    {
+                        byte[] packetBytes = new byte[bytesAvailable];
+                        bytes = mmInStream.read(packetBytes);
+                        for(int i = 0; i < bytesAvailable; i++)
+                        {
+                            byte b = packetBytes[i];
+                            if(b == delimiter)
+                            {
+                                byte[] encodedBytes = new byte[readBufferPosition];
+                                System.arraycopy(buffer, 0, encodedBytes, 0, encodedBytes.length);
+                                readBufferPosition = 0;
+                                mHandler.obtainMessage(BluetoothChat.MESSAGE_READ, encodedBytes.length, -1, encodedBytes)
+                                .sendToTarget();
+                            }
+                            else
+                            {
+                                buffer[readBufferPosition++] = b;
+                            }
+                        }
+                    }
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     connectionLost();

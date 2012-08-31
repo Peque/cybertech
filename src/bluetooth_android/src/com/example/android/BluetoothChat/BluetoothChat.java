@@ -85,7 +85,12 @@ public class BluetoothChat extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(D) Log.e(TAG, "+++ ON CREATE +++");
-
+        
+        // Request No title
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+        
         // Set up the window layout
         setContentView(R.layout.main);
 
@@ -231,13 +236,13 @@ public class BluetoothChat extends Activity {
     };
 
     private final void setStatus(int resId) {
-        final ActionBar actionBar = getActionBar();
-        // actionBar.setSubtitle(resId);
+        ActionBar actionBar = getActionBar();
+        actionBar.setSubtitle(resId);
     }
 
     private final void setStatus(CharSequence subTitle) {
-        final ActionBar actionBar = getActionBar();
-        // actionBar.setSubtitle(subTitle);
+        ActionBar actionBar = getActionBar();
+        actionBar.setSubtitle(subTitle);
     }
 
     // The Handler that gets information back from the BluetoothChatService

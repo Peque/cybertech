@@ -75,6 +75,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(D) Log.e(TAG, "++ ON CREATE ++");
         setContentView(R.layout.real_main);
 
         // Set up the action bar.
@@ -99,13 +100,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             finish();
             return;
         }
-    }
-    
-    @Override
-    public void onStart() {
-        super.onStart();
-        if(D) Log.e(TAG, "++ ON START ++");
-
+        
         // If BT is not on, request that it be enabled.
         // setupChat() will then be called during onActivityResult
         if (!mBluetoothAdapter.isEnabled()) {
@@ -115,6 +110,12 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         } else {
             if (mChatService == null) setupChat();
         }
+    }
+    
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(D) Log.e(TAG, "++ ON START ++");
     }
     
     @Override
@@ -154,9 +155,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         if(D) Log.e(TAG, "--- ON DESTROY ---");
     }
 
-    
-    
-
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
@@ -176,8 +174,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
     }
-
-    
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
@@ -227,10 +223,9 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 
         // Initialize the array adapter for the conversation thread
         mConversationArrayAdapter = new ArrayAdapter<String>(this, R.layout.message);
-        mConversationView = (ListView) findViewById(R.id.in);
-        mConversationView.setAdapter(mConversationArrayAdapter);
 
-
+//            mConversationView = (ListView) findViewById(R.id.in);
+//            mConversationView.setAdapter(mConversationArrayAdapter);
 
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(this, mHandler);
@@ -263,14 +258,17 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 switch (msg.arg1) {
                 case BluetoothChatService.STATE_CONNECTED:
 //                    setStatus(getString(R.string.title_connected_to, mConnectedDeviceName));
+                	Toast.makeText(getApplicationContext(), getString(R.string.title_connected_to) + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                     mConversationArrayAdapter.clear();
                     break;
                 case BluetoothChatService.STATE_CONNECTING:
 //                    setStatus(R.string.title_connecting);
+                	Toast.makeText(getApplicationContext(), R.string.title_connecting, Toast.LENGTH_SHORT).show();
                     break;
                 case BluetoothChatService.STATE_LISTEN:
                 case BluetoothChatService.STATE_NONE:
 //                    setStatus(R.string.title_not_connected);
+                	Toast.makeText(getApplicationContext(), R.string.title_not_connected, Toast.LENGTH_SHORT).show();
                     break;
                 }
                 break;
@@ -405,14 +403,14 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             	
             	// In this method we will define the different tabs and its content as if they were different activities
                 Bundle args = getArguments();
+                
+                if(D) Log.e(TAG, "-- On Create View Fragment " + args.getInt(ARG_SECTION_NUMBER) + " --");
                 View v;
                 
                 switch  (args.getInt(ARG_SECTION_NUMBER)) {
                 case 1: 
                 	 v = inflater.inflate(R.layout.main, container, false);
-                	 
-                	 if(D) Log.e(TAG, "-- On Create View Tab 1 --");
-                	 
+
                      // Initialize the compose field with a listener for the return key
                      mOutEditText = (EditText) v.findViewById(R.id.edit_text_out);
                      mOutEditText.setOnEditorActionListener(mWriteListener);
@@ -428,8 +426,10 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                          }
                      });
                      
+                     // Initialize the conversation view
+                     mConversationView = (ListView) v.findViewById(R.id.in);
+                     mConversationView.setAdapter(mConversationArrayAdapter);
                 	return v;
-                	
                 case 2: 
                 	v = inflater.inflate(R.layout.pid_conf, container, false);
                 	Button button1 = (Button) v.findViewById(R.id.button1);
@@ -437,27 +437,21 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                         
                         @Override
                         public void onClick(View v) {
-                            Activity activity = getActivity();
-                            
+                            Activity activity = getActivity();  
                             if (activity != null) {
-                                Toast.makeText(activity, "Hola paco", Toast.LENGTH_SHORT).show();
-                                
-                                sendMessage ("Probandooooo");
+                                Toast.makeText(activity, "Botton Pushed", Toast.LENGTH_SHORT).show();
+                                sendMessage ("Testing");
                             }
                         }
                     });
                 	return v;
-                	
                 case 3: 
                 	v = inflater.inflate(R.layout.main, container, false);
                 	return v;
-                	
                 default: 
                 	v = inflater.inflate(R.layout.main, container, false);
                 	return  v;
                 }
-                
-           
-            }
+            }  
     }
 }

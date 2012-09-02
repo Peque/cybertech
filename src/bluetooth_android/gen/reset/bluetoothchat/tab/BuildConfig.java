@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package com.example.android.BluetoothChat;
+package reset.bluetoothchat.tab;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

@@ -1,6 +1,7 @@
 package reset.bluetoothchat.tab;
 
 
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentTransaction;
@@ -14,6 +15,8 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,9 +35,19 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+
 public class BluetoothChat extends FragmentActivity implements ActionBar.TabListener {
 
-    private static final String STATE_SELECTED_NAVIGATION_ITEM = "selected_navigation_item";
+    // Swipe declarations
+    SectionsPagerAdapter mSectionsPagerAdapter;
+    
+    /**
+     * The {@link ViewPager} that will host the section contents.
+     */
+    ViewPager mViewPager;
+    
+    // Chat 
     
     // Debugging
     private static final String TAG = "BluetoothChat";
@@ -78,20 +91,43 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         if(D) Log.e(TAG, "++ ON CREATE ++");
         setContentView(R.layout.real_main);
 
+     // Create the adapter that will return a fragment for each of the three primary sections
+        // of the app.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        // When swiping between different sections, select the corresponding tab.
+        // We can also use ActionBar.Tab#select() to do this if we have a reference to the
+        // Tab.
+        mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
         // For each of the sections in the app, add a tab to the action bar.
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section1).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section2).setTabListener(this));
-        actionBar.addTab(actionBar.newTab().setText(R.string.title_section3).setTabListener(this));
-        
+        for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
+            // Create a tab with text corresponding to the page title defined by the adapter.
+            // Also specify this Activity object, which implements the TabListener interface, as the
+            // listener for when this tab is selected.
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(mSectionsPagerAdapter.getPageTitle(i))
+                            .setTabListener(this));
+        }
         // Request No title bar
         actionBar.setDisplayShowHomeEnabled(false);
         actionBar.setDisplayShowTitleEnabled(false);
         
-     // Get local Bluetooth adapter
+	    // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         
         // If the adapter is null, then Bluetooth is not supported
@@ -156,20 +192,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     }
 
     @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState.containsKey(STATE_SELECTED_NAVIGATION_ITEM)) {
-            getActionBar().setSelectedNavigationItem(
-                    savedInstanceState.getInt(STATE_SELECTED_NAVIGATION_ITEM));
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(STATE_SELECTED_NAVIGATION_ITEM,
-                getActionBar().getSelectedNavigationIndex());
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_menu, menu);
         return true;
@@ -181,14 +203,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, show the tab contents in the container
-        Fragment fragment = new SectionFragment();
-        Bundle args = new Bundle();
-        args.putInt(SectionFragment.ARG_SECTION_NUMBER, tab.getPosition() + 1);
-        fragment.setArguments(args);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, fragment)
-                .commit();
+    	 // When the given tab is selected, switch to the corresponding page in the ViewPager.
+        mViewPager.setCurrentItem(tab.getPosition());
     }
 
     @Override
@@ -368,26 +384,43 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         // Attempt to connect to the device
         mChatService.connect(device, secure);
     }
+    
+    // Swipe class
+    
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
+     * sections of the app.
+     */
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-//    /**
-//     * A dummy fragment representing a section of the app, but that simply displays dummy text.
-//     */
-//    public static class DummySectionFragment extends Fragment {
-//        public DummySectionFragment() {
-//        }
-//
-//        public static final String ARG_SECTION_NUMBER = "section_number";
-//
-//        @Override
-//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                Bundle savedInstanceState) {
-//            TextView textView = new TextView(getActivity());
-//            textView.setGravity(Gravity.CENTER);
-//            Bundle args = getArguments();
-//            textView.setText(Integer.toString(args.getInt(ARG_SECTION_NUMBER)));
-//            return textView;
-//        }
-//    }
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            Fragment fragment = new SectionFragment();
+            Bundle args = new Bundle();
+            args.putInt(SectionFragment.ARG_SECTION_NUMBER, i + 1);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 3;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case 0: return getString(R.string.title_section1).toUpperCase();
+                case 1: return getString(R.string.title_section2).toUpperCase();
+                case 2: return getString(R.string.title_section3).toUpperCase();
+            }
+            return null;
+        }
+    }
     
     // Fragment classes
     

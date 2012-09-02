@@ -21,7 +21,6 @@ public final class R {
         public static final int button1=0x7f070019;
         public static final int button_scan=0x7f070006;
         public static final int button_send=0x7f070009;
-        public static final int container=0x7f07001a;
         public static final int dMax=0x7f070012;
         public static final int dMin=0x7f070010;
         public static final int discoverable=0x7f07001d;
@@ -33,6 +32,7 @@ public final class R {
         public static final int new_devices=0x7f070005;
         public static final int pMax=0x7f07000d;
         public static final int pMin=0x7f07000b;
+        public static final int pager=0x7f07001a;
         public static final int paired_devices=0x7f070003;
         public static final int secure_connect_scan=0x7f07001b;
         public static final int seekBar1=0x7f070018;

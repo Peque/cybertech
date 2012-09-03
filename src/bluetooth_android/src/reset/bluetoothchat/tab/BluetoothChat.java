@@ -1,6 +1,6 @@
 package reset.bluetoothchat.tab;
 
-
+import org.xmlpull.v1.XmlPullParser;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,12 +19,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.app.NavUtils;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Xml;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -35,11 +39,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-
 public class BluetoothChat extends FragmentActivity implements ActionBar.TabListener {
 
-    // Swipe declarations
+  // Swipe funcionality declarations
     SectionsPagerAdapter mSectionsPagerAdapter;
     
     /**
@@ -47,7 +49,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
      */
     ViewPager mViewPager;
     
-    // Chat 
+  // Bluetooth chat declarations
     
     // Debugging
     private static final String TAG = "BluetoothChat";
@@ -102,6 +104,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setOffscreenPageLimit(2);
 
         // When swiping between different sections, select the corresponding tab.
         // We can also use ActionBar.Tab#select() to do this if we have a reference to the
@@ -112,6 +115,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 actionBar.setSelectedNavigationItem(position);
             }
         });
+        
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -396,7 +400,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public Fragment getItem(int i) {
             Fragment fragment = new SectionFragment();
@@ -429,7 +432,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         }
 
         public static final String ARG_SECTION_NUMBER = "section_number";
-
+        
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -437,7 +440,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             	// In this method we will define the different tabs and its content as if they were different activities
                 Bundle args = getArguments();
                 
-                if(D) Log.e(TAG, "-- On Create View Fragment " + args.getInt(ARG_SECTION_NUMBER) + " --");
                 View v;
                 
                 switch  (args.getInt(ARG_SECTION_NUMBER)) {
@@ -466,8 +468,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 case 2: 
                 	v = inflater.inflate(R.layout.pid_conf, container, false);
                 	Button button1 = (Button) v.findViewById(R.id.button1);
-                	button1.setOnClickListener(new OnClickListener() {
-                        
+                	button1.setOnClickListener(new OnClickListener() {    
                         @Override
                         public void onClick(View v) {
                             Activity activity = getActivity();  
@@ -479,7 +480,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                     });
                 	return v;
                 case 3: 
-                	v = inflater.inflate(R.layout.main, container, false);
+//            		Resources resources = getResources();
+//            		XmlPullParser parser = resources.getXml(R.layout.main);
+//            		AttributeSet attributes = Xml.asAttributeSet(parser);
+                	v = inflater.inflate(R.layout.joystick, container, false);
+//                	GameSurface gSurface1 = (GameSurface) v.findViewById(R.id.gameSurface1);
                 	return v;
                 default: 
                 	v = inflater.inflate(R.layout.main, container, false);

@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.Display;
@@ -40,6 +41,13 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 		init();
 	}
 	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		_controls.update(event);
+		return super.onTouchEvent(event);
+	}
+	
 //	@Override
 //	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 //		// TODO Auto-generated method stub
@@ -65,7 +73,6 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 		_joystick = new GameJoystick(getContext().getResources());
 		//contols
 		_controls = new GameControls(this, _joystick);
-		setOnTouchListener(_controls);
 	}
 
 

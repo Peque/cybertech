@@ -6,7 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-public class GameControls implements OnTouchListener{
+public class GameControls {
 
 	public float initx;
 	public float inity;
@@ -23,15 +23,6 @@ public class GameControls implements OnTouchListener{
 		// TODO Auto-generated constructor stub
 		gSurface = s;
 		gJoystick = j;
-	}
-	
-	
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-
-		update(event);
-		return true;
 	}
 
 	private MotionEvent lastEvent;

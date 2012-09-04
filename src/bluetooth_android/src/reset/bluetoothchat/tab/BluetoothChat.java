@@ -49,6 +49,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
      */
     ModifiedViewPager mViewPager;
     
+    // Joystick tab for avoiding swiping on it
     private static final int JOYSTICK_TAB = 2;
     
   // Bluetooth chat declarations
@@ -124,7 +125,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 	
             }
         });
-        
 
         // For each of the sections in the app, add a tab to the action bar.
         for (int i = 0; i < mSectionsPagerAdapter.getCount(); i++) {
@@ -438,7 +438,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     
     // Fragment classes
     
-    public class SectionFragment extends Fragment {
+    public static class SectionFragment extends Fragment {
         public SectionFragment() {
         }
 
@@ -451,48 +451,52 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             	
             	// In this method we will define the different tabs and its content as if they were different activities
                 Bundle args = getArguments();
+                final BluetoothChat bActivity = ((BluetoothChat)getActivity());
                 
                 View v;
                 
                 switch  (args.getInt(ARG_SECTION_NUMBER)) {
                 case 1: 
                 	 v = inflater.inflate(R.layout.main, container, false);
-
+                	 
                      // Initialize the compose field with a listener for the return key
-                     mOutEditText = (EditText) v.findViewById(R.id.edit_text_out);
-                     mOutEditText.setOnEditorActionListener(mWriteListener);
+                     bActivity.mOutEditText = (EditText) v.findViewById(R.id.edit_text_out);
+                     bActivity.mOutEditText.setOnEditorActionListener(bActivity.mWriteListener);
 
                      // Initialize the send button with a listener that for click events
-                     mSendButton = (Button) v.findViewById(R.id.button_send);
-                     mSendButton.setOnClickListener(new OnClickListener() {
+                     bActivity.mSendButton = (Button) v.findViewById(R.id.button_send);
+                     bActivity.mSendButton.setOnClickListener(new OnClickListener() {
                          public void onClick(View v) {
                              // Send a message using content of the edit text widget
-//                             TextView view = (TextView) findViewById(R.id.edit_text_out);
-                             String message = mOutEditText.getText().toString();
-                             sendMessage(message);
+                             TextView view = (TextView) v.findViewById(R.id.edit_text_out);
+                    
+                             String message = bActivity.mOutEditText.getText().toString();
+                             bActivity.sendMessage(message);
                          }
                      });
                      
                      // Initialize the conversation view
-                     mConversationView = (ListView) v.findViewById(R.id.in);
-                     mConversationView.setAdapter(mConversationArrayAdapter);
+                     bActivity.mConversationView = (ListView) v.findViewById(R.id.in);
+                     bActivity.mConversationView.setAdapter(bActivity.mConversationArrayAdapter);
                 	return v;
                 case 2: 
+                	
                 	v = inflater.inflate(R.layout.pid_conf, container, false);
                 	Button button1 = (Button) v.findViewById(R.id.button1);
                 	button1.setOnClickListener(new OnClickListener() {    
                         @Override
                         public void onClick(View v) {
-                            Activity activity = getActivity();  
+                            Activity activity = getActivity(); 
+                            BluetoothChat bActivity = ((BluetoothChat)getActivity());
                             if (activity != null) {
                                 Toast.makeText(activity, "Botton Pushed", Toast.LENGTH_SHORT).show();
-                                sendMessage ("Testing");
+                                bActivity.sendMessage("testing");
                             }
                         }
                     });
                 	return v;
                 case 3: 
-
+                	
                 	v = inflater.inflate(R.layout.dualjoystick, container, false);
                 	final TextView txtX1, txtY1;
                     final TextView txtX2, txtY2;

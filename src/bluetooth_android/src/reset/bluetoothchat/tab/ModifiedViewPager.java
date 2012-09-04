@@ -38,7 +38,7 @@ public class ModifiedViewPager extends ViewPager {
 	    return false;
 	}
 
-	public void setPagingEnabled(boolean enabled) {
+	public void setSwipingEnabled(boolean enabled) {
 	    this.enabled = enabled;
 	}
 

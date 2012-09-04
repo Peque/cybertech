@@ -49,6 +49,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
      */
     ModifiedViewPager mViewPager;
     
+    private static final int JOYSTICK_TAB = 2;
+    
   // Bluetooth chat declarations
     
     // Debugging
@@ -113,6 +115,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
+                
+                if (actionBar.getSelectedNavigationIndex() == JOYSTICK_TAB) 
+                	mViewPager.setSwipingEnabled(false);
+                else mViewPager.setSwipingEnabled(true);
+                	
             }
         });
         
@@ -423,6 +430,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             }
             return null;
         }
+        
+        
     }
     
     // Fragment classes

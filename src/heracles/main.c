@@ -23,27 +23,73 @@
 
 
 #include "gpio.h"
+#include "usart.h"
 
 
-// TODO: avoid using wirish stuff, even for the initialization
+// TODO: avoid using wirish stuff
 #include "wirish.h"
 __attribute__((constructor)) void premain() {
 	init();
 }
 
 
-int main()
+const char *dummy_str = "Hello!\n";
+
+
+void setup(void)
 {
-
-	// Set output mode in port B, pin 1 (D33 in Maple Mini)
+	// Set output mode in D33 (Maple Mini's SMD LED) and set it to high
 	gpio_set_mode(GPIOB, 1, GPIO_OUTPUT_PP);
+	gpio_write_bit(GPIOB, 1, 1);
 
-	while (1) {
-		delay_us(500000);
-		// Toogle D33
-		gpio_toggle_bit(GPIOB, 1);
+	// Serial 1 initialization
+	Serial1.begin(230400);               // TODO: avoid using wirish stuff
+}
+
+
+void loop(void)
+{
+	while (SerialUSB.available()) {      // TODO: avoid using wirish stuff, specially in loop()!
+
+		uint8 input = SerialUSB.read();  // TODO: avoid using wirish stuff, specially in loop()!
+
+		switch(input) {
+			case 'a':
+				// Send "Hello!" through the bluetooth device
+				usart_putstr(USART1, dummy_str);
+				break;
+			case 'l':
+				// Toogle board's LED
+				gpio_toggle_bit(GPIOB, 1);
+				break;
+			case 't':
+				// Send the system uptime through the bluetooth device, in milliseconds
+				usart_putudec(USART1, systick_uptime_millis);
+				usart_putstr(USART1, "\n");
+				break;
+			default :
+				break;
+		}
+
 	}
 
-	return 0;
+	while (usart_data_available(USART1)) {
 
+		uint8 input = usart_getc(USART1);
+
+		usart_putstr(USART1, "Received: ");
+		usart_putstr(USART1, (const char *) &input);
+		usart_putstr(USART1, "\n");
+
+	}
+}
+
+
+int main(void)
+{
+	setup();
+
+	while (1) loop();
+
+	return 0;
 }

@@ -75,11 +75,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     private static final int REQUEST_CONNECT_DEVICE_INSECURE = 2;
     private static final int REQUEST_ENABLE_BT = 3;
 
-    // Layout Views
-    private ListView mConversationView;
-    private EditText mOutEditText;
-    private Button mSendButton;
-
     // Name of the connected device
     private String mConnectedDeviceName = null;
     // Array adapter for the conversation thread
@@ -119,9 +114,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
-                
-               
-                	
+  	
             }
             @Override
         	public void onPageScrolled(int position, float positionOffset,
@@ -239,8 +232,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     	 // When the given tab is selected, switch to the corresponding page in the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
-        
-
     }
 
     @Override
@@ -268,7 +259,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         }
         return false;
     }
-
     
     private void setupChat() {
         Log.d(TAG, "setupChat()");
@@ -354,11 +344,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
      * Sends a message.
      * @param message  A string of text to send.
      */
-    private void sendMessage(String message) {
+    public int sendMessage(String message) {
         // Check that we're actually connected before trying anything
         if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
             Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
-            return;
+            return 0;
         }
 
         // Check that there's actually something to send
@@ -369,8 +359,10 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 
             // Reset out string buffer to zero and clear the edit text field
             mOutStringBuffer.setLength(0);
-            mOutEditText.setText(mOutStringBuffer);
+            return 1;
         }
+        
+        return 2;
     }
     private void ensureDiscoverable() {
         if(D) Log.d(TAG, "ensure discoverable");
@@ -421,7 +413,15 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         mChatService.connect(device, secure);
     }
     
-    // Swipe class
+    public TextView.OnEditorActionListener getmWriteListener() {
+		return mWriteListener;
+	}
+    
+    public ArrayAdapter<String> getmConversationArrayAdapter() {
+		return mConversationArrayAdapter;
+	}
+    
+    // Fragment Pager Adapter sets several fragments as view contents for the view pager.
     
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to one of the primary
@@ -432,13 +432,40 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
+        
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = new SectionFragment();
-            Bundle args = new Bundle();
-            args.putInt(SectionFragment.ARG_SECTION_NUMBER, i + 1);
-            fragment.setArguments(args);
-            return fragment;
+        	Bundle args;
+        	 switch (i) {
+             case 0: 
+            	 ConsoleFragment cFragment = new ConsoleFragment();
+                 args = new Bundle();
+                 args.putInt(cFragment.ARG_SECTION_NUMBER, i + 1);
+                 args.putString(cFragment.ARG_FRAGMENT_NAME, "Console");
+                 cFragment.setArguments(args);
+                 return cFragment;
+             case 1:
+            	 PidFragment pidFragment = new PidFragment();
+            	 args = new Bundle();
+            	 args.putInt(pidFragment.ARG_SECTION_NUMBER, i + 1);
+                 args.putString(pidFragment.ARG_FRAGMENT_NAME, "Console");
+                 pidFragment.setArguments(args);
+                 return pidFragment;
+             case 2:
+            	 JoystickFragment jFragment = new JoystickFragment();
+                 args = new Bundle();
+                 args.putInt(jFragment.ARG_SECTION_NUMBER, i + 1);
+                 args.putString(jFragment.ARG_FRAGMENT_NAME, "Console");
+                 jFragment.setArguments(args);
+                 return jFragment;
+             default:
+            	 ConsoleFragment dummy = new ConsoleFragment();
+                 args = new Bundle();
+                 args.putInt(dummy.ARG_SECTION_NUMBER, i + 1);
+                 args.putString(dummy.ARG_FRAGMENT_NAME, "Console");
+                 dummy.setArguments(args);
+                 return dummy;
+        	}  
         }
 
         @Override
@@ -455,128 +482,5 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             }
             return null;
         }
-        
-        
-    }
-    
-    // Fragment classes
-    
-    public static class SectionFragment extends Fragment {
-        public SectionFragment() {
-        }
-
-        public static final String ARG_SECTION_NUMBER = "section_number";
-        
-        
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            	
-            	// In this method we will define the different tabs and its content as if they were different activities
-                Bundle args = getArguments();
-                final BluetoothChat bActivity = ((BluetoothChat)getActivity());
-                
-                View v;
-                
-                switch  (args.getInt(ARG_SECTION_NUMBER)) {
-                case 1: 
-                	 v = inflater.inflate(R.layout.main, container, false);
-                	 
-                     // Initialize the compose field with a listener for the return key
-                     bActivity.mOutEditText = (EditText) v.findViewById(R.id.edit_text_out);
-                     bActivity.mOutEditText.setOnEditorActionListener(bActivity.mWriteListener);
-
-                     // Initialize the send button with a listener that for click events
-                     bActivity.mSendButton = (Button) v.findViewById(R.id.button_send);
-                     bActivity.mSendButton.setOnClickListener(new OnClickListener() {
-                         public void onClick(View v) {
-                             // Send a message using content of the edit text widget
-                             TextView view = (TextView) v.findViewById(R.id.edit_text_out);
-                    
-                             String message = bActivity.mOutEditText.getText().toString();
-                             bActivity.sendMessage(message);
-                         }
-                     });
-                     
-                     // Initialize the conversation view
-                     bActivity.mConversationView = (ListView) v.findViewById(R.id.in);
-                     bActivity.mConversationView.setAdapter(bActivity.mConversationArrayAdapter);
-                	return v;
-                case 2: 
-                	
-                	v = inflater.inflate(R.layout.pid_conf, container, false);
-                	Button button1 = (Button) v.findViewById(R.id.button1);
-                	button1.setOnClickListener(new OnClickListener() {    
-                        @Override
-                        public void onClick(View v) {
-                            Activity activity = getActivity(); 
-                            if (activity != null) {
-                                Toast.makeText(activity, "Botton Pushed", Toast.LENGTH_SHORT).show();
-                                bActivity.sendMessage("testing");
-                            }
-                        }
-                    });
-                	return v;
-                case 3: 
-                	
-                	v = inflater.inflate(R.layout.dualjoystick, container, false);
-                	final TextView txtX1, txtY1;
-                    final TextView txtX2, txtY2;
-                    DualJoystickView joystick; 
-                	txtX1 = (TextView) v.findViewById(R.id.TextViewX1);
-                    txtY1 = (TextView) v.findViewById(R.id.TextViewY1);
-                    
-                            txtX2 = (TextView) v.findViewById(R.id.TextViewX2);
-                    txtY2 = (TextView) v.findViewById(R.id.TextViewY2);
-
-                    joystick = (DualJoystickView) v.findViewById(R.id.dualjoystickView);
-                    
-                    JoystickMovedListener _listenerLeft = new JoystickMovedListener() {
-
-                        @Override
-                        public void OnMoved(int pan, int tilt) {
-                                txtX1.setText(Integer.toString(pan));
-                                txtY1.setText(Integer.toString(tilt));
-                        }
-
-                        @Override
-                        public void OnReleased() {
-                                txtX1.setText("released");
-                                txtY1.setText("released");
-                        }
-                        
-                        public void OnReturnedToCenter() {
-                                txtX1.setText("stopped");
-                                txtY1.setText("stopped");
-                        };
-                }; 
-                
-                JoystickMovedListener _listenerRight = new JoystickMovedListener() {
-
-                    @Override
-                    public void OnMoved(int pan, int tilt) {
-                            txtX2.setText(Integer.toString(pan));
-                            txtY2.setText(Integer.toString(tilt));
-                    }
-
-                    @Override
-                    public void OnReleased() {
-                            txtX2.setText("released");
-                            txtY2.setText("released");
-                    }
-                    
-                    public void OnReturnedToCenter() {
-                            txtX2.setText("stopped");
-                            txtY2.setText("stopped");
-                    };
-            }; 
-                    
-                    joystick.setOnJostickMovedListener(_listenerLeft, _listenerRight);
-                	return v;
-                default: 
-                	v = inflater.inflate(R.layout.main, container, false);
-                	return  v;
-                }
-            }  
     }
 }

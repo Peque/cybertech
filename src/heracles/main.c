@@ -73,7 +73,7 @@ int parse_command(char *buffer)
 			if (sscanf(p_buffer, "%d,%d", &speed_left, &speed_right) != 2) return 1;
 			else set_speed(speed_left, speed_right);
 		} else return 1;
-	} else return 1;
+	}
 
 	return 0;
 }

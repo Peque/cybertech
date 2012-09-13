@@ -4,7 +4,7 @@
   android:layout_height="wrap_content">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
    <!--  <TextView
@@ -16,10 +16,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge" /> -->
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_P_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Medium Text"
+        android:text="Kp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
  
@@ -27,139 +27,124 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20px" >
+        android:paddingTop="20dp" >
 
         <EditText
-            android:id="@+id/pMin"
+            android:id="@+id/pEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:text="0" />
 
         <TextView
-            android:id="@+id/TextView02"
+            android:id="@+id/TextView_P"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Medium Text"
+            android:layout_weight="3"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/pMax"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal" />
 
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/SeekBar01"
+        android:id="@+id/SeekBar_P"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5px" />
+        android:paddingTop="5dp"
+        android:max="17"
+        android:progress="9" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textView_I_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10px"
-        android:text="Medium Text"
+        android:paddingTop="10dp"
+        android:text="Ki"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20px" >
+        android:paddingTop="20dp" >
 
         <EditText
-            android:id="@+id/dMin"
+            android:id="@+id/iEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal" 
+            android:text="0" />
 
         <TextView
-            android:id="@+id/TextView01"
+            android:id="@+id/TextView_I"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Medium Text"
+            android:layout_weight="2"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/dMax"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal" />
 
     </LinearLayout>
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/SeekBar_I"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5px" />
-
+        android:paddingTop="5dp"
+        android:max="17"
+        android:progress="9"  />
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_D_Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10px"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
+        android:paddingTop="10dp"
+        android:text="Kd"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="20px" >
+        android:paddingTop="20dp" >
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/dEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="numberDecimal" >
-
-            <requestFocus />
+            android:inputType="numberDecimal"
+            android:layout_weight="1"
+            android:text="0"  >			
         </EditText>
-
+
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/TextView_D"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Medium Text"
+            android:layout_weight="2"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="numberDecimal" />
     </LinearLayout>
-
+
     <SeekBar
-        android:id="@+id/seekBar1"
+        android:id="@+id/SeekBar_D"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="5px" />
-
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:max="17"
+        android:progress="9"  />
+
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_weight="0"
+        android:paddingTop="10dp"
         android:text="Apply" />
 
-</LinearLayout>
+	</LinearLayout>
 </ScrollView>

@@ -51,27 +51,27 @@ public class JoystickFragment extends Fragment {
                     txtX1.setText("stopped");
                     txtY1.setText("stopped");
             };
-    }; 
-    
-    JoystickMovedListener _listenerRight = new JoystickMovedListener() {
+        }; 
 
-        @Override
-        public void OnMoved(int pan, int tilt) {
-                txtX2.setText(Integer.toString(pan));
-                txtY2.setText(Integer.toString(tilt));
-        }
-
-        @Override
-        public void OnReleased() {
-                txtX2.setText("released");
-                txtY2.setText("released");
-        }
-        
-        public void OnReturnedToCenter() {
-                txtX2.setText("stopped");
-                txtY2.setText("stopped");
-        };
-}; 
+	    JoystickMovedListener _listenerRight = new JoystickMovedListener() {
+	
+	        @Override
+	        public void OnMoved(int pan, int tilt) {
+	                txtX2.setText(Integer.toString(pan));
+	                txtY2.setText(Integer.toString(tilt));
+	        }
+	
+	        @Override
+	        public void OnReleased() {
+	                txtX2.setText("released");
+	                txtY2.setText("released");
+	        }
+	        
+	        public void OnReturnedToCenter() {
+	                txtX2.setText("stopped");
+	                txtY2.setText("stopped");
+	        };
+	   }; 
         
         joystick.setOnJostickMovedListener(_listenerLeft, _listenerRight);
     	return v;

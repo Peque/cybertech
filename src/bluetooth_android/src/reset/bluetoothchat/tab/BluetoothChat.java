@@ -343,6 +343,9 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     /**
      * Sends a message.
      * @param message  A string of text to send.
+     * Will return 0 if it's not connected to target
+     * 				1 if message was sent
+     * 				2 if it is connected but there is no message to send
      */
     public int sendMessage(String message) {
         // Check that we're actually connected before trying anything

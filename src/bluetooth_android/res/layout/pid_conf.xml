@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
+            android:gravity="center"
             android:text="0" />
 
         <TextView
@@ -42,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text=""
+            android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
@@ -52,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:max="17"
+        android:max="16"
         android:progress="9" />
 
     <TextView
@@ -93,7 +94,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
-        android:max="17"
+        android:max="16"
         android:progress="9"  />
 
     <TextView
@@ -134,7 +135,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
-        android:max="17"
+        android:max="16"
         android:progress="9"  />
 
     <Button

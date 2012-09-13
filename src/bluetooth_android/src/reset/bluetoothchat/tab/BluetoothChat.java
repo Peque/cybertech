@@ -133,11 +133,9 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                       	imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), imm.HIDE_NOT_ALWAYS );
                       }
                       else mViewPager.setSwipingEnabled(true);
-              		          	
         		  }
         		}, 2000);
-            }
-               
+            } 
         });
 
         // For each of the sections in the app, add a tab to the action bar.
@@ -444,21 +442,21 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             	 ConsoleFragment cFragment = new ConsoleFragment();
                  args = new Bundle();
                  args.putInt(cFragment.ARG_SECTION_NUMBER, i + 1);
-                 args.putString(cFragment.ARG_FRAGMENT_NAME, "Console");
+                 args.putString(cFragment.ARG_FRAGMENT_NAME, "CONSOLE");
                  cFragment.setArguments(args);
                  return cFragment;
              case 1:
             	 PidFragment pidFragment = new PidFragment();
             	 args = new Bundle();
             	 args.putInt(pidFragment.ARG_SECTION_NUMBER, i + 1);
-                 args.putString(pidFragment.ARG_FRAGMENT_NAME, "Console");
+                 args.putString(pidFragment.ARG_FRAGMENT_NAME, "PID_TUNING");
                  pidFragment.setArguments(args);
                  return pidFragment;
              case 2:
             	 JoystickFragment jFragment = new JoystickFragment();
                  args = new Bundle();
                  args.putInt(jFragment.ARG_SECTION_NUMBER, i + 1);
-                 args.putString(jFragment.ARG_FRAGMENT_NAME, "Console");
+                 args.putString(jFragment.ARG_FRAGMENT_NAME, "MONITOR");
                  jFragment.setArguments(args);
                  return jFragment;
              default:

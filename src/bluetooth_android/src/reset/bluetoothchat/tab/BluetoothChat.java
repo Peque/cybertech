@@ -32,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -119,11 +120,31 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
                 
-                if (actionBar.getSelectedNavigationIndex() == JOYSTICK_TAB) 
-                	mViewPager.setSwipingEnabled(false);
-                else mViewPager.setSwipingEnabled(true);
+               
                 	
             }
+            @Override
+        	public void onPageScrolled(int position, float positionOffset,
+        			int positionOffsetPixels) {
+        		// TODO Auto-generated method stub
+        		super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+        		// If we are on Joystick Tab, hide the key board after 2000ms
+        		final Handler handler = new Handler();
+        		handler.postDelayed(new Runnable() {
+        		  @Override
+        		  public void run() {
+        		    //Do something after 2000ms
+        			  if (getActionBar().getSelectedNavigationIndex() == JOYSTICK_TAB) {
+                      	mViewPager.setSwipingEnabled(false);
+                      	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                      	imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), imm.HIDE_NOT_ALWAYS );
+                      }
+                      else mViewPager.setSwipingEnabled(true);
+              		          	
+        		  }
+        		}, 2000);
+            }
+               
         });
 
         // For each of the sections in the app, add a tab to the action bar.
@@ -218,6 +239,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     	 // When the given tab is selected, switch to the corresponding page in the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        
+
     }
 
     @Override
@@ -487,7 +510,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                         @Override
                         public void onClick(View v) {
                             Activity activity = getActivity(); 
-                            BluetoothChat bActivity = ((BluetoothChat)getActivity());
                             if (activity != null) {
                                 Toast.makeText(activity, "Botton Pushed", Toast.LENGTH_SHORT).show();
                                 bActivity.sendMessage("testing");

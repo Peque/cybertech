@@ -85,8 +85,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     private BluetoothAdapter mBluetoothAdapter = null;
     // Member object for the chat services
     private BluetoothChatService mChatService = null;
-    
-    
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,11 +109,12 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         // We can also use ActionBar.Tab#select() to do this if we have a reference to the
         // Tab.
         mViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+        	
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
-  	
             }
+            
             @Override
         	public void onPageScrolled(int position, float positionOffset,
         			int positionOffsetPixels) {
@@ -124,6 +123,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         		// If we are on Joystick Tab, hide the key board after 2000ms
         		final Handler handler = new Handler();
         		handler.postDelayed(new Runnable() {
+        			
         		  @Override
         		  public void run() {
         		    //Do something after 2000ms
@@ -365,6 +365,12 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         
         return 2;
     }
+    
+    public boolean isConnected () {
+    	if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) return false;
+    	else return true;
+    }
+    
     private void ensureDiscoverable() {
         if(D) Log.d(TAG, "ensure discoverable");
         if (mBluetoothAdapter.getScanMode() !=

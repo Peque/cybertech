@@ -18,8 +18,12 @@ import android.widget.Toast;
 public class PidFragment extends Fragment {
 	
 	private static final String TAG = "PidFragment";
+	EditText pEditText;
+	EditText iEditText;
+	EditText dEditText;
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public static final String ARG_FRAGMENT_NAME = "fragment_name";
+	public static float Kp, Ki, Kd; 
 	
 	public PidFragment() {
 		// TODO Auto-generated constructor stub
@@ -41,9 +45,9 @@ public class PidFragment extends Fragment {
     	TextView iTextIncrement = (TextView) v.findViewById(R.id.TextView_I);
     	TextView dTextIncrement = (TextView) v.findViewById(R.id.TextView_D);
     	
-    	EditText pEditText = (EditText) v.findViewById(R.id.pEditText);
-    	EditText iEditText = (EditText) v.findViewById(R.id.iEditText);
-    	EditText dEditText = (EditText) v.findViewById(R.id.dEditText);
+    	pEditText = (EditText) v.findViewById(R.id.pEditText);
+    	iEditText = (EditText) v.findViewById(R.id.iEditText);
+    	dEditText = (EditText) v.findViewById(R.id.dEditText);
     	
     	Button button1 = (Button) v.findViewById(R.id.button1);
     	
@@ -66,16 +70,19 @@ public class PidFragment extends Fragment {
 	    	seekValues [14] = 200;
 	    	seekValues [15] = 500;
 	    	seekValues [16] = 1000;
-
-    	
     	
     	button1.setOnClickListener(new OnClickListener() {    
             @Override
             public void onClick(View v) {
                 Activity activity = getActivity(); 
                 if (activity != null) {
-                    Toast.makeText(activity, "Botton Pushed", Toast.LENGTH_SHORT).show();
-                    bActivity.sendMessage("testing");
+                	if (bActivity.isConnected()) {
+	                	Toast.makeText(activity, "PID values sent", Toast.LENGTH_SHORT).show();
+	                    updateKValues();
+	                    bActivity.sendMessage(getString(R.string.set_P) + Kp + '\n' );
+	                    bActivity.sendMessage(getString(R.string.set_I) + Ki  + '\n');
+	                    bActivity.sendMessage(getString(R.string.set_D) + Kd  + '\n');     
+                	}
                 }
             }
         });
@@ -90,6 +97,13 @@ public class PidFragment extends Fragment {
     	d_SeekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(dTextIncrement, dEditText, seekValues));
 
     	return v;
+	}
+	
+	private void updateKValues() {
+		// TODO Auto-generated method stub
+		Kp = Float.valueOf(pEditText.getText().toString());
+		Ki = Float.valueOf(iEditText.getText().toString());;
+		Kd = Float.valueOf(dEditText.getText().toString());
 	}
 	
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {
@@ -128,6 +142,5 @@ public class PidFragment extends Fragment {
 			seekBar.setProgress(8);
 			incrementText.setText("");
 		}
-	}
-	
+	}	
 }

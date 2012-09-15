@@ -29,6 +29,7 @@
     <string name="secure_connect">Connect a device - Secure</string>
     <string name="insecure_connect">Connect a device - Insecure</string>
     <string name="discoverable">Make discoverable</string>
+    <string name="manual_control">Manual Control</string>
     
     <!-- PID Config -->
     <string name="line_position">Line Position</string>
@@ -36,6 +37,20 @@
     <string name="ki">Ki</string>
     <string name="kd">Kd</string>
     <string name="small_text">Small Text</string>
-    <string name="manual_control">Manual Control</string>
+    
+    <!-- Bluetooth Commands -->
+    <string name="set_P">at+set_p:</string>
+    <string name="set_I">at+set_i:</string>
+    <string name="set_D">at+set_d:</string>
+    <string name="get_P">at+get_p:</string>
+    <string name="get_I">at+get_i:</string>
+    <string name="get_D">at+get_d:</string>
+    
+    <string name="set_Left_X">at+set_L_x:</string>
+    <string name="set_Left_Y">at+set_L_y:</string>
+    <string name="set_Right_X">at+set_R_x:</string>
+    <string name="set_Right_Y">at+set_R_y:</string>
+
+    	
 
 </resources>

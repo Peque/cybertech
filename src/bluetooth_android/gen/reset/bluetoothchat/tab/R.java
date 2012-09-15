@@ -79,15 +79,18 @@ public final class R {
         public static final int bt_not_enabled_leaving=0x7f040009;
         public static final int button_scan=0x7f040013;
         public static final int discoverable=0x7f040016;
+        public static final int get_D=0x7f040022;
+        public static final int get_I=0x7f040021;
+        public static final int get_P=0x7f040020;
         public static final int hello_world=0x7f040004;
         public static final int insecure_connect=0x7f040015;
-        public static final int kd=0x7f04001a;
-        public static final int ki=0x7f040019;
-        public static final int kp=0x7f040018;
+        public static final int kd=0x7f04001b;
+        public static final int ki=0x7f04001a;
+        public static final int kp=0x7f040019;
         /**  PID Config 
          */
-        public static final int line_position=0x7f040017;
-        public static final int manual_control=0x7f04001c;
+        public static final int line_position=0x7f040018;
+        public static final int manual_control=0x7f040017;
         public static final int menu_settings=0x7f040005;
         public static final int none_found=0x7f040010;
         public static final int none_paired=0x7f04000f;
@@ -102,7 +105,16 @@ public final class R {
         /**   BluetoothChat 
          */
         public static final int send=0x7f040007;
-        public static final int small_text=0x7f04001b;
+        public static final int set_D=0x7f04001f;
+        public static final int set_I=0x7f04001e;
+        public static final int set_Left_X=0x7f040023;
+        public static final int set_Left_Y=0x7f040024;
+        /**  Bluetooth Commands 
+         */
+        public static final int set_P=0x7f04001d;
+        public static final int set_Right_X=0x7f040025;
+        public static final int set_Right_Y=0x7f040026;
+        public static final int small_text=0x7f04001c;
         public static final int title_activity_bluetooth_chat=0x7f040006;
         public static final int title_connected_to=0x7f04000b;
         public static final int title_connecting=0x7f04000a;
@@ -115,5 +127,6 @@ public final class R {
     }
     public static final class style {
         public static final int AppTheme=0x7f050000;
+        public static final int AppThemeLight=0x7f050001;
     }
 }

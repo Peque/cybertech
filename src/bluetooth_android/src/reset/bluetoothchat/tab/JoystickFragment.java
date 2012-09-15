@@ -11,6 +11,7 @@ public class JoystickFragment extends Fragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public static final String ARG_FRAGMENT_NAME = "fragment_name";
+	BluetoothChat bActivity;
 	
 	public JoystickFragment() {
 		// TODO Auto-generated constructor stub
@@ -22,13 +23,14 @@ public class JoystickFragment extends Fragment {
 		// TODO Auto-generated method stub
 		View v;
     	v = inflater.inflate(R.layout.dualjoystick, container, false);
+    	bActivity = ((BluetoothChat)getActivity());
     	final TextView txtX1, txtY1;
         final TextView txtX2, txtY2;
         DualJoystickView joystick; 
     	txtX1 = (TextView) v.findViewById(R.id.TextViewX1);
         txtY1 = (TextView) v.findViewById(R.id.TextViewY1);
         
-                txtX2 = (TextView) v.findViewById(R.id.TextViewX2);
+        txtX2 = (TextView) v.findViewById(R.id.TextViewX2);
         txtY2 = (TextView) v.findViewById(R.id.TextViewY2);
 
         joystick = (DualJoystickView) v.findViewById(R.id.dualjoystickView);
@@ -39,6 +41,8 @@ public class JoystickFragment extends Fragment {
             public void OnMoved(int pan, int tilt) {
                     txtX1.setText(Integer.toString(pan));
                     txtY1.setText(Integer.toString(tilt));
+                    bActivity.sendMessage(getString(R.string.set_Left_X) + pan + '\n');
+                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tilt + '\n');                   
             }
 
             @Override
@@ -59,6 +63,8 @@ public class JoystickFragment extends Fragment {
 	        public void OnMoved(int pan, int tilt) {
 	                txtX2.setText(Integer.toString(pan));
 	                txtY2.setText(Integer.toString(tilt));
+	                bActivity.sendMessage(getString(R.string.set_Right_X) + pan + '\n');
+                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tilt + '\n');    
 	        }
 	
 	        @Override

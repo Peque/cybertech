@@ -122,11 +122,14 @@ public class JoystickView extends View {
                 dbgPaint2.setStrokeWidth(1);
                 dbgPaint2.setStyle(Paint.Style.STROKE);
                 
+                // Joystick background color 
                 bgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 bgPaint.setColor(Color.GRAY);
                 bgPaint.setStrokeWidth(1);
                 bgPaint.setStyle(Paint.Style.FILL_AND_STROKE);
-
+                
+                
+                // Joystick handle color
                 handlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 handlePaint.setColor(Color.DKGRAY);
                 handlePaint.setStrokeWidth(1);
@@ -440,7 +443,7 @@ public class JoystickView extends View {
                 angle = Math.atan2(cartY, cartX);
                 
                 //Invert Y axis if requested
-                if ( !yAxisInverted )
+                if ( yAxisInverted )
                         cartY  *= -1;
                 
                 if ( userCoordinateSystem == COORDINATE_CARTESIAN ) {

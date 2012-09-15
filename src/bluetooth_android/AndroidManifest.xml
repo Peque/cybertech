@@ -16,7 +16,8 @@
         
         <activity
             android:name=".BluetoothChat"
-            android:label="@string/title_activity_bluetooth_chat" >
+            android:label="@string/title_activity_bluetooth_chat" 
+            android:configChanges="orientation|keyboardHidden|screenSize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

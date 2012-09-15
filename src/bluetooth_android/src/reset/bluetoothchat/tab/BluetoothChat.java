@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
@@ -258,6 +259,16 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         return false;
     }
     
+    @Override
+    	public void onConfigurationChanged(Configuration newConfig) {
+    		// TODO Auto-generated method stub
+    		super.onConfigurationChanged(newConfig);
+    		
+    		// Destroy and recreate joystick fragment
+    		mSectionsPagerAdapter.destroyItem(mViewPager, JOYSTICK_TAB, mSectionsPagerAdapter.jFragment.getJoystickFragment());
+    		mSectionsPagerAdapter.instantiateItem(mViewPager, JOYSTICK_TAB);
+    }
+    
     private void setupChat() {
         Log.d(TAG, "setupChat()");
 
@@ -435,31 +446,32 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
      * sections of the app.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    	
+        ConsoleFragment cFragment = new ConsoleFragment();
+        PidFragment pidFragment = new PidFragment();
+        JoystickFragment jFragment = new JoystickFragment();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-        
+ 
         @Override
         public Fragment getItem(int i) {
         	Bundle args;
         	 switch (i) {
-             case 0: 
-            	 ConsoleFragment cFragment = new ConsoleFragment();
+             case 0:           	 
                  args = new Bundle();
                  args.putInt(cFragment.ARG_SECTION_NUMBER, i + 1);
                  args.putString(cFragment.ARG_FRAGMENT_NAME, "CONSOLE");
                  cFragment.setArguments(args);
                  return cFragment;
-             case 1:
-            	 PidFragment pidFragment = new PidFragment();
+             case 1:  	 
             	 args = new Bundle();
             	 args.putInt(pidFragment.ARG_SECTION_NUMBER, i + 1);
                  args.putString(pidFragment.ARG_FRAGMENT_NAME, "PID_TUNING");
                  pidFragment.setArguments(args);
                  return pidFragment;
-             case 2:
-            	 JoystickFragment jFragment = new JoystickFragment();
+             case 2:          	 
                  args = new Bundle();
                  args.putInt(jFragment.ARG_SECTION_NUMBER, i + 1);
                  args.putString(jFragment.ARG_FRAGMENT_NAME, "MONITOR");

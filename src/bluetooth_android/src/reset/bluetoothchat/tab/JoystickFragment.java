@@ -1,17 +1,20 @@
 package reset.bluetoothchat.tab;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class JoystickFragment extends Fragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public static final String ARG_FRAGMENT_NAME = "fragment_name";
 	BluetoothChat bActivity;
+	
 	
 	public JoystickFragment() {
 		// TODO Auto-generated constructor stub
@@ -26,7 +29,7 @@ public class JoystickFragment extends Fragment {
     	bActivity = ((BluetoothChat)getActivity());
     	final TextView txtX1, txtY1;
         final TextView txtX2, txtY2;
-        DualJoystickView joystick; 
+    	DualJoystickView joystick;     
     	txtX1 = (TextView) v.findViewById(R.id.TextViewX1);
         txtY1 = (TextView) v.findViewById(R.id.TextViewY1);
         
@@ -41,8 +44,10 @@ public class JoystickFragment extends Fragment {
             public void OnMoved(int pan, int tilt) {
                     txtX1.setText(Integer.toString(pan));
                     txtY1.setText(Integer.toString(tilt));
-                    bActivity.sendMessage(getString(R.string.set_Left_X) + pan + '\n');
-                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tilt + '\n');                   
+                    if (bActivity.isConnected()) {
+	                    bActivity.sendMessage(getString(R.string.set_Left_X) + pan + '\n');
+	                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tilt + '\n');         
+                    }
             }
 
             @Override
@@ -63,8 +68,10 @@ public class JoystickFragment extends Fragment {
 	        public void OnMoved(int pan, int tilt) {
 	                txtX2.setText(Integer.toString(pan));
 	                txtY2.setText(Integer.toString(tilt));
-	                bActivity.sendMessage(getString(R.string.set_Right_X) + pan + '\n');
-                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tilt + '\n');    
+	                if (bActivity.isConnected()) {
+		                bActivity.sendMessage(getString(R.string.set_Right_X) + pan + '\n');
+	                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tilt + '\n');    
+	                }
 	        }
 	
 	        @Override
@@ -82,5 +89,8 @@ public class JoystickFragment extends Fragment {
         joystick.setOnJostickMovedListener(_listenerLeft, _listenerRight);
     	return v;
 	}
-
+	
+	public JoystickFragment getJoystickFragment() {
+		return this;
+	}
 }

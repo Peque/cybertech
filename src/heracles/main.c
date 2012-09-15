@@ -38,10 +38,20 @@ __attribute__((constructor)) void premain() {
 #define BUFFER_SIZE 64
 #define AT_SPEED_MAX_VALUE 10
 #define MAX_MANUAL_SPEED 0.6     // Max speed in manual mode (%)
+#define BLUETOOTH_USART USART1
+#define PING_PERIOD 200000       // Ping period in microseconds
+
+
+typedef enum { AUTO = 0, MANUAL } robot_mode;
+
+robot_mode mode;
 
 const char *dummy_str = "Hello!\n";
 char buffer[BUFFER_SIZE];
 char *p_buffer;
+
+HardwareTimer ping_timer(2);   // TODO: avoid using wirish stuff
+char waiting_for_ack = 0;
 
 
 int set_speed(int speed_left, int speed_right)
@@ -84,15 +94,34 @@ int parse_command(char *buffer)
 			int speed_right;
 			if (sscanf(p_buffer, "%d,%d", &speed_left, &speed_right) != 2) return 1;
 			else set_speed(speed_left, speed_right);
+		} else if (!strncmp(p_buffer, "uptime:", 3)) {
+			usart_putudec(BLUETOOTH_USART, systick_uptime_millis);
+			usart_putstr(BLUETOOTH_USART, "\n");
 		} else return 1;
 	}
+
+	ping_timer.refresh();   // TODO: avoid using wirish stuff
+	waiting_for_ack = 0;
 
 	return 0;
 }
 
 
+void handler_ping()
+{
+	if (waiting_for_ack) {
+		set_speed(0, 0);
+		waiting_for_ack = 0;
+	} else {
+		usart_putstr(BLUETOOTH_USART, "ping\n");
+		waiting_for_ack = 1;
+	}
+}
+
+
 void setup(void)
 {
+	// Initialize buffer pointer
 	p_buffer = (char *) buffer;
 
 	/*
@@ -124,39 +153,35 @@ void setup(void)
 	// Serial 1 initialization
 	Serial1.begin(230400);               // TODO: avoid using wirish stuff
 
+	// Stop motors
 	set_speed(0, 0);
+
+	// Set manual mode
+	mode = MANUAL;
+
+	// Ping timer
+	// TODO: avoid using wirish stuff!
+    ping_timer.pause();
+    ping_timer.setPeriod(PING_PERIOD);
+    ping_timer.setChannel1Mode(TIMER_OUTPUT_COMPARE);
+    ping_timer.setCompare(TIMER_CH1, 1);  // Interrupt 1 count after each update
+    ping_timer.attachCompare1Interrupt(handler_ping);
+    ping_timer.refresh();
+    ping_timer.resume();
 }
 
 
-void loop(void)
+void auto_mode(void)
 {
-	while (SerialUSB.available()) {      // TODO: avoid using wirish stuff, specially in loop()!
 
-		uint8 input = SerialUSB.read();  // TODO: avoid using wirish stuff, specially in loop()!
+}
 
-		switch(input) {
-			case 'a':
-				// Send "Hello!" through the bluetooth device
-				usart_putstr(USART1, dummy_str);
-				break;
-			case 'l':
-				// Toogle board's LED
-				gpio_toggle_bit(GPIOB, 1);
-				break;
-			case 't':
-				// Send the system uptime through the bluetooth device, in milliseconds
-				usart_putudec(USART1, systick_uptime_millis);
-				usart_putstr(USART1, "\n");
-				break;
-			default :
-				break;
-		}
 
-	}
+void manual_mode(void)
+{
+	while (usart_data_available(BLUETOOTH_USART)) {
 
-	while (usart_data_available(USART1)) {
-
-		uint8 c_input = usart_getc(USART1);
+		uint8 c_input = usart_getc(BLUETOOTH_USART);
 
 		*p_buffer = (char) c_input;
 		p_buffer++;
@@ -164,7 +189,7 @@ void loop(void)
 		if (c_input == (uint8) '\n') {
 			*p_buffer = '\0';
 			p_buffer = (char *) buffer;
-			if (parse_command(buffer)) usart_putstr(USART1, "Unknown command!\n");;
+			if (parse_command(buffer)) usart_putstr(BLUETOOTH_USART, "ERROR: Unknown command!\n");;
 		}
 
 	}
@@ -175,7 +200,12 @@ int main(void)
 {
 	setup();
 
-	while (1) loop();
+	while (1) {
+
+		if (mode == AUTO) auto_mode();
+		else if (mode == MANUAL) manual_mode();
+
+	}
 
 	return 0;
 }

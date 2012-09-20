@@ -39,7 +39,7 @@ __attribute__((constructor)) void premain() {
 #define AT_SPEED_MAX_VALUE 10
 #define MAX_MANUAL_SPEED 0.6     // Max speed in manual mode (%)
 #define BLUETOOTH_USART USART1
-#define PING_PERIOD 200000       // Ping period in microseconds
+#define PING_PERIOD 1000000       // Ping period in microseconds
 
 
 typedef enum { AUTO = 0, MANUAL } robot_mode;
@@ -52,6 +52,12 @@ char *p_buffer;
 
 HardwareTimer ping_timer(2);   // TODO: avoid using wirish stuff
 char waiting_for_ack = 0;
+
+// PID variables
+float kp, ki, kd;
+
+// Joystick variables (manual mode)
+int jleft_x, jleft_y, jright_x, jright_y;
 
 
 int set_speed(int speed_left, int speed_right)
@@ -80,23 +86,87 @@ int set_speed(int speed_left, int speed_right)
 	return 0;
 }
 
+int process_joysticks(int leftx, int lefty, int rightx, int righty)
+{
+	return 0;
+}
+
 int parse_command(char *buffer)
 {
 	char *p_buffer;
 
 	p_buffer = buffer;
 
-	if (!strncmp(p_buffer, "at+", 3)) {
-		p_buffer += 3;
-		if (!strncmp(p_buffer, "speed:", 3)) {
-			p_buffer += 6;
-			int speed_left;
-			int speed_right;
-			if (sscanf(p_buffer, "%d,%d", &speed_left, &speed_right) != 2) return 1;
-			else set_speed(speed_left, speed_right);
-		} else if (!strncmp(p_buffer, "uptime:", 3)) {
-			usart_putudec(BLUETOOTH_USART, systick_uptime_millis);
-			usart_putstr(BLUETOOTH_USART, "\n");
+	if (*p_buffer++ == ':') {
+		if (*p_buffer == 's') {
+			p_buffer++;
+			if (*p_buffer == 'l') {
+				p_buffer++;
+				if (*p_buffer == 'x') {
+					p_buffer++;
+					// :slx:
+					if (!sscanf(p_buffer, "%d", &jleft_x)) return 1;
+					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
+				} else if (*p_buffer == 'y') {
+					p_buffer++;
+					// :sly:
+					if (!sscanf(p_buffer, "%d", &jleft_y)) return 1;
+					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
+				} else return 1;
+			} else if (*p_buffer == 'r') {
+				p_buffer++;
+				if (*p_buffer == 'x') {
+					p_buffer++;
+					// :srx:
+					if (!sscanf(p_buffer, "%d", &jright_x)) return 1;
+					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
+				} else if (*p_buffer == 'y') {
+					p_buffer++;
+					// :sry:
+					if (!sscanf(p_buffer, "%d", &jright_y)) return 1;
+					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
+				} else return 1;
+			} else if (*p_buffer == 'p') {
+				p_buffer++;
+				if (*p_buffer == 'i') {
+					// :spid:
+					p_buffer += 3;
+					if (sscanf(p_buffer, "%f,%f,%f", &kp, &ki, &kd) != 3) return 1;
+				} else if (*p_buffer == ':') {
+					// :sp;
+					p_buffer++;
+					if (!sscanf(p_buffer, "%f", &kp)) return 1;
+				}
+			} else if (*p_buffer == 'i') {
+				// :si:
+				p_buffer++;
+				if (!sscanf(p_buffer, "%f", &ki)) return 1;
+			} else if (*p_buffer == 'd') {
+				// :sd:
+				p_buffer++;
+				if (!sscanf(p_buffer, "%f", &kd)) return 1;
+			} else return 1;
+		} else if (*p_buffer == 'g') {
+			p_buffer++;
+			if (*p_buffer == 'p') {
+				// :gpid:
+				char float2str_buf[15];
+				usart_putstr(BLUETOOTH_USART, "PID:");
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				snprintf(float2str_buf, 15, "%e", kp);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, ",");
+				snprintf(float2str_buf, 15, "%e", ki);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, ",");
+				snprintf(float2str_buf, 15, "%e", kd);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, "\n");
+			} else if (*p_buffer == 'u') {
+				// :gu:
+				usart_putudec(BLUETOOTH_USART, systick_uptime_millis);
+				usart_putstr(BLUETOOTH_USART, "\n");
+			} else return 1;
 		} else return 1;
 	}
 

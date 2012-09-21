@@ -36,10 +36,11 @@ __attribute__((constructor)) void premain() {
 
 
 #define BUFFER_SIZE 64
-#define AT_SPEED_MAX_VALUE 10
-#define MAX_MANUAL_SPEED 0.6     // Max speed in manual mode (%)
+#define MANUAL_SPEED_MAX_VALUE 10
 #define BLUETOOTH_USART USART1
-#define PING_PERIOD 1000000       // Ping period in microseconds
+#define PING_PERIOD 1000000          // Ping period in microseconds
+#define MAX_PWM_VALUE 65535
+#define MAX_MANUAL_PWM_VALUE 40000   // Max speed in manual mode (%)
 
 
 typedef enum { AUTO = 0, MANUAL } robot_mode;
@@ -71,23 +72,38 @@ int set_speed(int speed_left, int speed_right)
 		gpio_write_bit(GPIOB, 5, 0);
 		gpio_write_bit(GPIOB, 4, 1);
 	}
-	pwmWrite(15, (int) ((speed_left * 65535 * MAX_MANUAL_SPEED) / AT_SPEED_MAX_VALUE)); // TODO: avoid using wirish stuff!!
+	pwmWrite(15, (uint16) speed_left); // TODO: avoid using wirish stuff!!
 
 	// Set speed right
 	if (speed_right < 0) {
-		gpio_write_bit(GPIOA, 3, 1);
+		gpio_write_bit(GPIOB, 3, 1);
 		gpio_write_bit(GPIOA, 15, 0);
 		speed_right = -speed_right;
 	} else {
-		gpio_write_bit(GPIOA, 3, 0);
+		gpio_write_bit(GPIOB, 3, 0);
 		gpio_write_bit(GPIOA, 15, 1);
 	}
-	pwmWrite(16, (int) ((speed_right * 65535 * MAX_MANUAL_SPEED) / AT_SPEED_MAX_VALUE)); // TODO: avoid using wirish stuff!!
+	pwmWrite(16, (uint16) speed_right); // TODO: avoid using wirish stuff!!
 	return 0;
 }
 
 int process_joysticks(int leftx, int lefty, int rightx, int righty)
 {
+	int speed_left, speed_right;
+
+	speed_left = lefty + rightx / 3;
+	speed_right = lefty - rightx / 3;
+
+	speed_left = speed_left > MANUAL_SPEED_MAX_VALUE ? MANUAL_SPEED_MAX_VALUE : speed_left;
+	speed_left = speed_left < -MANUAL_SPEED_MAX_VALUE ? -MANUAL_SPEED_MAX_VALUE : speed_left;
+	speed_right = speed_right > MANUAL_SPEED_MAX_VALUE ? MANUAL_SPEED_MAX_VALUE : speed_right;
+	speed_right = speed_right < -MANUAL_SPEED_MAX_VALUE ? -MANUAL_SPEED_MAX_VALUE : speed_right;
+
+	speed_left = (speed_left * MAX_MANUAL_PWM_VALUE) / MANUAL_SPEED_MAX_VALUE;
+	speed_right = (speed_right * MAX_MANUAL_PWM_VALUE) / MANUAL_SPEED_MAX_VALUE;
+
+	set_speed(speed_left, speed_right);
+
 	return 0;
 }
 
@@ -103,12 +119,12 @@ int parse_command(char *buffer)
 			if (*p_buffer == 'l') {
 				p_buffer++;
 				if (*p_buffer == 'x') {
-					p_buffer++;
+					p_buffer += 2;
 					// :slx:
 					if (!sscanf(p_buffer, "%d", &jleft_x)) return 1;
 					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
 				} else if (*p_buffer == 'y') {
-					p_buffer++;
+					p_buffer += 2;
 					// :sly:
 					if (!sscanf(p_buffer, "%d", &jleft_y)) return 1;
 					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
@@ -116,12 +132,12 @@ int parse_command(char *buffer)
 			} else if (*p_buffer == 'r') {
 				p_buffer++;
 				if (*p_buffer == 'x') {
-					p_buffer++;
+					p_buffer += 2;
 					// :srx:
 					if (!sscanf(p_buffer, "%d", &jright_x)) return 1;
 					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
 				} else if (*p_buffer == 'y') {
-					p_buffer++;
+					p_buffer += 2;
 					// :sry:
 					if (!sscanf(p_buffer, "%d", &jright_y)) return 1;
 					else process_joysticks(jleft_x, jleft_y, jright_x, jright_y);
@@ -231,13 +247,13 @@ void setup(void)
 
 	// Ping timer
 	// TODO: avoid using wirish stuff!
-    ping_timer.pause();
-    ping_timer.setPeriod(PING_PERIOD);
-    ping_timer.setChannel1Mode(TIMER_OUTPUT_COMPARE);
-    ping_timer.setCompare(TIMER_CH1, 1);  // Interrupt 1 count after each update
-    ping_timer.attachCompare1Interrupt(handler_ping);
-    ping_timer.refresh();
-    ping_timer.resume();
+    //ping_timer.pause();
+    //ping_timer.setPeriod(PING_PERIOD);
+    //ping_timer.setChannel1Mode(TIMER_OUTPUT_COMPARE);
+    //ping_timer.setCompare(TIMER_CH1, 1);  // Interrupt 1 count after each update
+    //ping_timer.attachCompare1Interrupt(handler_ping);
+    //ping_timer.refresh();
+    //ping_timer.resume();
 }
 
 

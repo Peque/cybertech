@@ -11,10 +11,14 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_action_search=0x7f020000;
-        public static final int ic_launcher=0x7f020001;
-        public static final int joystick=0x7f020002;
-        public static final int joystick_bg=0x7f020003;
+        public static final int actionbar_tab_bg=0x7f020000;
+        public static final int ad_tab_selected_holo=0x7f020001;
+        public static final int ad_tab_selected_pressed_holo=0x7f020002;
+        public static final int ad_tab_unselected_holo=0x7f020003;
+        public static final int ic_action_search=0x7f020004;
+        public static final int ic_launcher=0x7f020005;
+        public static final int joystick=0x7f020006;
+        public static final int joystick_bg=0x7f020007;
     }
     public static final class id {
         public static final int Button_Start_Manual_Control=0x7f070017;
@@ -79,9 +83,10 @@ public final class R {
         public static final int bt_not_enabled_leaving=0x7f040009;
         public static final int button_scan=0x7f040013;
         public static final int discoverable=0x7f040016;
-        public static final int get_D=0x7f040022;
-        public static final int get_I=0x7f040021;
-        public static final int get_P=0x7f040020;
+        public static final int get_D=0x7f040023;
+        public static final int get_I=0x7f040022;
+        public static final int get_P=0x7f040021;
+        public static final int get_PID=0x7f040024;
         public static final int hello_world=0x7f040004;
         public static final int insecure_connect=0x7f040015;
         public static final int kd=0x7f04001b;
@@ -107,13 +112,14 @@ public final class R {
         public static final int send=0x7f040007;
         public static final int set_D=0x7f04001f;
         public static final int set_I=0x7f04001e;
-        public static final int set_Left_X=0x7f040023;
-        public static final int set_Left_Y=0x7f040024;
+        public static final int set_Left_X=0x7f040025;
+        public static final int set_Left_Y=0x7f040026;
         /**  Bluetooth Commands 
          */
         public static final int set_P=0x7f04001d;
-        public static final int set_Right_X=0x7f040025;
-        public static final int set_Right_Y=0x7f040026;
+        public static final int set_PID=0x7f040020;
+        public static final int set_Right_X=0x7f040027;
+        public static final int set_Right_Y=0x7f040028;
         public static final int small_text=0x7f04001c;
         public static final int title_activity_bluetooth_chat=0x7f040006;
         public static final int title_connected_to=0x7f04000b;
@@ -128,5 +134,9 @@ public final class R {
     public static final class style {
         public static final int AppTheme=0x7f050000;
         public static final int AppThemeLight=0x7f050001;
+        public static final int AppTheme_Connected=0x7f050002;
+        /**  style for the tabs 
+         */
+        public static final int MyActionBarTabStyle=0x7f050003;
     }
 }

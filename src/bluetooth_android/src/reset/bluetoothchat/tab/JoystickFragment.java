@@ -27,15 +27,15 @@ public class JoystickFragment extends Fragment {
 		View v;
     	v = inflater.inflate(R.layout.dualjoystick, container, false);
     	bActivity = ((BluetoothChat)getActivity());
+    	
     	final TextView txtX1, txtY1;
-        final TextView txtX2, txtY2;
-    	DualJoystickView joystick;     
+        final TextView txtX2, txtY2;    	   
     	txtX1 = (TextView) v.findViewById(R.id.TextViewX1);
-        txtY1 = (TextView) v.findViewById(R.id.TextViewY1);
-        
+        txtY1 = (TextView) v.findViewById(R.id.TextViewY1);        
         txtX2 = (TextView) v.findViewById(R.id.TextViewX2);
         txtY2 = (TextView) v.findViewById(R.id.TextViewY2);
-
+        
+        DualJoystickView joystick;  
         joystick = (DualJoystickView) v.findViewById(R.id.dualjoystickView);
         
         JoystickMovedListener _listenerLeft = new JoystickMovedListener() {

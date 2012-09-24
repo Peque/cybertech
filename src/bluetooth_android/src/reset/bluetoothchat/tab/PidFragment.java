@@ -61,7 +61,7 @@ public class PidFragment extends Fragment {
 			seekValues [5] = 90;
 			seekValues [6] = 95;
 			seekValues [7] = 99;
-			seekValues [8] = 0;
+			seekValues [8] = 100;
 	    	seekValues [9] = 101;
 	    	seekValues [10] = 105;
 	    	seekValues [11] = 110;
@@ -70,6 +70,16 @@ public class PidFragment extends Fragment {
 	    	seekValues [14] = 200;
 	    	seekValues [15] = 500;
 	    	seekValues [16] = 1000;
+	    	
+	    // Fine Tuning SeekBar Pos Values
+//	    	seekValues [9] = (float) 100.1;
+//	    	seekValues [10] = (float) 100.5;
+//	    	seekValues [11] = 101;
+//	    	seekValues [12] = 105;
+//	    	seekValues [13] = 110;
+//	    	seekValues [14] = 150;
+//	    	seekValues [15] = 200;
+//	    	seekValues [16] = 1000;
     	
     	button1.setOnClickListener(new OnClickListener() {    
             @Override
@@ -141,6 +151,12 @@ public class PidFragment extends Fragment {
 			baseText.setText(Float.toString(newValue));
 			seekBar.setProgress(8);
 			incrementText.setText("");
+			
+			final BluetoothChat bActivity = ((BluetoothChat)getActivity());
+			 updateKValues();
+             bActivity.sendMessage(getString(R.string.set_PID) + Kp + ',' + Ki + ',' + Kd +  '\n' );
+             
+			
 		}
 	}	
 }

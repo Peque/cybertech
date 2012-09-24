@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -49,7 +50,17 @@ public  class ConsoleFragment extends Fragment {
         
         // Initialize the conversation view
         mConversationView = (ListView) v.findViewById(R.id.in);
-        mConversationView.setAdapter(bActivity.getmConversationArrayAdapter());
+//        mConversationView.setAdapter(bActivity.getmConversationArrayAdapter());
+//        
+//        mConversationView.setOnLongClickListener(new OnLongClickListener() {
+//			
+//			@Override
+//			public boolean onLongClick(View v) {
+//				// TODO Auto-generated method stub
+//				bActivity.getmConversationArrayAdapter().clear();
+//				return false;
+//			}
+//		});
     	return v;
     }	
 }

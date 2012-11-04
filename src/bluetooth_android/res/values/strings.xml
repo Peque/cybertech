@@ -46,10 +46,10 @@
     <string name="get_I">at+get_i:</string>
     <string name="get_D">at+get_d:</string>
     
-    <string name="set_Left_X">at+set_L_x:</string>
-    <string name="set_Left_Y">at+set_L_y:</string>
-    <string name="set_Right_X">at+set_R_x:</string>
-    <string name="set_Right_Y">at+set_R_y:</string>
+    <string name="set_Left_X">:slx</string>
+    <string name="set_Left_Y">:sly</string>
+    <string name="set_Right_X">:srx</string>
+    <string name="set_Right_Y">:sry</string>
 
     	
 

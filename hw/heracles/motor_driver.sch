@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 08 Nov 2012 03:22:29 AM CET
+EESchema Schematic File Version 2  date Thu 08 Nov 2012 04:37:07 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,11 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:motor_drivers
+LIBS:bluetooth
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 2 2
+Sheet 3 3
 Title ""
 Date "8 nov 2012"
 Rev ""
@@ -45,11 +47,13 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	5000 3950 5000 4050
+	4450 3600 4450 3700
 Wire Wire Line
-	4050 3950 5000 3950
+	5000 4050 5000 3950
 Wire Wire Line
-	4450 3300 4050 3300
+	5000 3950 4050 3950
+Wire Wire Line
+	4050 3100 4450 3100
 Connection ~ 4450 4550
 Wire Wire Line
 	4450 3950 4450 4050
@@ -138,7 +142,9 @@ Wire Wire Line
 	4050 4550 5000 4550
 Wire Wire Line
 	5000 4550 5000 4450
-Text Label 4050 3300 0    60   ~ 0
+Wire Wire Line
+	4450 3100 4450 3200
+Text Label 4050 3100 0    60   ~ 0
 3V3
 Text Label 4050 3950 0    60   ~ 0
 VMOT
@@ -167,10 +173,10 @@ $EndComp
 $Comp
 L C C?
 U 1 1 509B1393
-P 4450 3500
-F 0 "C?" H 4500 3600 50  0000 L CNN
-F 1 "0.1uF" H 4500 3400 50  0000 L CNN
-	1    4450 3500
+P 4450 3400
+F 0 "C?" H 4500 3500 50  0000 L CNN
+F 1 "0.1uF" H 4500 3300 50  0000 L CNN
+	1    4450 3400
 	1    0    0    -1  
 $EndComp
 Text Label 6700 3150 0    60   ~ 0

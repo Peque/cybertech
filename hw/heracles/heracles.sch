@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 08 Nov 2012 03:22:29 AM CET
+EESchema Schematic File Version 2  date Thu 08 Nov 2012 04:37:07 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,11 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:motor_drivers
+LIBS:bluetooth
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 1 2
+Sheet 1 3
 Title ""
 Date "8 nov 2012"
 Rev ""
@@ -44,6 +46,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Sheet
+S 3000 2750 1300 300 
+U 509BC4E1
+F0 "Bluetooth" 60
+F1 "bluetooth.sch" 60
+F2 "UART_RXD" I L 3000 2900 60 
+F3 "UART_TXD" O R 4300 2900 60 
+$EndSheet
 $Sheet
 S 3200 3900 1000 1150
 U 509B0C31

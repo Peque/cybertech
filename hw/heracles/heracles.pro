@@ -101,3 +101,4 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=../libs/motor_drivers
+LibName32=../libs/bluetooth

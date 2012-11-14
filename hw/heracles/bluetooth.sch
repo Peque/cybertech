@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:29:47 AM CET
+EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:36:36 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -50,30 +50,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 4300 2850 0    60   Input ~ 0
-UART_RXD
-Text HLabel 4300 2750 0    60   Output ~ 0
-UART_TXD
-$Comp
-L R R?
-U 1 1 509BCECF
-P 8200 3750
-F 0 "R?" V 8280 3750 50  0000 C CNN
-F 1 "470" V 8200 3750 50  0000 C CNN
-	1    8200 3750
-	0    -1   -1   0   
-$EndComp
-$Comp
-L LED D?
-U 1 1 509BCECE
-P 8800 3750
-F 0 "D?" H 8800 3850 50  0000 C CNN
-F 1 "Pairing LED" H 8800 3650 50  0000 C CNN
-	1    8800 3750
-	1    0    0    -1  
-$EndComp
-Text Label 9400 3750 2    60   ~ 0
-GND
+Wire Wire Line
+	4100 3850 4700 3850
 Wire Wire Line
 	9000 3750 9400 3750
 Wire Wire Line
@@ -84,8 +62,6 @@ Wire Wire Line
 	7350 4100 7350 3050
 Wire Wire Line
 	7350 3050 6600 3050
-Wire Wire Line
-	3300 3850 2950 3850
 Wire Wire Line
 	1500 3750 2050 3750
 Wire Wire Line
@@ -131,23 +107,47 @@ Connection ~ 6750 4900
 Wire Wire Line
 	1500 3550 2050 3550
 Wire Wire Line
-	4300 3850 4700 3850
-Wire Wire Line
 	6600 2950 7600 2950
 Wire Wire Line
 	7600 2950 7600 3750
 Connection ~ 7600 3750
-Text Label 2950 3850 0    60   ~ 0
-3V3
+Wire Wire Line
+	3700 3850 2950 3850
 $Comp
-L SPST SW?
-U 1 1 509BCE11
-P 3800 3850
-F 0 "SW?" H 3800 3950 70  0000 C CNN
-F 1 "SPST" H 3800 3750 70  0000 C CNN
-	1    3800 3850
+L GS2 GS?
+U 1 1 50A31F90
+P 3900 3850
+F 0 "GS?" H 4000 4000 50  0000 C CNN
+F 1 "GS2" H 4000 3701 40  0000 C CNN
+	1    3900 3850
+	0    -1   -1   0   
+$EndComp
+Text HLabel 4300 2850 0    60   Input ~ 0
+UART_RXD
+Text HLabel 4300 2750 0    60   Output ~ 0
+UART_TXD
+$Comp
+L R R?
+U 1 1 509BCECF
+P 8200 3750
+F 0 "R?" V 8280 3750 50  0000 C CNN
+F 1 "470" V 8200 3750 50  0000 C CNN
+	1    8200 3750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L LED D?
+U 1 1 509BCECE
+P 8800 3750
+F 0 "D?" H 8800 3850 50  0000 C CNN
+F 1 "Pairing LED" H 8800 3650 50  0000 C CNN
+	1    8800 3750
 	1    0    0    -1  
 $EndComp
+Text Label 9400 3750 2    60   ~ 0
+GND
+Text Label 2950 3850 0    60   ~ 0
+3V3
 Text Label 2050 3750 2    60   ~ 0
 GND
 Text Label 2050 3550 2    60   ~ 0

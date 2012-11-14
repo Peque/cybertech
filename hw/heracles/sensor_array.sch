@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 14 Nov 2012 04:38:11 AM CET
+EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:23:06 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -34,6 +34,7 @@ LIBS:bluetooth
 LIBS:power_converter
 LIBS:reflective_sensor
 LIBS:74
+LIBS:microcontroller
 LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 08 Nov 2012 04:37:07 PM CET
+EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:23:06 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -31,14 +31,18 @@ LIBS:contrib
 LIBS:valves
 LIBS:motor_drivers
 LIBS:bluetooth
+LIBS:power_converter
+LIBS:reflective_sensor
+LIBS:74
+LIBS:microcontroller
 LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 3 3
+Sheet 4 4
 Title ""
-Date "8 nov 2012"
+Date "14 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""

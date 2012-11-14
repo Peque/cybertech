@@ -105,3 +105,4 @@ LibName32=../libs/bluetooth
 LibName33=../libs/power_converter
 LibName34=../libs/reflective_sensor
 LibName35=../libs/74
+LibName36=../libs/microcontroller

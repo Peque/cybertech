@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:23:06 AM CET
+EESchema Schematic File Version 2  date Wed 14 Nov 2012 05:29:47 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -50,6 +50,8 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Label 7850 4750 0    60   ~ 0
+3V3
 Wire Wire Line
 	10000 4550 9600 4550
 Wire Wire Line

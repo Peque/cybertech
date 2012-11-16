@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 14 Nov 2012 06:54:59 AM CET
+EESchema Schematic File Version 2  date Fri 16 Nov 2012 01:27:02 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -29,12 +29,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:motor_drivers
-LIBS:bluetooth
-LIBS:power_converter
-LIBS:reflective_sensor
-LIBS:74
-LIBS:microcontroller
+LIBS:reset
 LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END

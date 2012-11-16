@@ -1,6 +1,6 @@
-update=16/11/2012 12:56:41
+update=Fri 16 Nov 2012 01:03:58 PM CET
 version=1
-last_client=kicad
+last_client=pcbnew
 [cvpcb]
 version=1
 NetIExt=net
@@ -74,6 +74,8 @@ LibName33=../libs/power_converter
 LibName34=../libs/reflective_sensor
 LibName35=../libs/74
 LibName36=../libs/microcontroller
+[general]
+version=1
 [pcbnew]
 version=1
 PadDrlX=866
@@ -104,5 +106,4 @@ LibName8=led
 LibName9=dip_sockets
 LibName10=pga_sockets
 LibName11=valves
-[general]
-version=1
+LibName12=reset

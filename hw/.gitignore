@@ -2,3 +2,4 @@
 *.bck
 *.dcm
 *-cache.lib
+$*

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 16 Nov 2012 09:49:12 PM CET
+EESchema Schematic File Version 2  date sáb 17 nov 2012 02:54:12 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 6
 Title ""
-Date "16 nov 2012"
+Date "17 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -69,9 +68,6 @@ Wire Wire Line
 	7250 4650 6950 4650
 Wire Wire Line
 	7250 4450 6950 4450
-Connection ~ 7750 2550
-Wire Wire Line
-	7750 2650 7750 2550
 Wire Wire Line
 	7250 3150 8150 3150
 Wire Wire Line
@@ -221,9 +217,6 @@ Wire Wire Line
 Wire Wire Line
 	8150 2550 7250 2550
 Wire Wire Line
-	7750 3050 7750 3150
-Connection ~ 7750 3150
-Wire Wire Line
 	7250 4150 6950 4150
 Wire Wire Line
 	7250 4350 6950 4350
@@ -291,18 +284,8 @@ AR Path="/50A69ACC/50A3025B" Ref="C?"  Part="1"
 AR Path="/50A2F441/50A3025B" Ref="C?"  Part="1" 
 F 0 "C?" H 8200 2950 50  0000 L CNN
 F 1 "1uF" H 8200 2750 50  0000 L CNN
+F 2 "SM1206" H 8150 2850 60  0001 C CNN
 	1    8150 2850
-	1    0    0    -1  
-$EndComp
-$Comp
-L C C?
-U 1 1 50A30257
-P 7750 2850
-AR Path="/50A69ACC/50A30257" Ref="C?"  Part="1" 
-AR Path="/50A2F441/50A30257" Ref="C?"  Part="1" 
-F 0 "C?" H 7800 2950 50  0000 L CNN
-F 1 "0.1uF" H 7800 2750 50  0000 L CNN
-	1    7750 2850
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -411,6 +394,7 @@ AR Path="/50A69ACC/50A2F731" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F731" Ref="R?"  Part="1" 
 F 0 "R?" V 3430 5450 50  0000 C CNN
 F 1 "47k" V 3350 5450 50  0000 C CNN
+F 2 "SM0603" H 3350 5450 60  0001 C CNN
 	1    3350 5450
 	0    -1   -1   0   
 $EndComp
@@ -422,6 +406,7 @@ AR Path="/50A69ACC/50A2F730" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F730" Ref="R?"  Part="1" 
 F 0 "R?" V 3430 4550 50  0000 C CNN
 F 1 "47k" V 3350 4550 50  0000 C CNN
+F 2 "SM0603" H 3350 4550 60  0001 C CNN
 	1    3350 4550
 	0    -1   -1   0   
 $EndComp
@@ -433,6 +418,7 @@ AR Path="/50A69ACC/50A2F72F" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F72F" Ref="R?"  Part="1" 
 F 0 "R?" V 1280 4900 50  0000 C CNN
 F 1 "33" V 1200 4900 50  0000 C CNN
+F 2 "SM0603" H 1200 4900 60  0001 C CNN
 	1    1200 4900
 	1    0    0    -1  
 $EndComp
@@ -488,6 +474,7 @@ AR Path="/50A69ACC/50A2F725" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F725" Ref="R?"  Part="1" 
 F 0 "R?" V 1280 1500 50  0000 C CNN
 F 1 "33" V 1200 1500 50  0000 C CNN
+F 2 "SM0603" H 1200 1500 60  0001 C CNN
 	1    1200 1500
 	1    0    0    -1  
 $EndComp
@@ -510,6 +497,7 @@ AR Path="/50A69ACC/50A2F723" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F723" Ref="R?"  Part="1" 
 F 0 "R?" V 3430 2050 50  0000 C CNN
 F 1 "47k" V 3350 2050 50  0000 C CNN
+F 2 "SM0603" H 3350 2050 60  0001 C CNN
 	1    3350 2050
 	0    -1   -1   0   
 $EndComp
@@ -545,6 +533,7 @@ AR Path="/50A69ACC/50A2F606" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F606" Ref="R?"  Part="1" 
 F 0 "R?" V 3430 3800 50  0000 C CNN
 F 1 "47k" V 3350 3800 50  0000 C CNN
+F 2 "SM0603" H 3350 3800 60  0001 C CNN
 	1    3350 3800
 	0    -1   -1   0   
 $EndComp
@@ -556,6 +545,7 @@ AR Path="/50A69ACC/50A2F5EE" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F5EE" Ref="R?"  Part="1" 
 F 0 "R?" V 3430 2900 50  0000 C CNN
 F 1 "47k" V 3350 2900 50  0000 C CNN
+F 2 "SM0603" H 3350 2900 60  0001 C CNN
 	1    3350 2900
 	0    -1   -1   0   
 $EndComp
@@ -567,6 +557,7 @@ AR Path="/50A69ACC/50A2F4C1" Ref="R?"  Part="1"
 AR Path="/50A2F441/50A2F4C1" Ref="R?"  Part="1" 
 F 0 "R?" V 1280 3250 50  0000 C CNN
 F 1 "33" V 1200 3250 50  0000 C CNN
+F 2 "SM0603" H 1200 3250 60  0001 C CNN
 	1    1200 3250
 	1    0    0    -1  
 $EndComp

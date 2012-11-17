@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 16 Nov 2012 09:49:12 PM CET
+EESchema Schematic File Version 2  date sáb 17 nov 2012 02:54:13 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 5 6
 Title ""
-Date "16 nov 2012"
+Date "17 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -127,6 +126,7 @@ U 1 1 509BCECF
 P 8200 3750
 F 0 "R?" V 8280 3750 50  0000 C CNN
 F 1 "470" V 8200 3750 50  0000 C CNN
+F 2 "SM0603" H 8200 3750 60  0001 C CNN
 	1    8200 3750
 	0    -1   -1   0   
 $EndComp
@@ -136,6 +136,7 @@ U 1 1 509BCECE
 P 8800 3750
 F 0 "D?" H 8800 3850 50  0000 C CNN
 F 1 "Pairing LED" H 8800 3650 50  0000 C CNN
+F 2 "SM1206" H 8800 3750 60  0001 C CNN
 	1    8800 3750
 	1    0    0    -1  
 $EndComp
@@ -161,6 +162,7 @@ U 1 1 509BCB23
 P 8800 4100
 F 0 "D?" H 8800 4200 50  0000 C CNN
 F 1 "Work mode LED" H 8800 4000 50  0000 C CNN
+F 2 "SM1206" H 8800 4100 60  0001 C CNN
 	1    8800 4100
 	1    0    0    -1  
 $EndComp
@@ -170,6 +172,7 @@ U 1 1 509BCB0A
 P 8200 4100
 F 0 "R?" V 8280 4100 50  0000 C CNN
 F 1 "470" V 8200 4100 50  0000 C CNN
+F 2 "SM0603" H 8200 4100 60  0001 C CNN
 	1    8200 4100
 	0    -1   -1   0   
 $EndComp
@@ -183,6 +186,7 @@ U 1 1 509BCA51
 P 8200 3050
 F 0 "R?" V 8280 3050 50  0000 C CNN
 F 1 "10K" V 8200 3050 50  0000 C CNN
+F 2 "SM0603" H 8200 3050 60  0001 C CNN
 	1    8200 3050
 	0    -1   -1   0   
 $EndComp

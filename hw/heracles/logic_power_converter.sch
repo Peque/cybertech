@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 16 Nov 2012 09:49:12 PM CET
+EESchema Schematic File Version 2  date sáb 17 nov 2012 02:54:13 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 6
 Title ""
-Date "16 nov 2012"
+Date "17 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -125,6 +124,7 @@ U 1 1 50A32A89
 P 7550 4050
 F 0 "C?" H 7600 4150 50  0000 L CNN
 F 1 "22uF" H 7600 3950 50  0000 L CNN
+F 2 "SMD0603" H 7550 4050 60  0001 C CNN
 	1    7550 4050
 	1    0    0    -1  
 $EndComp
@@ -134,6 +134,7 @@ U 1 1 50A32A51
 P 3650 4450
 F 0 "C?" H 3700 4550 50  0000 L CNN
 F 1 "10uF" H 3700 4350 50  0000 L CNN
+F 2 "SM0603" H 3650 4450 60  0001 C CNN
 	1    3650 4450
 	1    0    0    -1  
 $EndComp

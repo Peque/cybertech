@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 16 Nov 2012 09:49:12 PM CET
+EESchema Schematic File Version 2  date sáb 17 nov 2012 02:54:13 CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 6
 Title ""
-Date "16 nov 2012"
+Date "17 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -157,6 +156,7 @@ U 1 1 509B13AD
 P 5000 4250
 F 0 "C?" H 5050 4350 50  0000 L CNN
 F 1 "10uF , 20V" H 5050 4150 50  0000 L CNN
+F 2 "SM1206" H 5000 4250 60  0001 C CNN
 	1    5000 4250
 	1    0    0    -1  
 $EndComp
@@ -166,6 +166,7 @@ U 1 1 509B139B
 P 4450 4250
 F 0 "C?" H 4500 4350 50  0000 L CNN
 F 1 "0.1uF" H 4500 4150 50  0000 L CNN
+F 2 "SM0603" H 4450 4250 60  0001 C CNN
 	1    4450 4250
 	1    0    0    -1  
 $EndComp
@@ -175,6 +176,7 @@ U 1 1 509B1393
 P 4450 3400
 F 0 "C?" H 4500 3500 50  0000 L CNN
 F 1 "0.1uF" H 4500 3300 50  0000 L CNN
+F 2 "SM0603" H 4450 3400 60  0001 C CNN
 	1    4450 3400
 	1    0    0    -1  
 $EndComp

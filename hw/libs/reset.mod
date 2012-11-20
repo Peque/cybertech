@@ -1,11 +1,12 @@
-PCBNEW-LibModule-V1  vie 16 nov 2012 21:27:26 CET
+PCBNEW-LibModule-V1  Tue 20 Nov 2012 06:46:03 PM CET
 # encoding utf-8
 $INDEX
 Bluetooth_HC-0X
 MAPLE_MINI
 Micrometal
-TCNT2000
 NRS4018T2R2MDGJ
+QFN10
+TCNT2000
 $EndINDEX
 $MODULE MAPLE_MINI
 Po 0 0 0 15 50A63F4E 50A63B99 ~~
@@ -613,7 +614,7 @@ $MODULE TCNT2000
 Po 0 0 0 15 50A6A12F 00000000 ~~
 Li TCNT2000
 Sc 00000000
-AR 
+AR
 Op 0 0 0
 T0 -39 4803 600 600 0 120 N V 21 N "TCNT2000"
 T1 -118 3386 600 600 0 120 N V 21 N "VAL**"
@@ -677,4 +678,146 @@ Ne 0 ""
 Po 0 -787
 $EndPAD
 $EndMODULE  NRS4018T2R2MDGJ
+$MODULE QFN10
+Po 0 0 0 15 50ABC1B3 00000000 ~~
+Li QFN10
+Sc 00000000
+AR 
+Op 0 0 0
+T0 0 -1500 394 394 0 99 N V 21 N "QFN10"
+T1 0 1500 394 394 0 99 N V 21 N "VAL**"
+DS -512 0 -512 -512 150 21
+DS -512 -512 512 -512 150 21
+DS 512 -512 512 512 150 21
+DS 512 512 -512 512 150 21
+DS -512 512 -512 0 150 21
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 394 551
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 197 551
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -196 551
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -393 551
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0 551
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 197 -512
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -197 -512
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 394 -512
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po 0 -512
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" C 118 118 0 0 -900
+Dr 118 0 0
+At HOLE N 00F0FFFF
+Ne 0 ""
+Po 0 0
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" C 118 118 0 0 -900
+Dr 118 0 0
+At HOLE N 00F0FFFF
+Ne 0 ""
+Po 315 -158
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" C 118 118 0 0 -900
+Dr 118 0 0
+At HOLE N 00F0FFFF
+Ne 0 ""
+Po 315 157
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" C 118 118 0 0 -900
+Dr 118 0 0
+At HOLE N 00F0FFFF
+Ne 0 ""
+Po -315 157
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" R 472 787 0 0 -900
+Dr 0 0 0
+At SMD N 0088FFFF
+Ne 0 ""
+Po 0 -1
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "" C 118 118 0 0 -900
+Dr 118 0 0
+At HOLE N 00F0FFFF
+Ne 0 ""
+Po -315 -158
+.LocalClearance 39
+$EndPAD
+$PAD
+Sh "1" R 315 79 0 0 -900
+Dr 0 0 0
+At SMD N 00888000
+Ne 0 ""
+Po -394 -512
+.LocalClearance 39
+$EndPAD
+$EndMODULE  QFN10
 $EndLIBRARY

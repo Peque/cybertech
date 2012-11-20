@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Sat 17 Nov 2012 04:13:53 AM CET
+EESchema Schematic File Version 2  date Tue 20 Nov 2012 06:22:48 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
 Sheet 3 6
 Title ""
-Date "17 nov 2012"
+Date "20 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -140,11 +139,12 @@ F 2 "SM0603" H 3650 4450 60  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L INDUCTOR U11
+L INDUCTOR L1
 U 1 1 50A3299E
 P 4450 3600
-F 0 "U11" V 4400 3600 40  0000 C CNN
-F 1 "INDUCTOR" V 4550 3600 40  0000 C CNN
+F 0 "L1" V 4400 3600 40  0000 C CNN
+F 1 "2.2uH" V 4550 3600 40  0000 C CNN
+F 2 "NRS4018T2R2MDGJ" H 4450 3600 60  0001 C CNN
 	1    4450 3600
 	0    -1   -1   0   
 $EndComp

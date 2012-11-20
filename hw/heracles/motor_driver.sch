@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 20 Nov 2012 06:22:48 PM CET
+EESchema Schematic File Version 2  date Tue 20 Nov 2012 08:09:52 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
@@ -285,10 +286,10 @@ Text GLabel 2150 4000 0    60   UnSpc ~ 0
 Text GLabel 2150 4200 0    60   UnSpc ~ 0
 GND
 $Comp
-L TB6621FNG U23
+L TB6621FNG U6
 U 1 1 509B0C77
 P 7850 3000
-F 0 "U23" H 7400 3800 50  0000 C CNN
+F 0 "U6" H 7400 3800 50  0000 C CNN
 F 1 "TB6621FNG" H 7550 2200 50  0000 C CNN
 F 2 "SSOP24" H 7850 3000 50  0001 C CNN
 	1    7850 3000

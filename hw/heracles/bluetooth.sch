@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 20 Nov 2012 06:22:48 PM CET
+EESchema Schematic File Version 2  date Tue 20 Nov 2012 08:09:52 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
@@ -225,10 +226,10 @@ NoConn ~ 4700 3450
 NoConn ~ 4700 3350
 NoConn ~ 4700 3250
 $Comp
-L HC-0X U22
+L HC-0X U5
 U 1 1 509BC507
 P 5650 3250
-F 0 "U22" H 5050 3950 60  0000 C CNN
+F 0 "U5" H 5050 3950 60  0000 C CNN
 F 1 "HC-0X" H 6150 3950 60  0000 C CNN
 F 2 "Bluetooth_HC-0X" H 5650 3250 60  0001 C CNN
 	1    5650 3250

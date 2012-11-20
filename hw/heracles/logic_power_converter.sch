@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 20 Nov 2012 06:22:48 PM CET
+EESchema Schematic File Version 2  date Tue 20 Nov 2012 08:09:52 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
@@ -149,10 +150,10 @@ F 2 "NRS4018T2R2MDGJ" H 4450 3600 60  0001 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L TPS63031 U12
+L TPS63031 U3
 U 1 1 50A3243C
 P 5750 3700
-F 0 "U12" H 5500 4050 60  0000 C CNN
+F 0 "U3" H 5500 4050 60  0000 C CNN
 F 1 "TPS63031" H 5800 3300 60  0000 C CNN
 F 2 "QFN10" H 5750 3700 60  0001 C CNN
 	1    5750 3700

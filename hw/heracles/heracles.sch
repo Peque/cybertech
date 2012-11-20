@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Tue 20 Nov 2012 06:22:48 PM CET
+EESchema Schematic File Version 2  date Tue 20 Nov 2012 08:09:52 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
+LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
@@ -47,7 +48,7 @@ $EndDescr
 $Sheet
 S 6850 3050 1050 700 
 U 50A6F429
-F0 "Sensor array" 60
+F0 "Sensor array 0" 60
 F1 "sensor_array.sch" 60
 F2 "2A" O R 7900 3300 60 
 F3 "S0" I R 7900 3500 60 
@@ -703,7 +704,7 @@ $EndComp
 $Sheet
 S 6850 2100 1050 700 
 U 50A2F441
-F0 "Sensor array" 60
+F0 "Sensor array 1" 60
 F1 "sensor_array.sch" 60
 F2 "2A" O R 7900 2350 60 
 F3 "S0" I R 7900 2550 60 

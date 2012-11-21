@@ -1,10 +1,10 @@
-# EESchema Netlist Version 1.1 created  Wed 21 Nov 2012 02:47:31 AM CET
+# EESchema Netlist Version 1.1 created  21/11/2012 13:51:56
 (
  ( /50AC2BD2 PIN_ARRAY_1  SGND1 CONN_1 {Lib=CONN_1}
   (    1 /Sensor_array_1/GND )
  )
  ( /50AC2BCF PIN_ARRAY_1  S3V3 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/3V3 )
+  (    1 /Sensor_array_0/3V3 )
  )
  ( /50A6E83B PIN_ARRAY_1  P30 CONN_1 {Lib=CONN_1}
   (    1 /Sensor_array_1/2A )
@@ -22,7 +22,7 @@
   (    1 /Sensor_array_0/S0 )
  )
  ( /50A6E815 PIN_ARRAY_1  P34 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/S1 )
+  (    1 /Sensor_array_0/S1 )
  )
  ( /50A6E7C4 PIN_ARRAY_1  P17 CONN_1 {Lib=CONN_1}
   (    1 N-000009 )
@@ -189,54 +189,54 @@
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD350 TCNT2000  S7 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000106 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000104 )
   (    3 /Sensor_array_0/2B3 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD34E TCNT2000  S6 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000108 )
+  (    1 N-000116 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_0/2B2 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD34D TCNT2000  S5 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000109 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000117 )
   (    3 /Sensor_array_0/2B1 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD34C TCNT2000  S4 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000115 )
+  (    1 N-000106 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_0/1B4 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD34A TCNT2000  S3 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000116 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000107 )
   (    3 /Sensor_array_0/1B3 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD348 TCNT2000  S2 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000118 )
+  (    1 N-000114 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_0/1B2 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50ABD1A9 TCNT2000  S1 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000117 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000113 )
   (    3 /Sensor_array_0/1B1 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A6F429/50A3025B SM1206  C1 1uF {Lib=C}
-  (    1 /Sensor_array_1/3V3 )
+  (    1 /Sensor_array_0/3V3 )
   (    2 /Sensor_array_1/GND )
  )
  ( /50A6F429/50A2F795 TSSOP16  U2 74CBTLV3253 {Lib=74CBTLV3253}
   (    1 /Sensor_array_1/GND )
-  (    2 /Sensor_array_1/S1 )
+  (    2 /Sensor_array_0/S1 )
   (    3 /Sensor_array_0/1B4 )
   (    4 /Sensor_array_0/1B3 )
   (    5 /Sensor_array_0/1B2 )
@@ -250,55 +250,55 @@
   (   13 /Sensor_array_0/2B4 )
   (   14 /Sensor_array_0/S0 )
   (   15 /Sensor_array_1/GND )
-  (   16 /Sensor_array_1/3V3 )
+  (   16 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F734 SM0603  R8 33 {Lib=R}
-  (    1 N-000106 )
+  (    1 N-000104 )
   (    2 N-000103 )
  )
  ( /50A6F429/50A2F733 SM0603  R15 47k {Lib=R}
   (    1 /Sensor_array_0/2B3 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F732 SM0603  R16 47k {Lib=R}
   (    1 /Sensor_array_0/2B4 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F731 SM0603  R14 47k {Lib=R}
   (    1 /Sensor_array_0/2B2 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F730 SM0603  R13 47k {Lib=R}
   (    1 /Sensor_array_0/2B1 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F72F SM0603  R7 33 {Lib=R}
-  (    1 N-000109 )
-  (    2 N-000108 )
+  (    1 N-000117 )
+  (    2 N-000116 )
  )
  ( /50A6F429/50A2F725 SM0603  R5 33 {Lib=R}
-  (    1 N-000117 )
-  (    2 N-000118 )
+  (    1 N-000113 )
+  (    2 N-000114 )
  )
  ( /50A6F429/50A2F724 SM0603  R9 47k {Lib=R}
   (    1 /Sensor_array_0/1B1 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F723 SM0603  R10 47k {Lib=R}
   (    1 /Sensor_array_0/1B2 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F606 SM0603  R12 47k {Lib=R}
   (    1 /Sensor_array_0/1B4 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F5EE SM0603  R11 47k {Lib=R}
   (    1 /Sensor_array_0/1B3 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A6F429/50A2F4C1 SM0603  R6 33 {Lib=R}
-  (    1 N-000116 )
-  (    2 N-000115 )
+  (    1 N-000107 )
+  (    2 N-000106 )
  )
  ( /50A32263/50A32A89 SM0603  C3 22uF {Lib=C}
   (    1 3V3 )
@@ -325,60 +325,60 @@
   (   10 3V3 )
  )
  ( /50A2F441/50ABD352 TCNT2000  S16 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000099 )
+  (    1 N-000100 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_1/2B4 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD350 TCNT2000  S15 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000086 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000088 )
   (    3 /Sensor_array_1/2B3 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD34E TCNT2000  S14 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000091 )
+  (    1 N-000093 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_1/2B2 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD34D TCNT2000  S13 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000090 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000092 )
   (    3 /Sensor_array_1/2B1 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD34C TCNT2000  S12 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000087 )
+  (    1 N-000089 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_1/1B4 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD34A TCNT2000  S11 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000092 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000094 )
   (    3 /Sensor_array_1/1B3 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD348 TCNT2000  S10 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000088 )
+  (    1 N-000090 )
   (    2 /Sensor_array_1/GND )
   (    3 /Sensor_array_1/1B2 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50ABD1A9 TCNT2000  S9 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000089 )
+  (    1 /Sensor_array_0/3V3 )
+  (    2 N-000091 )
   (    3 /Sensor_array_1/1B1 )
   (    4 /Sensor_array_1/GND )
  )
  ( /50A2F441/50A3025B SM1206  C4 1uF {Lib=C}
-  (    1 /Sensor_array_1/3V3 )
+  (    1 /Sensor_array_0/3V3 )
   (    2 /Sensor_array_1/GND )
  )
  ( /50A2F441/50A2F795 TSSOP16  U4 74CBTLV3253 {Lib=74CBTLV3253}
   (    1 /Sensor_array_1/GND )
-  (    2 /Sensor_array_1/S1 )
+  (    2 /Sensor_array_0/S1 )
   (    3 /Sensor_array_1/1B4 )
   (    4 /Sensor_array_1/1B3 )
   (    5 /Sensor_array_1/1B2 )
@@ -392,82 +392,82 @@
   (   13 /Sensor_array_1/2B4 )
   (   14 /Sensor_array_0/S0 )
   (   15 /Sensor_array_1/GND )
-  (   16 /Sensor_array_1/3V3 )
+  (   16 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F734 SM0603  R20 33 {Lib=R}
-  (    1 N-000086 )
-  (    2 N-000099 )
+  (    1 N-000088 )
+  (    2 N-000100 )
  )
  ( /50A2F441/50A2F733 SM0603  R27 47k {Lib=R}
   (    1 /Sensor_array_1/2B3 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F732 SM0603  R28 47k {Lib=R}
   (    1 /Sensor_array_1/2B4 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F731 SM0603  R26 47k {Lib=R}
   (    1 /Sensor_array_1/2B2 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F730 SM0603  R25 47k {Lib=R}
   (    1 /Sensor_array_1/2B1 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F72F SM0603  R19 33 {Lib=R}
-  (    1 N-000090 )
-  (    2 N-000091 )
+  (    1 N-000092 )
+  (    2 N-000093 )
  )
  ( /50A2F441/50A2F725 SM0603  R17 33 {Lib=R}
-  (    1 N-000089 )
-  (    2 N-000088 )
+  (    1 N-000091 )
+  (    2 N-000090 )
  )
  ( /50A2F441/50A2F724 SM0603  R21 47k {Lib=R}
   (    1 /Sensor_array_1/1B1 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F723 SM0603  R22 47k {Lib=R}
   (    1 /Sensor_array_1/1B2 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F606 SM0603  R24 47k {Lib=R}
   (    1 /Sensor_array_1/1B4 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F5EE SM0603  R23 47k {Lib=R}
   (    1 /Sensor_array_1/1B3 )
-  (    2 /Sensor_array_1/3V3 )
+  (    2 /Sensor_array_0/3V3 )
  )
  ( /50A2F441/50A2F4C1 SM0603  R18 33 {Lib=R}
-  (    1 N-000092 )
-  (    2 N-000087 )
+  (    1 N-000094 )
+  (    2 N-000089 )
  )
  ( /509BC4E1/50A31F90 GS2  GS1 GS2 {Lib=GS2}
   (    1 3V3 )
-  (    2 N-000080 )
+  (    2 N-000057 )
  )
  ( /509BC4E1/509BCECF SM0603  R30 470 {Lib=R}
-  (    1 N-000057 )
-  (    2 N-000081 )
+  (    1 N-000058 )
+  (    2 N-000059 )
  )
  ( /509BC4E1/509BCECE SM1206  D1 Pairing_LED {Lib=LED}
-  (    1 N-000081 )
+  (    1 N-000059 )
   (    2 GND )
  )
  ( /509BC4E1/509BCB23 SM1206  D2 Work_mode_LED {Lib=LED}
-  (    1 N-000083 )
+  (    1 N-000070 )
   (    2 GND )
  )
  ( /509BC4E1/509BCB0A SM0603  R31 470 {Lib=R}
-  (    1 N-000082 )
-  (    2 N-000083 )
+  (    1 N-000069 )
+  (    2 N-000070 )
  )
  ( /509BC4E1/509BCA51 SM0603  R29 10K {Lib=R}
-  (    1 N-000084 )
+  (    1 N-000071 )
   (    2 GND )
  )
  ( /509BC4E1/509BCA1B SM1206  SW1 SW_PUSH {Lib=SW_PUSH}
-  (    1 N-000084 )
+  (    1 N-000071 )
   (    2 3V3 )
  )
  ( /509BC4E1/509BC507 Bluetooth_HC-0X  U5 HC-0X {Lib=HC-0X}
@@ -482,7 +482,7 @@
   (    9 ? )
   (   10 ? )
   (   11 ? )
-  (   12 N-000080 )
+  (   12 N-000057 )
   (   13 GND )
   (   14 ? )
   (   15 ? )
@@ -494,17 +494,17 @@
   (   21 GND )
   (   22 GND )
   (   23 ? )
-  (   24 N-000057 )
+  (   24 N-000058 )
   (   25 ? )
-  (   26 N-000084 )
+  (   26 N-000071 )
   (   27 ? )
   (   28 ? )
   (   29 ? )
   (   30 ? )
-  (   31 N-000082 )
-  (   32 N-000057 )
+  (   31 N-000069 )
+  (   32 N-000058 )
   (   33 ? )
-  (   34 N-000084 )
+  (   34 N-000071 )
  )
  ( /509B0C31/509B13AD SM1206  C7 10uF_,_20V {Lib=CP1}
   (    1 VMOT )
@@ -824,127 +824,127 @@ Net 1 "/Motor driver/AO1" "AO1"
  U6 1
  P35 1
 Net 2 "/Logic power converter/VBAT+" "VBAT+"
- P1 1
- C2 1
  U3 5
  U3 8
- R3 1
- U3 7
  U3 6
+ C2 1
+ P1 1
+ U3 7
+ R3 1
 Net 4 "GND" "GND"
- U6 4
- C5 2
+ U3 9
+ U1 22
+ R29 2
+ U5 13
  U5 22
+ U5 21
+ C5 2
  C6 2
  C7 2
- U3 9
- R29 2
- U6 3
- U1 22
- D2 2
+ C3 2
+ U6 9
+ D1 2
+ P18 2
+ K1 2
  U6 18
- U5 13
+ U6 10
  P1 2
  P2 2
- K1 2
- P18 2
- U6 10
- R4 2
- U6 9
- R2 2
- D1 2
+ D2 2
+ U6 4
  U3 3
  C2 2
- C3 2
- U5 21
+ R4 2
+ U6 3
+ R2 2
 Net 5 "/Motor driver/BO1" "BO1"
- P36 1
  U6 11
  U6 12
+ P36 1
 Net 8 "" ""
- P23 1
  U1 36
+ P23 1
 Net 9 "" ""
- P17 1
  U1 17
+ P17 1
 Net 10 "" ""
  U1 37
  P22 1
 Net 11 "" ""
- P21 1
  U1 38
+ P21 1
 Net 12 "" ""
  P20 1
  U1 39
 Net 13 "/Sensor array 1/1A" "1A"
- P29 1
  U4 7
+ P29 1
 Net 14 "/Bluetooth/UART_TXD" "UART_TXD"
- U5 1
  U1 34
+ U5 1
 Net 15 "/Motor driver/BO2" "BO2"
- U6 8
  P36 2
+ U6 8
  U6 7
 Net 16 "/Motor driver/AO2" "AO2"
- P35 2
- U6 5
  U6 6
+ U6 5
+ P35 2
 Net 17 "/Motor driver/AIN1" "AIN1"
- U1 26
  U6 21
+ U1 26
 Net 18 "/Motor driver/AIN2" "AIN2"
- U6 22
  U1 27
+ U6 22
 Net 19 "/Motor driver/BIN2" "BIN2"
- U1 29
  U6 16
+ U1 29
 Net 20 "/Motor driver/BIN1" "BIN1"
  U6 17
  U1 28
 Net 21 "" ""
- U1 1
  P3 1
+ U1 1
 Net 22 "" ""
- U1 2
  P4 1
+ U1 2
 Net 23 "" ""
- U1 3
  P5 1
+ U1 3
 Net 24 "" ""
- P6 1
  U1 4
+ P6 1
 Net 25 "" ""
  U1 5
- R2 1
  R1 2
+ R2 1
 Net 26 "" ""
- U1 7
  P7 1
+ U1 7
 Net 27 "" ""
  U1 8
  P8 1
 Net 28 "" ""
- U1 9
  P9 1
+ U1 9
 Net 29 "" ""
  P10 1
  U1 10
 Net 30 "" ""
- U1 30
  P27 1
+ U1 30
 Net 31 "" ""
- U1 40
  P19 1
+ U1 40
 Net 32 "" ""
- P11 1
  U1 11
+ P11 1
 Net 33 "" ""
  U1 31
  P26 1
 Net 34 "" ""
- U1 12
  P12 1
+ U1 12
 Net 35 "" ""
  U1 32
  P25 1
@@ -955,95 +955,95 @@ Net 37 "" ""
  P28 1
  U1 23
 Net 38 "" ""
- P24 1
  U1 33
+ P24 1
 Net 39 "" ""
- P14 1
  U1 14
+ P14 1
 Net 40 "/Motor driver/PWMA" "PWMA"
  U1 24
  U6 23
 Net 41 "" ""
- P15 1
  U1 15
+ P15 1
 Net 42 "/Motor driver/PWMB" "PWMB"
- U1 25
  U6 15
+ U1 25
 Net 43 "" ""
- P16 1
  U1 16
+ P16 1
 Net 44 "" ""
  R3 2
  R4 1
  U1 6
 Net 45 "/Sensor array 1/GND" "GND"
+ S16 4
  U4 15
  U4 8
  C4 2
  U4 1
- S13 4
- S16 2
- S9 4
- S16 4
  S15 4
  S14 2
  S14 4
+ S13 4
  S12 2
  S12 4
- S10 4
- S10 2
+ S9 4
  S11 4
+ S10 2
+ S16 2
+ S10 4
  S4 4
  S3 4
- S6 4
- U2 15
- U2 8
+ U2 1
+ C1 2
+ S4 2
+ S5 4
+ SGND1 1
  S8 2
  S8 4
- SGND1 1
- S5 4
  S2 4
  S7 4
  S6 2
  S1 4
+ S6 4
  S2 2
- S4 2
- U2 1
- C1 2
-Net 46 "/Sensor array 1/3V3" "3V3"
- R27 2
- U4 16
- R28 2
+ U2 8
+ U2 15
+Net 46 "/Sensor array 0/3V3" "3V3"
  S3 1
- S15 1
- R11 2
- R12 2
- S11 1
+ S5 1
+ R28 2
+ R14 2
  S9 1
+ R11 2
+ S11 1
+ R12 2
  R26 2
  R25 2
  R21 2
- S13 1
  R22 2
- R23 2
+ S13 1
+ R27 2
+ S15 1
  C4 1
- R10 2
- R9 2
- R13 2
  R24 2
- S5 1
- R15 2
- U2 16
+ R23 2
+ R10 2
+ U4 16
  R16 2
+ R15 2
  S7 1
  S1 1
+ R9 2
  C1 1
- R14 2
+ R13 2
  S3V3 1
+ U2 16
 Net 47 "" ""
  K1 1
- R1 1
  P2 1
+ R1 1
 Net 48 "/Sensor array 1/2A" "2A"
  P30 1
  U4 9
@@ -1060,166 +1060,166 @@ Net 51 "/Bluetooth/UART_RXD" "UART_RXD"
 Net 52 "/Sensor array 0/1A" "1A"
  P31 1
  U2 7
-Net 53 "/Sensor array 1/S1" "S1"
- U4 2
+Net 53 "/Sensor array 0/S1" "S1"
  P34 1
+ U4 2
  U2 2
-Net 54 "3V3" "3V3"
- U6 19
- SW1 2
- U6 20
- P18 1
- U1 21
- C5 1
- U3 10
- U3 1
- GS1 1
- C3 1
-Net 55 "VMOT" "VMOT"
+Net 54 "VMOT" "VMOT"
  K1 3
  C6 1
- C7 1
+ U6 13
  U6 24
  U6 14
- U6 13
+ C7 1
+Net 55 "3V3" "3V3"
+ C3 1
+ U6 20
+ U3 1
+ U3 10
+ GS1 1
+ SW1 2
+ C5 1
+ U6 19
+ U1 21
+ P18 1
 Net 57 "" ""
- R30 1
- U5 32
- U5 24
-Net 80 "" ""
  GS1 2
  U5 12
-Net 81 "" ""
- R30 2
+Net 58 "" ""
+ U5 24
+ U5 32
+ R30 1
+Net 59 "" ""
  D1 1
-Net 82 "" ""
+ R30 2
+Net 69 "" ""
  R31 1
  U5 31
-Net 83 "" ""
- R31 2
+Net 70 "" ""
  D2 1
-Net 84 "" ""
- R29 1
- U5 26
- SW1 1
+ R31 2
+Net 71 "" ""
  U5 34
-Net 85 "/Sensor array 1/1B4" "1B4"
+ SW1 1
+ U5 26
+ R29 1
+Net 85 "/Sensor array 1/1B2" "1B2"
+ S10 3
+ U4 5
+ R22 1
+Net 86 "/Sensor array 1/1B4" "1B4"
  S12 3
- R24 1
  U4 3
-Net 86 "" ""
- R20 1
- S15 2
-Net 87 "" ""
- R18 2
- S12 1
+ R24 1
+Net 87 "/Sensor array 1/1B3" "1B3"
+ R23 1
+ S11 3
+ U4 4
 Net 88 "" ""
- S10 1
- R17 2
+ S15 2
+ R20 1
 Net 89 "" ""
+ S12 1
+ R18 2
+Net 90 "" ""
+ R17 2
+ S10 1
+Net 91 "" ""
  R17 1
  S9 2
-Net 90 "" ""
- S13 2
- R19 1
-Net 91 "" ""
- R19 2
- S14 1
 Net 92 "" ""
- R18 1
+ R19 1
+ S13 2
+Net 93 "" ""
+ S14 1
+ R19 2
+Net 94 "" ""
  S11 2
-Net 93 "/Sensor array 1/1B2" "1B2"
- R22 1
- U4 5
- S10 3
-Net 94 "/Sensor array 1/1B1" "1B1"
- S9 3
- U4 6
- R21 1
+ R18 1
 Net 95 "/Sensor array 1/2B1" "2B1"
- R25 1
  U4 10
+ R25 1
  S13 3
 Net 96 "/Sensor array 1/2B2" "2B2"
- S14 3
- R26 1
  U4 11
+ R26 1
+ S14 3
 Net 97 "/Sensor array 1/2B3" "2B3"
  U4 12
- S15 3
  R27 1
+ S15 3
 Net 98 "/Sensor array 1/2B4" "2B4"
  S16 3
  U4 13
  R28 1
-Net 99 "" ""
- S16 1
+Net 99 "/Sensor array 1/1B1" "1B1"
+ R21 1
+ S9 3
+ U4 6
+Net 100 "" ""
  R20 2
-Net 100 "/Sensor array 1/1B3" "1B3"
- R23 1
- S11 3
- U4 4
+ S16 1
 Net 101 "" ""
- L1 1
  U3 4
+ L1 1
 Net 102 "" ""
- U3 2
  L1 2
+ U3 2
 Net 103 "" ""
  S8 1
  R8 2
-Net 104 "/Sensor array 0/2B1" "2B1"
- S5 3
- U2 10
- R13 1
-Net 105 "/Sensor array 0/1B2" "1B2"
- U2 5
- R10 1
- S2 3
-Net 106 "" ""
- R8 1
+Net 104 "" ""
  S7 2
-Net 107 "/Sensor array 0/2B3" "2B3"
+ R8 1
+Net 105 "/Sensor array 0/1B4" "1B4"
+ U2 3
+ R12 1
+ S4 3
+Net 106 "" ""
+ S4 1
+ R6 2
+Net 107 "" ""
+ R6 1
+ S3 2
+Net 108 "/Sensor array 0/2B3" "2B3"
  R15 1
  S7 3
  U2 12
-Net 108 "" ""
- S6 1
- R7 2
-Net 109 "" ""
- R7 1
- S5 2
-Net 110 "/Sensor array 0/1B1" "1B1"
- S1 3
- U2 6
- R9 1
-Net 111 "/Sensor array 0/2B2" "2B2"
- S6 3
+Net 109 "/Sensor array 0/2B2" "2B2"
  U2 11
  R14 1
-Net 112 "/Sensor array 0/1B3" "1B3"
- S3 3
- R11 1
- U2 4
-Net 113 "/Sensor array 0/2B4" "2B4"
+ S6 3
+Net 110 "/Sensor array 0/2B1" "2B1"
+ R13 1
+ U2 10
+ S5 3
+Net 111 "/Sensor array 0/2B4" "2B4"
  R16 1
  S8 3
  U2 13
-Net 114 "/Sensor array 0/1B4" "1B4"
- R12 1
- U2 3
- S4 3
-Net 115 "" ""
- R6 2
- S4 1
-Net 116 "" ""
- S3 2
- R6 1
-Net 117 "" ""
- S1 2
+Net 112 "/Sensor array 0/1B1" "1B1"
+ R9 1
+ U2 6
+ S1 3
+Net 113 "" ""
  R5 1
-Net 118 "" ""
- R5 2
+ S1 2
+Net 114 "" ""
  S2 1
+ R5 2
+Net 115 "/Sensor array 0/1B3" "1B3"
+ R11 1
+ S3 3
+ U2 4
+Net 116 "" ""
+ S6 1
+ R7 2
+Net 117 "" ""
+ S5 2
+ R7 1
+Net 118 "/Sensor array 0/1B2" "1B2"
+ S2 3
+ U2 5
+ R10 1
 }
 #End

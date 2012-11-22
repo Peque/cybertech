@@ -1,0 +1,636 @@
+# EESchema Netlist Version 1.1 created  Thu 22 Nov 2012 04:06:05 AM CET
+(
+ ( /50AD77AE PIN_ARRAY_1  3V1 CONN_1 {Lib=CONN_1}
+  (    1 VCC )
+ )
+ ( /50AD77AD PIN_ARRAY_1  GND1 CONN_1 {Lib=CONN_1}
+  (    1 GND )
+ )
+ ( /50AD775F PIN_ARRAY_1  4A1 CONN_1 {Lib=CONN_1}
+  (    1 /4A )
+ )
+ ( /50AD775E PIN_ARRAY_1  3A1 CONN_1 {Lib=CONN_1}
+  (    1 /3A )
+ )
+ ( /50AD775D PIN_ARRAY_1  2A1 CONN_1 {Lib=CONN_1}
+  (    1 /2A )
+ )
+ ( /50AD7759 PIN_ARRAY_1  1A1 CONN_1 {Lib=CONN_1}
+  (    1 /1A )
+ )
+ ( /50AD74BF SM0603  C2 1uF {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /50AD72D6 TSSOP16  U2 74CBTLV3253 {Lib=74CBTLV3253}
+  (    1 GND )
+  (    2 /S1 )
+  (    3 /3B4 )
+  (    4 /3B3 )
+  (    5 /3B2 )
+  (    6 /3B1 )
+  (    7 /3A )
+  (    8 GND )
+  (    9 /4A )
+  (   10 /4B1 )
+  (   11 /4B2 )
+  (   12 /4B3 )
+  (   13 /4B4 )
+  (   14 /S0 )
+  (   15 GND )
+  (   16 VCC )
+ )
+ ( /50AD7266 SM0603  R14 33 {Lib=R}
+  (    1 N-000001 )
+  (    2 N-000013 )
+ )
+ ( /50AD7265 SM0603  R19 47k {Lib=R}
+  (    1 /3B3 )
+  (    2 VCC )
+ )
+ ( /50AD7264 SM0603  R20 47k {Lib=R}
+  (    1 /3B4 )
+  (    2 VCC )
+ )
+ ( /50AD7263 SM0603  R18 47k {Lib=R}
+  (    1 /3B2 )
+  (    2 VCC )
+ )
+ ( /50AD7262 SM0603  R17 47k {Lib=R}
+  (    1 /3B1 )
+  (    2 VCC )
+ )
+ ( /50AD7261 SM0603  R13 33 {Lib=R}
+  (    1 N-000002 )
+  (    2 N-000016 )
+ )
+ ( /50AD7260 SM0603  R15 33 {Lib=R}
+  (    1 N-000012 )
+  (    2 N-000011 )
+ )
+ ( /50AD725F SM0603  R21 47k {Lib=R}
+  (    1 /4B1 )
+  (    2 VCC )
+ )
+ ( /50AD725E SM0603  R22 47k {Lib=R}
+  (    1 /4B2 )
+  (    2 VCC )
+ )
+ ( /50AD725D SM0603  R24 47k {Lib=R}
+  (    1 /4B4 )
+  (    2 VCC )
+ )
+ ( /50AD725C SM0603  R23 47k {Lib=R}
+  (    1 /4B3 )
+  (    2 VCC )
+ )
+ ( /50AD725B SM0603  R16 33 {Lib=R}
+  (    1 N-000007 )
+  (    2 N-000006 )
+ )
+ ( /50AD725A TCNT2000  S9 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000002 )
+  (    3 /3B1 )
+  (    4 GND )
+ )
+ ( /50AD7259 TCNT2000  S10 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000016 )
+  (    2 GND )
+  (    3 /3B2 )
+  (    4 GND )
+ )
+ ( /50AD7258 TCNT2000  S11 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000001 )
+  (    3 /3B3 )
+  (    4 GND )
+ )
+ ( /50AD7257 TCNT2000  S12 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000013 )
+  (    2 GND )
+  (    3 /3B4 )
+  (    4 GND )
+ )
+ ( /50AD7256 TCNT2000  S13 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000012 )
+  (    3 /4B1 )
+  (    4 GND )
+ )
+ ( /50AD7255 TCNT2000  S14 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000011 )
+  (    2 GND )
+  (    3 /4B2 )
+  (    4 GND )
+ )
+ ( /50AD7254 TCNT2000  S15 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000007 )
+  (    3 /4B3 )
+  (    4 GND )
+ )
+ ( /50AD7253 TCNT2000  S16 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000006 )
+  (    2 GND )
+  (    3 /4B4 )
+  (    4 GND )
+ )
+ ( /50ABD352 TCNT2000  S8 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000009 )
+  (    2 GND )
+  (    3 /2B4 )
+  (    4 GND )
+ )
+ ( /50ABD350 TCNT2000  S7 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000026 )
+  (    3 /2B3 )
+  (    4 GND )
+ )
+ ( /50ABD34E TCNT2000  S6 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000020 )
+  (    2 GND )
+  (    3 /2B2 )
+  (    4 GND )
+ )
+ ( /50ABD34D TCNT2000  S5 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000021 )
+  (    3 /2B1 )
+  (    4 GND )
+ )
+ ( /50ABD34C TCNT2000  S4 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000018 )
+  (    2 GND )
+  (    3 /1B4 )
+  (    4 GND )
+ )
+ ( /50ABD34A TCNT2000  S3 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000024 )
+  (    3 /1B3 )
+  (    4 GND )
+ )
+ ( /50ABD348 TCNT2000  S2 TCNT2000 {Lib=TCNT2000}
+  (    1 N-000023 )
+  (    2 GND )
+  (    3 /1B2 )
+  (    4 GND )
+ )
+ ( /50ABD1A9 TCNT2000  S1 TCNT2000 {Lib=TCNT2000}
+  (    1 VCC )
+  (    2 N-000022 )
+  (    3 /1B1 )
+  (    4 GND )
+ )
+ ( /50A3025B SM0603  C1 1uF {Lib=C}
+  (    1 VCC )
+  (    2 GND )
+ )
+ ( /50A2F795 TSSOP16  U1 74CBTLV3253 {Lib=74CBTLV3253}
+  (    1 GND )
+  (    2 /S1 )
+  (    3 /1B4 )
+  (    4 /1B3 )
+  (    5 /1B2 )
+  (    6 /1B1 )
+  (    7 /1A )
+  (    8 GND )
+  (    9 /2A )
+  (   10 /2B1 )
+  (   11 /2B2 )
+  (   12 /2B3 )
+  (   13 /2B4 )
+  (   14 /S0 )
+  (   15 GND )
+  (   16 VCC )
+ )
+ ( /50A2F734 SM0603  R4 33 {Lib=R}
+  (    1 N-000026 )
+  (    2 N-000009 )
+ )
+ ( /50A2F733 SM0603  R11 47k {Lib=R}
+  (    1 /2B3 )
+  (    2 VCC )
+ )
+ ( /50A2F732 SM0603  R12 47k {Lib=R}
+  (    1 /2B4 )
+  (    2 VCC )
+ )
+ ( /50A2F731 SM0603  R10 47k {Lib=R}
+  (    1 /2B2 )
+  (    2 VCC )
+ )
+ ( /50A2F730 SM0603  R9 47k {Lib=R}
+  (    1 /2B1 )
+  (    2 VCC )
+ )
+ ( /50A2F72F SM0603  R3 33 {Lib=R}
+  (    1 N-000021 )
+  (    2 N-000020 )
+ )
+ ( /50A2F725 SM0603  R1 33 {Lib=R}
+  (    1 N-000022 )
+  (    2 N-000023 )
+ )
+ ( /50A2F724 SM0603  R5 47k {Lib=R}
+  (    1 /1B1 )
+  (    2 VCC )
+ )
+ ( /50A2F723 SM0603  R6 47k {Lib=R}
+  (    1 /1B2 )
+  (    2 VCC )
+ )
+ ( /50A2F606 SM0603  R8 47k {Lib=R}
+  (    1 /1B4 )
+  (    2 VCC )
+ )
+ ( /50A2F5EE SM0603  R7 47k {Lib=R}
+  (    1 /1B3 )
+  (    2 VCC )
+ )
+ ( /50A2F4C1 SM0603  R2 33 {Lib=R}
+  (    1 N-000024 )
+  (    2 N-000018 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component R14
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R19
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R20
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R18
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R17
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R13
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R15
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R21
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R22
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R24
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R23
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R16
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R12
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}
+{ Pin List by Nets
+Net 1 "" ""
+ S11 2
+ R14 1
+Net 2 "" ""
+ R13 1
+ S9 2
+Net 3 "/4B3" "4B3"
+ R23 1
+ S15 3
+ U2 12
+Net 4 "/4B1" "4B1"
+ U2 10
+ S13 3
+ R21 1
+Net 5 "/3B3" "3B3"
+ U2 4
+ R19 1
+ S11 3
+Net 6 "" ""
+ S16 1
+ R16 2
+Net 7 "" ""
+ S15 2
+ R16 1
+Net 8 "VCC" "VCC"
+ R12 2
+ R10 2
+ R11 2
+ U1 16
+ R7 2
+ R8 2
+ R5 2
+ C2 1
+ R9 2
+ S1 1
+ S3 1
+ S5 1
+ R6 2
+ S7 1
+ C1 1
+ 3V1 1
+ R20 2
+ R22 2
+ U2 16
+ R19 2
+ S13 1
+ S15 1
+ R24 2
+ R23 2
+ S9 1
+ S11 1
+ R17 2
+ R21 2
+ R18 2
+Net 9 "" ""
+ R4 2
+ S8 1
+Net 10 "GND" "GND"
+ S8 2
+ U2 8
+ S16 4
+ C1 2
+ U1 1
+ S16 2
+ S15 4
+ S14 4
+ S10 4
+ S10 2
+ S9 4
+ S7 4
+ U2 15
+ GND1 1
+ S8 4
+ U1 8
+ U1 15
+ S6 2
+ S14 2
+ S6 4
+ S13 4
+ S5 4
+ S4 4
+ S12 4
+ C2 2
+ S12 2
+ S2 2
+ U2 1
+ S2 4
+ S3 4
+ S11 4
+ S4 2
+ S1 4
+Net 11 "" ""
+ R15 2
+ S14 1
+Net 12 "" ""
+ S13 2
+ R15 1
+Net 13 "" ""
+ R14 2
+ S12 1
+Net 14 "/S0" "S0"
+ U1 14
+ U2 14
+Net 15 "/4A" "4A"
+ 4A1 1
+ U2 9
+Net 16 "" ""
+ S10 1
+ R13 2
+Net 17 "/2A" "2A"
+ U1 9
+ 2A1 1
+Net 18 "" ""
+ R2 2
+ S4 1
+Net 19 "/1A" "1A"
+ U1 7
+ 1A1 1
+Net 20 "" ""
+ S6 1
+ R3 2
+Net 21 "" ""
+ S5 2
+ R3 1
+Net 22 "" ""
+ R1 1
+ S1 2
+Net 23 "" ""
+ S2 1
+ R1 2
+Net 24 "" ""
+ R2 1
+ S3 2
+Net 25 "/2B4" "2B4"
+ R12 1
+ S8 3
+ U1 13
+Net 26 "" ""
+ R4 1
+ S7 2
+Net 27 "/2B2" "2B2"
+ S6 3
+ U1 11
+ R10 1
+Net 28 "/S1" "S1"
+ U1 2
+ U2 2
+Net 29 "/1B1" "1B1"
+ U1 6
+ R5 1
+ S1 3
+Net 30 "/2B3" "2B3"
+ S7 3
+ R11 1
+ U1 12
+Net 31 "/2B1" "2B1"
+ R9 1
+ U1 10
+ S5 3
+Net 32 "/4B4" "4B4"
+ U2 13
+ S16 3
+ R24 1
+Net 33 "/1B4" "1B4"
+ R8 1
+ U1 3
+ S4 3
+Net 34 "/1B2" "1B2"
+ R6 1
+ U1 5
+ S2 3
+Net 35 "/1B3" "1B3"
+ S3 3
+ U1 4
+ R7 1
+Net 36 "/3A" "3A"
+ 3A1 1
+ U2 7
+Net 37 "/3B2" "3B2"
+ U2 5
+ R18 1
+ S10 3
+Net 38 "/4B2" "4B2"
+ S14 3
+ U2 11
+ R22 1
+Net 39 "/3B4" "3B4"
+ S12 3
+ U2 3
+ R20 1
+Net 40 "/3B1" "3B1"
+ R17 1
+ S9 3
+ U2 6
+}
+#End

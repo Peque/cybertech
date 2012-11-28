@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 21 Nov 2012 02:47:28 AM CET
+EESchema Schematic File Version 2  date Wed 28 Nov 2012 05:42:03 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,9 +35,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 6 6
+Sheet 6 4
 Title ""
-Date "21 nov 2012"
+Date "28 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -45,6 +45,29 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	7050 2450 6650 2450
+Wire Wire Line
+	6650 2450 6650 2550
+Wire Wire Line
+	6650 2550 7050 2550
+Wire Wire Line
+	7050 2850 6650 2850
+Wire Wire Line
+	6650 2850 6650 2950
+Wire Wire Line
+	6650 2950 7050 2950
+Wire Wire Line
+	7050 3550 6650 3550
+Wire Wire Line
+	6650 3550 6650 3450
+Wire Wire Line
+	6650 3450 7050 3450
+Connection ~ 9200 3450
+Wire Wire Line
+	8650 3550 9200 3550
+Wire Wire Line
+	9200 3550 9200 2450
 Wire Wire Line
 	4450 3600 4450 3700
 Wire Wire Line
@@ -67,8 +90,6 @@ Wire Wire Line
 Wire Wire Line
 	6950 4650 7400 4650
 Wire Wire Line
-	8650 3550 9000 3550
-Wire Wire Line
 	8650 3350 9000 3350
 Wire Wire Line
 	8650 3150 9000 3150
@@ -79,37 +100,11 @@ Wire Wire Line
 Wire Wire Line
 	8650 2550 9000 2550
 Wire Wire Line
-	7050 3550 6700 3550
-Wire Wire Line
-	7050 3350 6700 3350
-Wire Wire Line
-	7050 3150 6700 3150
-Wire Wire Line
-	6700 2950 7050 2950
-Wire Wire Line
-	7050 2450 6700 2450
-Wire Wire Line
-	7050 2750 6700 2750
-Wire Wire Line
 	2150 4200 2600 4200
 Wire Wire Line
 	2150 3800 2600 3800
 Wire Wire Line
 	2150 4000 2600 4000
-Wire Wire Line
-	7050 2650 6700 2650
-Wire Wire Line
-	7050 2550 6700 2550
-Wire Wire Line
-	6700 2850 7050 2850
-Wire Wire Line
-	7050 3050 6700 3050
-Wire Wire Line
-	7050 3250 6700 3250
-Wire Wire Line
-	7050 3450 6700 3450
-Wire Wire Line
-	8650 2450 9000 2450
 Wire Wire Line
 	8650 2650 9000 2650
 Wire Wire Line
@@ -118,8 +113,6 @@ Wire Wire Line
 	8650 3050 9000 3050
 Wire Wire Line
 	8650 3250 9000 3250
-Wire Wire Line
-	8650 3450 9000 3450
 Wire Wire Line
 	6950 4450 7400 4450
 Wire Wire Line
@@ -143,6 +136,28 @@ Wire Wire Line
 	5000 4550 5000 4450
 Wire Wire Line
 	4450 3100 4450 3200
+Wire Wire Line
+	9200 2450 8650 2450
+Wire Wire Line
+	9200 3450 8650 3450
+Wire Wire Line
+	7050 3350 6650 3350
+Wire Wire Line
+	6650 3350 6650 3250
+Wire Wire Line
+	6650 3250 7050 3250
+Wire Wire Line
+	7050 3150 6650 3150
+Wire Wire Line
+	6650 3150 6650 3050
+Wire Wire Line
+	6650 3050 7050 3050
+Wire Wire Line
+	7050 2750 6650 2750
+Wire Wire Line
+	6650 2750 6650 2650
+Wire Wire Line
+	6650 2650 7050 2650
 Text Label 4050 3100 0    60   ~ 0
 3V3
 Text Label 4050 3950 0    60   ~ 0

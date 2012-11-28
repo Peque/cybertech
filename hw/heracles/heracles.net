@@ -1,135 +1,117 @@
-# EESchema Netlist Version 1.1 created  Wed 21 Nov 2012 02:47:31 AM CET
+# EESchema Netlist Version 1.1 created  Wed 28 Nov 2012 05:41:59 PM CET
 (
- ( /50AC2BD2 PIN_ARRAY_1  SGND1 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/GND )
+ ( /50B63EAA PIN_ARRAY_1  P3V3 CONN_1 {Lib=CONN_1}
+  (    1 3V3 )
  )
- ( /50AC2BCF PIN_ARRAY_1  S3V3 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/3V3 )
- )
- ( /50A6E83B PIN_ARRAY_1  P30 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/2A )
- )
- ( /50A6E83A PIN_ARRAY_1  P29 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/1A )
- )
- ( /50A6E819 PIN_ARRAY_1  P31 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_0/1A )
- )
- ( /50A6E818 PIN_ARRAY_1  P32 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_0/2A )
- )
- ( /50A6E816 PIN_ARRAY_1  P33 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_0/S0 )
- )
- ( /50A6E815 PIN_ARRAY_1  P34 CONN_1 {Lib=CONN_1}
-  (    1 /Sensor_array_1/S1 )
+ ( /50B63EA9 PIN_ARRAY_1  PGND1 CONN_1 {Lib=CONN_1}
+  (    1 GND )
  )
  ( /50A6E7C4 PIN_ARRAY_1  P17 CONN_1 {Lib=CONN_1}
-  (    1 N-000009 )
- )
- ( /50A6E7C3 PIN_ARRAY_1  P16 CONN_1 {Lib=CONN_1}
-  (    1 N-000043 )
- )
- ( /50A6E7C2 PIN_ARRAY_1  P15 CONN_1 {Lib=CONN_1}
-  (    1 N-000041 )
- )
- ( /50A6E7C0 PIN_ARRAY_1  P11 CONN_1 {Lib=CONN_1}
-  (    1 N-000032 )
- )
- ( /50A6E7BF PIN_ARRAY_1  P12 CONN_1 {Lib=CONN_1}
-  (    1 N-000034 )
- )
- ( /50A6E7BE PIN_ARRAY_1  P13 CONN_1 {Lib=CONN_1}
-  (    1 N-000036 )
- )
- ( /50A6E7BD PIN_ARRAY_1  P14 CONN_1 {Lib=CONN_1}
-  (    1 N-000039 )
- )
- ( /50A6E7B9 PIN_ARRAY_1  P10 CONN_1 {Lib=CONN_1}
-  (    1 N-000029 )
- )
- ( /50A6E7B8 PIN_ARRAY_1  P9 CONN_1 {Lib=CONN_1}
-  (    1 N-000028 )
- )
- ( /50A6E7B7 PIN_ARRAY_1  P8 CONN_1 {Lib=CONN_1}
-  (    1 N-000027 )
- )
- ( /50A6E7B6 PIN_ARRAY_1  P7 CONN_1 {Lib=CONN_1}
-  (    1 N-000026 )
- )
- ( /50A6E7A6 PIN_ARRAY_1  P3 CONN_1 {Lib=CONN_1}
-  (    1 N-000021 )
- )
- ( /50A6E7A5 PIN_ARRAY_1  P4 CONN_1 {Lib=CONN_1}
-  (    1 N-000022 )
- )
- ( /50A6E7A4 PIN_ARRAY_1  P5 CONN_1 {Lib=CONN_1}
-  (    1 N-000023 )
- )
- ( /50A6E7A3 PIN_ARRAY_1  P6 CONN_1 {Lib=CONN_1}
-  (    1 N-000024 )
- )
- ( /50A6E769 PIN_ARRAY_1  P28 CONN_1 {Lib=CONN_1}
-  (    1 N-000037 )
- )
- ( /50A6E768 PIN_ARRAY_1  P24 CONN_1 {Lib=CONN_1}
-  (    1 N-000038 )
- )
- ( /50A6E767 PIN_ARRAY_1  P25 CONN_1 {Lib=CONN_1}
-  (    1 N-000035 )
- )
- ( /50A6E766 PIN_ARRAY_1  P26 CONN_1 {Lib=CONN_1}
-  (    1 N-000033 )
- )
- ( /50A6E765 PIN_ARRAY_1  P27 CONN_1 {Lib=CONN_1}
-  (    1 N-000030 )
- )
- ( /50A6E755 PIN_ARRAY_1  P23 CONN_1 {Lib=CONN_1}
-  (    1 N-000008 )
- )
- ( /50A6E754 PIN_ARRAY_1  P22 CONN_1 {Lib=CONN_1}
-  (    1 N-000010 )
- )
- ( /50A6E753 PIN_ARRAY_1  P21 CONN_1 {Lib=CONN_1}
-  (    1 N-000011 )
- )
- ( /50A6E751 PIN_ARRAY_1  P20 CONN_1 {Lib=CONN_1}
   (    1 N-000012 )
  )
- ( /50A69D7A PIN_ARRAY_1  P19 CONN_1 {Lib=CONN_1}
+ ( /50A6E7C3 PIN_ARRAY_1  P16 CONN_1 {Lib=CONN_1}
+  (    1 N-000016 )
+ )
+ ( /50A6E7C2 PIN_ARRAY_1  P15 CONN_1 {Lib=CONN_1}
+  (    1 N-000034 )
+ )
+ ( /50A6E7C0 PIN_ARRAY_1  P11 CONN_1 {Lib=CONN_1}
+  (    1 N-000040 )
+ )
+ ( /50A6E7BF PIN_ARRAY_1  P12 CONN_1 {Lib=CONN_1}
+  (    1 N-000041 )
+ )
+ ( /50A6E7BE PIN_ARRAY_1  P13 CONN_1 {Lib=CONN_1}
+  (    1 N-000029 )
+ )
+ ( /50A6E7BD PIN_ARRAY_1  P14 CONN_1 {Lib=CONN_1}
+  (    1 N-000032 )
+ )
+ ( /50A6E7B9 PIN_ARRAY_1  P10 CONN_1 {Lib=CONN_1}
+  (    1 N-000042 )
+ )
+ ( /50A6E7B8 PIN_ARRAY_1  P9 CONN_1 {Lib=CONN_1}
+  (    1 N-000023 )
+ )
+ ( /50A6E7B7 PIN_ARRAY_1  P8 CONN_1 {Lib=CONN_1}
+  (    1 N-000043 )
+ )
+ ( /50A6E7B6 PIN_ARRAY_1  P7 CONN_1 {Lib=CONN_1}
+  (    1 N-000044 )
+ )
+ ( /50A6E7A6 PIN_ARRAY_1  P3 CONN_1 {Lib=CONN_1}
+  (    1 N-000004 )
+ )
+ ( /50A6E7A5 PIN_ARRAY_1  P4 CONN_1 {Lib=CONN_1}
+  (    1 N-000045 )
+ )
+ ( /50A6E7A4 PIN_ARRAY_1  P5 CONN_1 {Lib=CONN_1}
+  (    1 N-000027 )
+ )
+ ( /50A6E7A3 PIN_ARRAY_1  P6 CONN_1 {Lib=CONN_1}
+  (    1 N-000005 )
+ )
+ ( /50A6E769 PIN_ARRAY_1  P28 CONN_1 {Lib=CONN_1}
+  (    1 N-000030 )
+ )
+ ( /50A6E768 PIN_ARRAY_1  P24 CONN_1 {Lib=CONN_1}
   (    1 N-000031 )
+ )
+ ( /50A6E767 PIN_ARRAY_1  P25 CONN_1 {Lib=CONN_1}
+  (    1 N-000028 )
+ )
+ ( /50A6E766 PIN_ARRAY_1  P26 CONN_1 {Lib=CONN_1}
+  (    1 N-000026 )
+ )
+ ( /50A6E765 PIN_ARRAY_1  P27 CONN_1 {Lib=CONN_1}
+  (    1 N-000024 )
+ )
+ ( /50A6E755 PIN_ARRAY_1  P23 CONN_1 {Lib=CONN_1}
+  (    1 N-000011 )
+ )
+ ( /50A6E754 PIN_ARRAY_1  P22 CONN_1 {Lib=CONN_1}
+  (    1 N-000013 )
+ )
+ ( /50A6E753 PIN_ARRAY_1  P21 CONN_1 {Lib=CONN_1}
+  (    1 N-000014 )
+ )
+ ( /50A6E751 PIN_ARRAY_1  P20 CONN_1 {Lib=CONN_1}
+  (    1 N-000015 )
+ )
+ ( /50A69D7A PIN_ARRAY_1  P19 CONN_1 {Lib=CONN_1}
+  (    1 N-000025 )
  )
  ( /50A698A2 Micrometal  P35 MOTORA {Lib=CONN_2}
   (    1 /Motor_driver/AO1 )
   (    2 /Motor_driver/AO2 )
  )
  ( /50A3318F SM0603  R1 720k {Lib=R}
-  (    1 N-000047 )
-  (    2 N-000025 )
+  (    1 N-000039 )
+  (    2 N-000038 )
  )
  ( /50A3318E SM0603  R2 720k {Lib=R}
-  (    1 N-000025 )
+  (    1 N-000038 )
   (    2 GND )
  )
  ( /50A3307A SM0603  R4 720k {Lib=R}
-  (    1 N-000044 )
+  (    1 N-000037 )
   (    2 GND )
  )
  ( /50A33076 SM0603  R3 720k {Lib=R}
   (    1 /Logic_power_converter/VBAT+ )
-  (    2 N-000044 )
+  (    2 N-000037 )
  )
  ( /50A32F64 PIN_ARRAY_2X1  P18 3V3OUT {Lib=CONN_2}
   (    1 3V3 )
   (    2 GND )
  )
  ( /50A32E8E PIN_ARRAY_3X1  K1 MCONV {Lib=CONN_3}
-  (    1 N-000047 )
+  (    1 N-000039 )
   (    2 GND )
   (    3 VMOT )
  )
  ( /50A321E8 PIN_ARRAY_2X1  P2 MLIPO {Lib=CONN_2}
-  (    1 N-000047 )
+  (    1 N-000039 )
   (    2 GND )
  )
  ( /50A321DD PIN_ARRAY_2X1  P1 LLIPO {Lib=CONN_2}
@@ -141,164 +123,46 @@
   (    2 /Motor_driver/BO2 )
  )
  ( /50A31370 MAPLE_MINI  U1 MAPLE_MINI {Lib=MAPLE_MINI}
-  (    1 N-000021 )
-  (    2 N-000022 )
-  (    3 N-000023 )
-  (    4 N-000024 )
-  (    5 N-000025 )
-  (    6 N-000044 )
-  (    7 N-000026 )
-  (    8 N-000027 )
-  (    9 N-000028 )
-  (   10 N-000029 )
-  (   11 N-000032 )
-  (   12 N-000034 )
-  (   13 N-000036 )
-  (   14 N-000039 )
-  (   15 N-000041 )
-  (   16 N-000043 )
-  (   17 N-000009 )
+  (    1 N-000004 )
+  (    2 N-000045 )
+  (    3 N-000027 )
+  (    4 N-000005 )
+  (    5 N-000038 )
+  (    6 N-000037 )
+  (    7 N-000044 )
+  (    8 N-000043 )
+  (    9 N-000023 )
+  (   10 N-000042 )
+  (   11 N-000040 )
+  (   12 N-000041 )
+  (   13 N-000029 )
+  (   14 N-000032 )
+  (   15 N-000034 )
+  (   16 N-000016 )
+  (   17 N-000012 )
   (   18 ? )
   (   19 ? )
   (   20 ? )
   (   21 3V3 )
   (   22 GND )
-  (   23 N-000037 )
+  (   23 N-000030 )
   (   24 /Motor_driver/PWMA )
   (   25 /Motor_driver/PWMB )
   (   26 /Motor_driver/AIN1 )
   (   27 /Motor_driver/AIN2 )
   (   28 /Motor_driver/BIN1 )
   (   29 /Motor_driver/BIN2 )
-  (   30 N-000030 )
-  (   31 N-000033 )
-  (   32 N-000035 )
-  (   33 N-000038 )
+  (   30 N-000024 )
+  (   31 N-000026 )
+  (   32 N-000028 )
+  (   33 N-000031 )
   (   34 /Bluetooth/UART_TXD )
   (   35 /Bluetooth/UART_RXD )
-  (   36 N-000008 )
-  (   37 N-000010 )
-  (   38 N-000011 )
-  (   39 N-000012 )
-  (   40 N-000031 )
- )
- ( /50A6F429/50ABD352 TCNT2000  S8 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000103 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_0/2B4 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD350 TCNT2000  S7 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000106 )
-  (    3 /Sensor_array_0/2B3 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD34E TCNT2000  S6 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000108 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_0/2B2 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD34D TCNT2000  S5 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000109 )
-  (    3 /Sensor_array_0/2B1 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD34C TCNT2000  S4 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000115 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_0/1B4 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD34A TCNT2000  S3 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000116 )
-  (    3 /Sensor_array_0/1B3 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD348 TCNT2000  S2 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000118 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_0/1B2 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50ABD1A9 TCNT2000  S1 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000117 )
-  (    3 /Sensor_array_0/1B1 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A6F429/50A3025B SM1206  C1 1uF {Lib=C}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 /Sensor_array_1/GND )
- )
- ( /50A6F429/50A2F795 TSSOP16  U2 74CBTLV3253 {Lib=74CBTLV3253}
-  (    1 /Sensor_array_1/GND )
-  (    2 /Sensor_array_1/S1 )
-  (    3 /Sensor_array_0/1B4 )
-  (    4 /Sensor_array_0/1B3 )
-  (    5 /Sensor_array_0/1B2 )
-  (    6 /Sensor_array_0/1B1 )
-  (    7 /Sensor_array_0/1A )
-  (    8 /Sensor_array_1/GND )
-  (    9 /Sensor_array_0/2A )
-  (   10 /Sensor_array_0/2B1 )
-  (   11 /Sensor_array_0/2B2 )
-  (   12 /Sensor_array_0/2B3 )
-  (   13 /Sensor_array_0/2B4 )
-  (   14 /Sensor_array_0/S0 )
-  (   15 /Sensor_array_1/GND )
-  (   16 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F734 SM0603  R8 33 {Lib=R}
-  (    1 N-000106 )
-  (    2 N-000103 )
- )
- ( /50A6F429/50A2F733 SM0603  R15 47k {Lib=R}
-  (    1 /Sensor_array_0/2B3 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F732 SM0603  R16 47k {Lib=R}
-  (    1 /Sensor_array_0/2B4 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F731 SM0603  R14 47k {Lib=R}
-  (    1 /Sensor_array_0/2B2 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F730 SM0603  R13 47k {Lib=R}
-  (    1 /Sensor_array_0/2B1 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F72F SM0603  R7 33 {Lib=R}
-  (    1 N-000109 )
-  (    2 N-000108 )
- )
- ( /50A6F429/50A2F725 SM0603  R5 33 {Lib=R}
-  (    1 N-000117 )
-  (    2 N-000118 )
- )
- ( /50A6F429/50A2F724 SM0603  R9 47k {Lib=R}
-  (    1 /Sensor_array_0/1B1 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F723 SM0603  R10 47k {Lib=R}
-  (    1 /Sensor_array_0/1B2 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F606 SM0603  R12 47k {Lib=R}
-  (    1 /Sensor_array_0/1B4 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F5EE SM0603  R11 47k {Lib=R}
-  (    1 /Sensor_array_0/1B3 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A6F429/50A2F4C1 SM0603  R6 33 {Lib=R}
-  (    1 N-000116 )
-  (    2 N-000115 )
+  (   36 N-000011 )
+  (   37 N-000013 )
+  (   38 N-000014 )
+  (   39 N-000015 )
+  (   40 N-000025 )
  )
  ( /50A32263/50A32A89 SM0603  C3 22uF {Lib=C}
   (    1 3V3 )
@@ -309,14 +173,14 @@
   (    2 GND )
  )
  ( /50A32263/50A3299E NRS4018T2R2MDGJ  L1 2.2uH {Lib=INDUCTOR}
-  (    1 N-000101 )
-  (    2 N-000102 )
+  (    1 N-000077 )
+  (    2 N-000078 )
  )
  ( /50A32263/50A3243C QFN10  U3 TPS63031 {Lib=TPS63031}
   (    1 3V3 )
-  (    2 N-000102 )
+  (    2 N-000078 )
   (    3 GND )
-  (    4 N-000101 )
+  (    4 N-000077 )
   (    5 /Logic_power_converter/VBAT+ )
   (    6 /Logic_power_converter/VBAT+ )
   (    7 /Logic_power_converter/VBAT+ )
@@ -324,150 +188,32 @@
   (    9 GND )
   (   10 3V3 )
  )
- ( /50A2F441/50ABD352 TCNT2000  S16 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000099 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_1/2B4 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD350 TCNT2000  S15 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000086 )
-  (    3 /Sensor_array_1/2B3 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD34E TCNT2000  S14 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000091 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_1/2B2 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD34D TCNT2000  S13 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000090 )
-  (    3 /Sensor_array_1/2B1 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD34C TCNT2000  S12 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000087 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_1/1B4 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD34A TCNT2000  S11 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000092 )
-  (    3 /Sensor_array_1/1B3 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD348 TCNT2000  S10 TCNT2000 {Lib=TCNT2000}
-  (    1 N-000088 )
-  (    2 /Sensor_array_1/GND )
-  (    3 /Sensor_array_1/1B2 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50ABD1A9 TCNT2000  S9 TCNT2000 {Lib=TCNT2000}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 N-000089 )
-  (    3 /Sensor_array_1/1B1 )
-  (    4 /Sensor_array_1/GND )
- )
- ( /50A2F441/50A3025B SM1206  C4 1uF {Lib=C}
-  (    1 /Sensor_array_1/3V3 )
-  (    2 /Sensor_array_1/GND )
- )
- ( /50A2F441/50A2F795 TSSOP16  U4 74CBTLV3253 {Lib=74CBTLV3253}
-  (    1 /Sensor_array_1/GND )
-  (    2 /Sensor_array_1/S1 )
-  (    3 /Sensor_array_1/1B4 )
-  (    4 /Sensor_array_1/1B3 )
-  (    5 /Sensor_array_1/1B2 )
-  (    6 /Sensor_array_1/1B1 )
-  (    7 /Sensor_array_1/1A )
-  (    8 /Sensor_array_1/GND )
-  (    9 /Sensor_array_1/2A )
-  (   10 /Sensor_array_1/2B1 )
-  (   11 /Sensor_array_1/2B2 )
-  (   12 /Sensor_array_1/2B3 )
-  (   13 /Sensor_array_1/2B4 )
-  (   14 /Sensor_array_0/S0 )
-  (   15 /Sensor_array_1/GND )
-  (   16 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F734 SM0603  R20 33 {Lib=R}
-  (    1 N-000086 )
-  (    2 N-000099 )
- )
- ( /50A2F441/50A2F733 SM0603  R27 47k {Lib=R}
-  (    1 /Sensor_array_1/2B3 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F732 SM0603  R28 47k {Lib=R}
-  (    1 /Sensor_array_1/2B4 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F731 SM0603  R26 47k {Lib=R}
-  (    1 /Sensor_array_1/2B2 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F730 SM0603  R25 47k {Lib=R}
-  (    1 /Sensor_array_1/2B1 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F72F SM0603  R19 33 {Lib=R}
-  (    1 N-000090 )
-  (    2 N-000091 )
- )
- ( /50A2F441/50A2F725 SM0603  R17 33 {Lib=R}
-  (    1 N-000089 )
-  (    2 N-000088 )
- )
- ( /50A2F441/50A2F724 SM0603  R21 47k {Lib=R}
-  (    1 /Sensor_array_1/1B1 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F723 SM0603  R22 47k {Lib=R}
-  (    1 /Sensor_array_1/1B2 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F606 SM0603  R24 47k {Lib=R}
-  (    1 /Sensor_array_1/1B4 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F5EE SM0603  R23 47k {Lib=R}
-  (    1 /Sensor_array_1/1B3 )
-  (    2 /Sensor_array_1/3V3 )
- )
- ( /50A2F441/50A2F4C1 SM0603  R18 33 {Lib=R}
-  (    1 N-000092 )
-  (    2 N-000087 )
- )
  ( /509BC4E1/50A31F90 GS2  GS1 GS2 {Lib=GS2}
   (    1 3V3 )
-  (    2 N-000080 )
+  (    2 N-000048 )
  )
  ( /509BC4E1/509BCECF SM0603  R30 470 {Lib=R}
-  (    1 N-000057 )
-  (    2 N-000081 )
+  (    1 N-000049 )
+  (    2 N-000050 )
  )
  ( /509BC4E1/509BCECE SM1206  D1 Pairing_LED {Lib=LED}
-  (    1 N-000081 )
+  (    1 N-000050 )
   (    2 GND )
  )
  ( /509BC4E1/509BCB23 SM1206  D2 Work_mode_LED {Lib=LED}
-  (    1 N-000083 )
+  (    1 N-000052 )
   (    2 GND )
  )
  ( /509BC4E1/509BCB0A SM0603  R31 470 {Lib=R}
-  (    1 N-000082 )
-  (    2 N-000083 )
+  (    1 N-000051 )
+  (    2 N-000052 )
  )
  ( /509BC4E1/509BCA51 SM0603  R29 10K {Lib=R}
-  (    1 N-000084 )
+  (    1 N-000054 )
   (    2 GND )
  )
  ( /509BC4E1/509BCA1B SM1206  SW1 SW_PUSH {Lib=SW_PUSH}
-  (    1 N-000084 )
+  (    1 N-000054 )
   (    2 3V3 )
  )
  ( /509BC4E1/509BC507 Bluetooth_HC-0X  U5 HC-0X {Lib=HC-0X}
@@ -482,7 +228,7 @@
   (    9 ? )
   (   10 ? )
   (   11 ? )
-  (   12 N-000080 )
+  (   12 N-000048 )
   (   13 GND )
   (   14 ? )
   (   15 ? )
@@ -494,17 +240,17 @@
   (   21 GND )
   (   22 GND )
   (   23 ? )
-  (   24 N-000057 )
+  (   24 N-000049 )
   (   25 ? )
-  (   26 N-000084 )
+  (   26 N-000054 )
   (   27 ? )
   (   28 ? )
   (   29 ? )
   (   30 ? )
-  (   31 N-000082 )
-  (   32 N-000057 )
+  (   31 N-000051 )
+  (   32 N-000049 )
   (   33 ? )
-  (   34 N-000084 )
+  (   34 N-000054 )
  )
  ( /509B0C31/509B13AD SM1206  C7 10uF_,_20V {Lib=CP1}
   (    1 VMOT )
@@ -575,95 +321,6 @@ $component R3
  R?-*
  SM1206
 $endlist
-$component C1
- SM*
- C?
- C1-1
-$endlist
-$component R8
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R15
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R16
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R14
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R13
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R7
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R5
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R9
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R10
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R12
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R11
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R6
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
 $component C3
  SM*
  C?
@@ -673,95 +330,6 @@ $component C2
  SM*
  C?
  C1-1
-$endlist
-$component C4
- SM*
- C?
- C1-1
-$endlist
-$component R20
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R27
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R28
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R26
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R25
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R19
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R17
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R21
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R22
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R24
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R23
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R18
- R?
- SM0603
- SM0805
- R?-*
- SM1206
 $endlist
 $component R30
  R?
@@ -819,407 +387,213 @@ $endlist
 $endfootprintlist
 }
 { Pin List by Nets
-Net 1 "/Motor driver/AO1" "AO1"
- U6 2
- U6 1
- P35 1
-Net 2 "/Logic power converter/VBAT+" "VBAT+"
- P1 1
- C2 1
- U3 5
- U3 8
- R3 1
+Net 1 "/Logic power converter/VBAT+" "VBAT+"
  U3 7
  U3 6
-Net 4 "GND" "GND"
- U6 4
- C5 2
- U5 22
- C6 2
- C7 2
- U3 9
- R29 2
- U6 3
- U1 22
+ U3 5
+ U3 8
+ C2 1
+ P1 1
+ R3 1
+Net 2 "GND" "GND"
+ D1 2
  D2 2
+ R29 2
+ U1 22
  U6 18
+ U6 3
+ U6 4
+ C6 2
+ PGND1 1
+ C5 2
+ C7 2
+ U6 9
+ U6 10
+ C2 2
+ R2 2
+ C3 2
+ U3 9
+ U3 3
  U5 13
  P1 2
  P2 2
  K1 2
  P18 2
- U6 10
  R4 2
- U6 9
- R2 2
- D1 2
- U3 3
- C2 2
- C3 2
  U5 21
-Net 5 "/Motor driver/BO1" "BO1"
- P36 1
+ U5 22
+Net 3 "/Motor driver/BO1" "BO1"
  U6 11
  U6 12
-Net 8 "" ""
- P23 1
- U1 36
-Net 9 "" ""
- P17 1
- U1 17
-Net 10 "" ""
- U1 37
- P22 1
-Net 11 "" ""
- P21 1
- U1 38
-Net 12 "" ""
- P20 1
- U1 39
-Net 13 "/Sensor array 1/1A" "1A"
- P29 1
- U4 7
-Net 14 "/Bluetooth/UART_TXD" "UART_TXD"
+ P36 1
+Net 4 "" ""
+ U1 1
+ P3 1
+Net 5 "" ""
+ P6 1
+ U1 4
+Net 9 "/Motor driver/AO1" "AO1"
+ P35 1
+ U6 2
+ U6 1
+Net 10 "/Bluetooth/UART_TXD" "UART_TXD"
  U5 1
  U1 34
-Net 15 "/Motor driver/BO2" "BO2"
+Net 11 "" ""
+ P23 1
+ U1 36
+Net 12 "" ""
+ P17 1
+ U1 17
+Net 13 "" ""
+ U1 37
+ P22 1
+Net 14 "" ""
+ P21 1
+ U1 38
+Net 15 "" ""
+ P20 1
+ U1 39
+Net 16 "" ""
+ U1 16
+ P16 1
+Net 17 "/Motor driver/BO2" "BO2"
  U6 8
- P36 2
  U6 7
-Net 16 "/Motor driver/AO2" "AO2"
+ P36 2
+Net 18 "/Motor driver/AO2" "AO2"
  P35 2
  U6 5
  U6 6
-Net 17 "/Motor driver/AIN1" "AIN1"
+Net 19 "/Motor driver/AIN1" "AIN1"
  U1 26
  U6 21
-Net 18 "/Motor driver/AIN2" "AIN2"
+Net 20 "/Motor driver/AIN2" "AIN2"
  U6 22
  U1 27
-Net 19 "/Motor driver/BIN2" "BIN2"
+Net 21 "/Motor driver/BIN2" "BIN2"
  U1 29
  U6 16
-Net 20 "/Motor driver/BIN1" "BIN1"
- U6 17
+Net 22 "/Motor driver/BIN1" "BIN1"
  U1 28
-Net 21 "" ""
- U1 1
- P3 1
-Net 22 "" ""
- U1 2
- P4 1
+ U6 17
 Net 23 "" ""
- U1 3
- P5 1
+ U1 9
+ P9 1
 Net 24 "" ""
- P6 1
- U1 4
+ P27 1
+ U1 30
 Net 25 "" ""
+ U1 40
+ P19 1
+Net 26 "" ""
+ P26 1
+ U1 31
+Net 27 "" ""
+ P5 1
+ U1 3
+Net 28 "" ""
+ P25 1
+ U1 32
+Net 29 "" ""
+ P13 1
+ U1 13
+Net 30 "" ""
+ U1 23
+ P28 1
+Net 31 "" ""
+ U1 33
+ P24 1
+Net 32 "" ""
+ U1 14
+ P14 1
+Net 33 "/Motor driver/PWMA" "PWMA"
+ U6 23
+ U1 24
+Net 34 "" ""
+ U1 15
+ P15 1
+Net 35 "/Motor driver/PWMB" "PWMB"
+ U1 25
+ U6 15
+Net 36 "/Bluetooth/UART_RXD" "UART_RXD"
+ U1 35
+ U5 2
+Net 37 "" ""
+ R4 1
+ U1 6
+ R3 2
+Net 38 "" ""
  U1 5
  R2 1
  R1 2
-Net 26 "" ""
- U1 7
- P7 1
-Net 27 "" ""
+Net 39 "" ""
+ R1 1
+ K1 1
+ P2 1
+Net 40 "" ""
+ U1 11
+ P11 1
+Net 41 "" ""
+ P12 1
+ U1 12
+Net 42 "" ""
+ U1 10
+ P10 1
+Net 43 "" ""
  U1 8
  P8 1
-Net 28 "" ""
- U1 9
- P9 1
-Net 29 "" ""
- P10 1
- U1 10
-Net 30 "" ""
- U1 30
- P27 1
-Net 31 "" ""
- U1 40
- P19 1
-Net 32 "" ""
- P11 1
- U1 11
-Net 33 "" ""
- U1 31
- P26 1
-Net 34 "" ""
- U1 12
- P12 1
-Net 35 "" ""
- U1 32
- P25 1
-Net 36 "" ""
- P13 1
- U1 13
-Net 37 "" ""
- P28 1
- U1 23
-Net 38 "" ""
- P24 1
- U1 33
-Net 39 "" ""
- P14 1
- U1 14
-Net 40 "/Motor driver/PWMA" "PWMA"
- U1 24
- U6 23
-Net 41 "" ""
- P15 1
- U1 15
-Net 42 "/Motor driver/PWMB" "PWMB"
- U1 25
- U6 15
-Net 43 "" ""
- P16 1
- U1 16
 Net 44 "" ""
- R3 2
- R4 1
- U1 6
-Net 45 "/Sensor array 1/GND" "GND"
- U4 15
- U4 8
- C4 2
- U4 1
- S13 4
- S16 2
- S9 4
- S16 4
- S15 4
- S14 2
- S14 4
- S12 2
- S12 4
- S10 4
- S10 2
- S11 4
- S4 4
- S3 4
- S6 4
- U2 15
- U2 8
- S8 2
- S8 4
- SGND1 1
- S5 4
- S2 4
- S7 4
- S6 2
- S1 4
- S2 2
- S4 2
- U2 1
- C1 2
-Net 46 "/Sensor array 1/3V3" "3V3"
- R27 2
- U4 16
- R28 2
- S3 1
- S15 1
- R11 2
- R12 2
- S11 1
- S9 1
- R26 2
- R25 2
- R21 2
- S13 1
- R22 2
- R23 2
- C4 1
- R10 2
- R9 2
- R13 2
- R24 2
- S5 1
- R15 2
- U2 16
- R16 2
- S7 1
- S1 1
- C1 1
- R14 2
- S3V3 1
-Net 47 "" ""
- K1 1
- R1 1
- P2 1
-Net 48 "/Sensor array 1/2A" "2A"
- P30 1
- U4 9
-Net 49 "/Sensor array 0/2A" "2A"
- P32 1
- U2 9
-Net 50 "/Sensor array 0/S0" "S0"
- U4 14
- P33 1
- U2 14
-Net 51 "/Bluetooth/UART_RXD" "UART_RXD"
- U1 35
- U5 2
-Net 52 "/Sensor array 0/1A" "1A"
- P31 1
- U2 7
-Net 53 "/Sensor array 1/S1" "S1"
- U4 2
- P34 1
- U2 2
-Net 54 "3V3" "3V3"
- U6 19
- SW1 2
- U6 20
- P18 1
- U1 21
- C5 1
- U3 10
- U3 1
- GS1 1
- C3 1
-Net 55 "VMOT" "VMOT"
- K1 3
- C6 1
+ U1 7
+ P7 1
+Net 45 "" ""
+ P4 1
+ U1 2
+Net 46 "VMOT" "VMOT"
  C7 1
- U6 24
+ K1 3
  U6 14
  U6 13
-Net 57 "" ""
- R30 1
- U5 32
- U5 24
-Net 80 "" ""
- GS1 2
+ C6 1
+ U6 24
+Net 47 "3V3" "3V3"
+ P18 1
+ U3 1
+ SW1 2
+ P3V3 1
+ C3 1
+ U3 10
+ GS1 1
+ U1 21
+ U6 20
+ U6 19
+ C5 1
+Net 48 "" ""
  U5 12
-Net 81 "" ""
+ GS1 2
+Net 49 "" ""
+ U5 32
+ R30 1
+ U5 24
+Net 50 "" ""
  R30 2
  D1 1
-Net 82 "" ""
+Net 51 "" ""
  R31 1
  U5 31
-Net 83 "" ""
- R31 2
+Net 52 "" ""
  D2 1
-Net 84 "" ""
- R29 1
+ R31 2
+Net 54 "" ""
  U5 26
+ R29 1
  SW1 1
  U5 34
-Net 85 "/Sensor array 1/1B4" "1B4"
- S12 3
- R24 1
- U4 3
-Net 86 "" ""
- R20 1
- S15 2
-Net 87 "" ""
- R18 2
- S12 1
-Net 88 "" ""
- S10 1
- R17 2
-Net 89 "" ""
- R17 1
- S9 2
-Net 90 "" ""
- S13 2
- R19 1
-Net 91 "" ""
- R19 2
- S14 1
-Net 92 "" ""
- R18 1
- S11 2
-Net 93 "/Sensor array 1/1B2" "1B2"
- R22 1
- U4 5
- S10 3
-Net 94 "/Sensor array 1/1B1" "1B1"
- S9 3
- U4 6
- R21 1
-Net 95 "/Sensor array 1/2B1" "2B1"
- R25 1
- U4 10
- S13 3
-Net 96 "/Sensor array 1/2B2" "2B2"
- S14 3
- R26 1
- U4 11
-Net 97 "/Sensor array 1/2B3" "2B3"
- U4 12
- S15 3
- R27 1
-Net 98 "/Sensor array 1/2B4" "2B4"
- S16 3
- U4 13
- R28 1
-Net 99 "" ""
- S16 1
- R20 2
-Net 100 "/Sensor array 1/1B3" "1B3"
- R23 1
- S11 3
- U4 4
-Net 101 "" ""
+Net 77 "" ""
  L1 1
  U3 4
-Net 102 "" ""
- U3 2
+Net 78 "" ""
  L1 2
-Net 103 "" ""
- S8 1
- R8 2
-Net 104 "/Sensor array 0/2B1" "2B1"
- S5 3
- U2 10
- R13 1
-Net 105 "/Sensor array 0/1B2" "1B2"
- U2 5
- R10 1
- S2 3
-Net 106 "" ""
- R8 1
- S7 2
-Net 107 "/Sensor array 0/2B3" "2B3"
- R15 1
- S7 3
- U2 12
-Net 108 "" ""
- S6 1
- R7 2
-Net 109 "" ""
- R7 1
- S5 2
-Net 110 "/Sensor array 0/1B1" "1B1"
- S1 3
- U2 6
- R9 1
-Net 111 "/Sensor array 0/2B2" "2B2"
- S6 3
- U2 11
- R14 1
-Net 112 "/Sensor array 0/1B3" "1B3"
- S3 3
- R11 1
- U2 4
-Net 113 "/Sensor array 0/2B4" "2B4"
- R16 1
- S8 3
- U2 13
-Net 114 "/Sensor array 0/1B4" "1B4"
- R12 1
- U2 3
- S4 3
-Net 115 "" ""
- R6 2
- S4 1
-Net 116 "" ""
- S3 2
- R6 1
-Net 117 "" ""
- S1 2
- R5 1
-Net 118 "" ""
- R5 2
- S2 1
+ U3 2
 }
 #End

@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date 21/11/2012 13:47:19
+EESchema Schematic File Version 2  date Wed 28 Nov 2012 05:42:03 PM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -35,9 +35,9 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 6 6
+Sheet 6 4
 Title ""
-Date "21 nov 2012"
+Date "28 nov 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,9 +48,9 @@ $EndDescr
 Wire Wire Line
 	7050 2450 6650 2450
 Wire Wire Line
-	6650 2550 6650 2450
+	6650 2450 6650 2550
 Wire Wire Line
-	7050 2550 6650 2550
+	6650 2550 7050 2550
 Wire Wire Line
 	7050 2850 6650 2850
 Wire Wire Line

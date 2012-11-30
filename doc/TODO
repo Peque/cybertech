@@ -1,0 +1,26 @@
+#
+# ! = Urgent
+# * = Standard
+# ? = Optional
+#
+
+Release 1.1
+==================================================
+
+ ! Change footprint for the motor control (the current one is wrong)
+ * For those Maple pins which have top layer tracks, put vias next to
+   them for easier making when plated drills are not available.
+ * Move vias next to the motors to allow motor brackets on the surface.
+ * Move the bluetooth switch to the bottom of the board (away from the
+   screw).
+ * Make some wholes bellow the Maple for the ball caster.
+ ? Switch S0 and S1 for U2 in the sensor array (they were swapped for
+   easier connection, but reading the array from the program would be
+   more straight forward).
+
+Release 2.0
+==================================================
+
+ * Integrate the micro in the PCB.
+ * Integrate the motor power converter in the board.
+ * Change the motor driver to one easier to find/buy.

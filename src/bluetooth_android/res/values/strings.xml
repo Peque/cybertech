@@ -39,17 +39,19 @@
     <string name="small_text">Small Text</string>
     
     <!-- Bluetooth Commands -->
-    <string name="set_P">at+set_p:</string>
-    <string name="set_I">at+set_i:</string>
-    <string name="set_D">at+set_d:</string>
-    <string name="get_P">at+get_p:</string>
-    <string name="get_I">at+get_i:</string>
-    <string name="get_D">at+get_d:</string>
+    <string name="set_P">:sp:</string>
+    <string name="set_I">:si:</string>
+    <string name="set_D">:sd:</string>
+    <string name="set_PID">:spid:</string>
+    <string name="get_P">:gp:</string>
+    <string name="get_I">:gi:</string>
+    <string name="get_D">:gd:</string>
+    <string name="get_PID">:gpid:</string>
     
-    <string name="set_Left_X">:slx</string>
-    <string name="set_Left_Y">:sly</string>
-    <string name="set_Right_X">:srx</string>
-    <string name="set_Right_Y">:sry</string>
+    <string name="set_Left_X">:slx:</string>
+    <string name="set_Left_Y">:sly:</string>
+    <string name="set_Right_X">:srx:</string>
+    <string name="set_Right_Y">:sry:</string>
 
     	
 

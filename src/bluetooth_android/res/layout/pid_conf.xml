@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/scroll" android:layout_width="fill_parent"
+  android:layout_height="wrap_content">
+	
+	<LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginTop="10dp"
+	    android:orientation="vertical" >
+	
+	   <!--  <TextView
+	        android:id="@+id/PIDtitle"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:text="Large Text"
+	        android:textAlignment="center"
+	        android:textAppearance="?android:attr/textAppearanceLarge" /> -->
+	
+	    <TextView
+	        android:id="@+id/textView_P_Title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Kp"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	 
+	        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="20dp" >
+	
+	
+	        	<EditText
+	            android:id="@+id/pEditText"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="10"
+	            android:inputType="numberDecimal"
+	            android:gravity="center"
+	            android:text="0" />
+	
+	      		<TextView
+	            android:id="@+id/TextView_P"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:gravity="center"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    	</LinearLayout>
+	
+	
+	    <SeekBar
+	        android:id="@+id/SeekBar_P"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="5dp"
+	        android:max="16"
+	        android:progress="8" />
+	
+	
+	    <TextView
+	        android:id="@+id/textView_I_Title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="10dp"
+	        android:text="Ki"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="20dp" >
+	
+	
+	        <EditText
+	            android:id="@+id/iEditText"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:ems="10"
+	            android:inputType="numberDecimal" 
+	            android:gravity="center"
+	            android:text="0" />
+	
+	        <TextView
+	            android:id="@+id/TextView_I"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:text=""
+	            android:gravity="center"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    </LinearLayout>
+	
+	
+	    <SeekBar
+	        android:id="@+id/SeekBar_I"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="5dp"
+	        android:max="16"
+	        android:progress="8"  />
+	
+	    <TextView
+	        android:id="@+id/textView_D_Title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="10dp"
+	        android:text="Kd"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="20dp" >
+	
+	        <EditText
+	            android:id="@+id/dEditText"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:ems="10"
+	            android:inputType="numberDecimal"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="0"  >			
+	        </EditText>
+	
+	        <TextView
+	            android:id="@+id/TextView_D"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:text=""
+	            android:gravity="center"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </LinearLayout>
+	
+	    <SeekBar
+	        android:id="@+id/SeekBar_D"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="5dp"
+	        android:paddingBottom="10dp"
+	        android:max="16"
+	        android:progress="8"  />
+	
+	
+	       <LinearLayout
+	           android:layout_width="match_parent"
+	           android:layout_height="wrap_content"
+	           android:gravity="center" >
+	
+	        <Button
+	            android:id="@+id/applyButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0"
+	            android:paddingTop="10dp"
+	            android:text="Apply" />
+	
+	        <Button
+	            android:id="@+id/stopButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0"
+	            android:text="Emergency Stop" />
+	
+	        <ToggleButton
+	            android:id="@+id/pidLockButton"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="0"
+	            android:textOn="Lock"
+	            android:textOff="Lock" />
+	
+	    </LinearLayout>
+	
+		</LinearLayout>
+</ScrollView>

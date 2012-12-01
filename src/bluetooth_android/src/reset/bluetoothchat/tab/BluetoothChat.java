@@ -451,11 +451,14 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     	else {
 	    	String[] parameters = message.split(",");
 	    	
-			if (parameters[0].compareTo("PID") == 0) {
+			if ((parameters.length == 4) && 
+			    (parameters[0].compareTo("PID") == 0)) {
 				mSectionsPagerAdapter.pidFragment.setKp(Float.parseFloat(parameters[1]));
 				mSectionsPagerAdapter.pidFragment.setKi(Float.parseFloat(parameters[2]));
 				mSectionsPagerAdapter.pidFragment.setKd(Float.parseFloat(parameters[3]));
 			}
+			else
+				sendMessage(getString(R.string.get_PID));
     	}
     }
     

@@ -85,7 +85,11 @@ public class JoystickFragment extends Fragment {
 				Activity activity = getActivity(); 
 	            if (activity != null) {
 	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
-		        }
+	            	if (arg1) {
+	            		bActivity.sendMessage(getString(R.string.manual_control));
+	            	}
+	            	else bActivity.sendMessage(getString(R.string.automatic_control));
+	            }
 			}
 		});
     	return v;

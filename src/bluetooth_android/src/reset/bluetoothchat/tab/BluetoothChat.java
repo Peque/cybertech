@@ -1,5 +1,8 @@
 package reset.bluetoothchat.tab;
 
+import java.nio.FloatBuffer;
+import java.util.Scanner;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import android.app.ActionBar;
@@ -335,6 +338,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 byte[] readBuf = (byte[]) msg.obj;
                 // construct a string from the valid bytes in the buffer
                 String readMessage = new String(readBuf, 0, msg.arg1);
+                parse (readMessage);
                 mConversationArrayAdapter.add(mConnectedDeviceName+":  " + readMessage);
                 break;
             case MESSAGE_DEVICE_NAME:
@@ -440,6 +444,20 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     public ArrayAdapter<String> getmConversationArrayAdapter() {
 		return mConversationArrayAdapter;
 	}
+    
+    private void parse (String message){
+    	if (message.compareTo("ping") == 0) 
+    		sendMessage("pong");
+    	else {
+	    	String[] parameters = message.split(",");
+	    	
+			if (parameters[0].compareTo("PID") == 0) {
+				mSectionsPagerAdapter.pidFragment.setKp(Float.parseFloat(parameters[1]));
+				mSectionsPagerAdapter.pidFragment.setKi(Float.parseFloat(parameters[2]));
+				mSectionsPagerAdapter.pidFragment.setKd(Float.parseFloat(parameters[3]));
+			}
+    	}
+    }
     
     // Fragment Pager Adapter sets several fragments as view contents for the view pager.
     

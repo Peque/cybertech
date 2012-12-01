@@ -27,9 +27,9 @@ public class PidFragment extends Fragment {
 	EditText pEditText;
 	EditText iEditText;
 	EditText dEditText;
-	public static final String ARG_SECTION_NUMBER = "section_number";
-	public static final String ARG_FRAGMENT_NAME = "fragment_name";
-	public static float Kp, Ki, Kd; 
+	public final String ARG_SECTION_NUMBER = "section_number";
+	public final String ARG_FRAGMENT_NAME = "fragment_name";
+	public float Kp, Ki, Kd;
 	
 	public PidFragment() {
 		// TODO Auto-generated constructor stub
@@ -137,6 +137,18 @@ public class PidFragment extends Fragment {
 		Kp = Float.valueOf(pEditText.getText().toString());
 		Ki = Float.valueOf(iEditText.getText().toString());;
 		Kd = Float.valueOf(dEditText.getText().toString());
+	}
+	
+	public void setKd(float kd) {
+		Kd = kd;
+	}
+	
+	public void setKi(float ki) {
+		Ki = ki;
+	}
+	
+	public void setKp(float kp) {
+		Kp = kp;
 	}
 	
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {

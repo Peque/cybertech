@@ -232,18 +232,38 @@ void setup(void)
 	gpio_set_mode(GPIOA, 15, GPIO_OUTPUT_PP);
 	pinMode(16, PWM);                     // TODO: avoid using wirish stuff
 
+	/*
+	 * Sensor array initialization:
+	 *
+	 *    % GPIO PC15 (D12) --> S0
+	 *    % GPIO PC14 (D13) --> S1
+	 *    % GPIO PA0  (D11) --> 1A
+	 *    % GPIO PA1  (D10) --> 2A
+	 *    % GPIO PA4  (D7)  --> 3A
+	 *    % GPIO PA5  (D6)  --> 4A
+	 */
+	gpio_set_mode(GPIOC, 15, GPIO_OUTPUT_PP);    // S0 (D12)
+	gpio_set_mode(GPIOC, 14, GPIO_OUTPUT_PP);    // S1 (D13)
+	gpio_set_mode(GPIOA, 0, GPIO_INPUT_ANALOG);  // 1A (D11)
+	gpio_set_mode(GPIOA, 1, GPIO_INPUT_ANALOG);  // 2A (D10)
+	gpio_set_mode(GPIOA, 4, GPIO_INPUT_ANALOG);  // 3A (D7)
+	gpio_set_mode(GPIOA, 5, GPIO_INPUT_ANALOG);  // 4A (D6)
+
 	// Set output mode in D33 (Maple Mini's SMD LED) and set it to high
 	gpio_set_mode(GPIOB, 1, GPIO_OUTPUT_PP);
 	gpio_write_bit(GPIOB, 1, 1);
 
 	// Serial 1 initialization
-	Serial1.begin(230400);               // TODO: avoid using wirish stuff
+	// TODO: check if these delays are necessary...
+	delay(1000);                       // TODO: avoid using wirish stuff
+	Serial1.begin(1382400);            // TODO: avoid using wirish stuff
+	delay(1000);                       // TODO: avoid using wirish stuff
 
 	// Stop motors
 	set_speed(0, 0);
 
 	// Set manual mode
-	mode = MANUAL;
+	mode = AUTO;
 
 	// Ping timer
 	// TODO: avoid using wirish stuff!
@@ -259,7 +279,46 @@ void setup(void)
 
 void auto_mode(void)
 {
+	uint16 array_data[16];
 
+	// Set demux control signals to 00 and read data into the array
+	gpio_write_bit(GPIOC, 15, 0);        // S0
+	gpio_write_bit(GPIOC, 14, 0);        // S1
+	array_data[3]  = adc_read(ADC1, 0);  // 1A (D11)
+	array_data[4]  = adc_read(ADC1, 1);  // 2A (D10)
+	array_data[11] = adc_read(ADC1, 4);  // 3A (D7)
+	array_data[12] = adc_read(ADC1, 5);  // 4A (D6)
+
+	// Set demux control signals to 01 and read data into the array
+	gpio_write_bit(GPIOC, 15, 1);        // S0
+	gpio_write_bit(GPIOC, 14, 0);        // S1
+	array_data[1]  = adc_read(ADC1, 0);  // 1A (D11)
+	array_data[6]  = adc_read(ADC1, 1);  // 2A (D10)
+	array_data[10] = adc_read(ADC1, 4);  // 3A (D7)
+	array_data[13] = adc_read(ADC1, 5);  // 4A (D6)
+
+	// Set demux control signals to 10 and read data into the array
+	gpio_write_bit(GPIOC, 15, 0);        // S0
+	gpio_write_bit(GPIOC, 14, 1);        // S1
+	array_data[2]  = adc_read(ADC1, 0);  // 1A (D11)
+	array_data[5]  = adc_read(ADC1, 1);  // 2A (D10)
+	array_data[9]  = adc_read(ADC1, 4);  // 3A (D7)
+	array_data[14] = adc_read(ADC1, 5);  // 4A (D6)
+
+	// Set demux control signals to 1 and read data into the array
+	gpio_write_bit(GPIOC, 15, 1);        // S0
+	gpio_write_bit(GPIOC, 14, 1);        // S1
+	array_data[0]  = adc_read(ADC1, 0);  // 1A (D11)
+	array_data[7]  = adc_read(ADC1, 1);  // 2A (D10)
+	array_data[8]  = adc_read(ADC1, 4);  // 3A (D7)
+	array_data[15] = adc_read(ADC1, 5);  // 4A (D6)
+
+	int i;
+	for (i=0;i<16;i++) {
+		usart_putudec(BLUETOOTH_USART, array_data[i]);
+		if (i<15) usart_putstr(BLUETOOTH_USART, "\t");
+		else usart_putstr(BLUETOOTH_USART, "\r\n");
+	}
 }
 
 

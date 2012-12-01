@@ -30,6 +30,7 @@ public class PidFragment extends Fragment {
 	public final String ARG_SECTION_NUMBER = "section_number";
 	public final String ARG_FRAGMENT_NAME = "fragment_name";
 	public float Kp, Ki, Kd;
+	ToggleButton pidLockButton;
 	
 	public PidFragment() {
 		// TODO Auto-generated constructor stub
@@ -57,7 +58,7 @@ public class PidFragment extends Fragment {
     	
     	Button applyButton = (Button) v.findViewById(R.id.applyButton);
     	Button stopButton = (Button) v.findViewById(R.id.stopButton);
-    	ToggleButton pidLockButton = (ToggleButton) v.findViewById(R.id.pidLockButton);
+    	pidLockButton = (ToggleButton) v.findViewById(R.id.pidLockButton);
     	
     	// SeekBar Pos Values   	
     	final float seekValues [] = new float [17];
@@ -141,14 +142,18 @@ public class PidFragment extends Fragment {
 	
 	public void setKd(float kd) {
 		Kd = kd;
+		dEditText.setText(Float.toString(kd));
 	}
 	
 	public void setKi(float ki) {
 		Ki = ki;
+		iEditText.setText(Float.toString(ki));
 	}
 	
 	public void setKp(float kp) {
 		Kp = kp;
+		pEditText.setText(Float.toString(kp));
+		
 	}
 	
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {

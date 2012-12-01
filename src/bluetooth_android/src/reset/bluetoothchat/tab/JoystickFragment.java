@@ -20,6 +20,7 @@ public class JoystickFragment extends Fragment {
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public static final String ARG_FRAGMENT_NAME = "fragment_name";
 	BluetoothChat bActivity;
+	ToggleButton buttonLock;
 	
 	
 	public JoystickFragment() {
@@ -34,7 +35,7 @@ public class JoystickFragment extends Fragment {
     	v = inflater.inflate(R.layout.dualjoystick, container, false);
     	bActivity = ((BluetoothChat)getActivity());
     	DualJoystickView joystick;   
-    	ToggleButton buttonLock = (ToggleButton) v.findViewById(R.id.buttonLock);
+    	buttonLock = (ToggleButton) v.findViewById(R.id.buttonLock);
 
         joystick = (DualJoystickView) v.findViewById(R.id.dualjoystickView);
         

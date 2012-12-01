@@ -1,6 +1,7 @@
 <resources>
 
     <string name="app_name">BluetoothChat Tab</string>
+    <string name="title_section4">Control</string>
     <string name="title_section3">Monitor</string>
     <string name="title_section2">PID Tuning</string>
     <string name="title_section1">Console</string>
@@ -55,7 +56,12 @@
     <string name="automatic_control">:ac:</string>
     <string name="manual_control">:mc:</string>
     <string name="stop">:st:</string>
-
-    	
-
-</resources>
+    
+    <string name="get_Line_Pos">:gl:</string>
+    <string name="get_Battery_Charge">:gb:</string>
+    
+    <!-- Label Values -->
+    <string name="PID_Values_Label">PID</string>
+    <string name="Battery_Label">BL</string>
+    <string name="Line_Position_Label">LP</string>
+  </resources>

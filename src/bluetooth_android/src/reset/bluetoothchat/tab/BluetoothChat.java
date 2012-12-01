@@ -56,7 +56,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     ModifiedViewPager mViewPager;
     
     // Joystick tab for avoiding swiping on it
-    private static final int JOYSTICK_TAB = 2;
+    private static final int JOYSTICK_TAB = 3;
     
   // Bluetooth chat declarations
     
@@ -111,7 +111,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ModifiedViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(3);
 
         // When swiping between different sections, select the corresponding tab.
         // We can also use ActionBar.Tab#select() to do this if we have a reference to the
@@ -121,6 +121,10 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
+                mViewPager.setSwipingEnabled(true);
+                mSectionsPagerAdapter.pidFragment.pidLockButton.setChecked(false); 
+                if (mSectionsPagerAdapter.mFragment.timer != null)
+                	mSectionsPagerAdapter.mFragment.timer.purge();
             }
             
             @Override
@@ -452,14 +456,24 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 	    	String[] parameters = message.split(",");
 	    	
 			if ((parameters.length == 4) && 
-			    (parameters[0].compareTo("PID") == 0)) {
+			    (parameters[0].compareTo(getString(R.string.PID_Values_Label)) == 0)) {
 				mSectionsPagerAdapter.pidFragment.setKp(Float.parseFloat(parameters[1]));
 				mSectionsPagerAdapter.pidFragment.setKi(Float.parseFloat(parameters[2]));
 				mSectionsPagerAdapter.pidFragment.setKd(Float.parseFloat(parameters[3]));
 			}
-			else
-				sendMessage(getString(R.string.get_PID));
+			else if ((parameters.length == 3) && 
+			    (parameters[0].compareTo(getString(R.string.Battery_Label)) == 0)) {
+				mSectionsPagerAdapter.mFragment.setABat(parameters[1] + "%");
+				mSectionsPagerAdapter.mFragment.setDBat(parameters[2] + "%");				
+			}
+			else if ((parameters.length == 2) && 
+				    (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)) {
+					mSectionsPagerAdapter.mFragment.setLPos(Float.parseFloat(parameters[1]));			
+				}
+//			else
+//				sendMessage(getString(R.string.get_PID));
     	}
+    	
     }
     
     // Fragment Pager Adapter sets several fragments as view contents for the view pager.
@@ -473,6 +487,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         ConsoleFragment cFragment = new ConsoleFragment();
         PidFragment pidFragment = new PidFragment();
         JoystickFragment jFragment = new JoystickFragment();
+        MonitorFragment mFragment = new MonitorFragment();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -496,8 +511,14 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                  return pidFragment;
              case 2:          	 
                  args = new Bundle();
+                 args.putInt(mFragment.ARG_SECTION_NUMBER, i + 1);
+                 args.putString(mFragment.ARG_FRAGMENT_NAME, "MONITOR");
+                 mFragment.setArguments(args);
+                 return mFragment;
+             case 3:          	 
+                 args = new Bundle();
                  args.putInt(jFragment.ARG_SECTION_NUMBER, i + 1);
-                 args.putString(jFragment.ARG_FRAGMENT_NAME, "MONITOR");
+                 args.putString(jFragment.ARG_FRAGMENT_NAME, "CONTROL");
                  jFragment.setArguments(args);
                  return jFragment;
              default:
@@ -512,7 +533,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -521,6 +542,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 case 0: return getString(R.string.title_section1).toUpperCase();
                 case 1: return getString(R.string.title_section2).toUpperCase();
                 case 2: return getString(R.string.title_section3).toUpperCase();
+                case 3: return getString(R.string.title_section4).toUpperCase();
             }
             return null;
         }

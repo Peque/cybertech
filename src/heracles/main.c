@@ -253,17 +253,14 @@ void setup(void)
 	gpio_set_mode(GPIOB, 1, GPIO_OUTPUT_PP);
 	gpio_write_bit(GPIOB, 1, 1);
 
-	// Serial 1 initialization
-	// TODO: check if these delays are necessary...
-	delay(1000);                       // TODO: avoid using wirish stuff
-	Serial1.begin(1382400);            // TODO: avoid using wirish stuff
-	delay(1000);                       // TODO: avoid using wirish stuff
-
 	// Stop motors
 	set_speed(0, 0);
 
+	// Serial 1 initialization
+	Serial1.begin(1382400);            // TODO: avoid using wirish stuff
+
 	// Set manual mode
-	mode = AUTO;
+	mode = MANUAL;
 
 	// Ping timer
 	// TODO: avoid using wirish stuff!

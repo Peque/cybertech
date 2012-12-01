@@ -32,6 +32,8 @@ public class MonitorFragment extends Fragment {
 	TextView textDigitalBat; 
 	TextView textAnalogBat;
 	
+	int linePos = 80;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -49,22 +51,20 @@ public class MonitorFragment extends Fragment {
     	lineSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
+			public void onStopTrackingTouch(SeekBar seekBar) {				
 			}
 			
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
 			}
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
 				// TODO Auto-generated method stub
-				
+				if (fromUser) {
+					lineSeekBar.setProgress(linePos);		
+				}
 			}
 		});
     	
@@ -94,7 +94,10 @@ public class MonitorFragment extends Fragment {
 	            	}, 0, 10000);
  				}
  				
- 				else timer.purge();		
+ 				else {
+ 					timer.cancel();
+ 					timer.purge();
+ 				}
             }
         });
 		
@@ -119,7 +122,8 @@ public class MonitorFragment extends Fragment {
 	}
 
 	public void setLPos(float parseFloat) {
-		lineSeekBar.setProgress((Math.round(parseFloat) + 8) * 10);			
+		linePos = (Math.round(parseFloat) + 8) * 10;
+		lineSeekBar.setProgress(linePos);			
 	}
 
 }

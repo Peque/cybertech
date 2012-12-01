@@ -123,8 +123,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 actionBar.setSelectedNavigationItem(position);
                 mViewPager.setSwipingEnabled(true);
                 mSectionsPagerAdapter.pidFragment.pidLockButton.setChecked(false); 
-                if (mSectionsPagerAdapter.mFragment.timer != null)
+                mSectionsPagerAdapter.mFragment.toggleUpdate.setChecked(false); 
+                if (mSectionsPagerAdapter.mFragment.timer != null) {
+                	mSectionsPagerAdapter.mFragment.timer.cancel();
                 	mSectionsPagerAdapter.mFragment.timer.purge();
+                }               
             }
             
             @Override
@@ -463,8 +466,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 			}
 			else if ((parameters.length == 3) && 
 			    (parameters[0].compareTo(getString(R.string.Battery_Label)) == 0)) {
-				mSectionsPagerAdapter.mFragment.setABat(parameters[1] + "%");
-				mSectionsPagerAdapter.mFragment.setDBat(parameters[2] + "%");				
+				mSectionsPagerAdapter.mFragment.setABat(parameters[1] + " V");
+				mSectionsPagerAdapter.mFragment.setDBat(parameters[2] + " V");				
 			}
 			else if ((parameters.length == 2) && 
 				    (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)) {

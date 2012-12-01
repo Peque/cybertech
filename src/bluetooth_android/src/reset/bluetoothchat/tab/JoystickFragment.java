@@ -1,5 +1,8 @@
 package reset.bluetoothchat.tab;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -19,9 +22,18 @@ public class JoystickFragment extends Fragment {
 	
 	public static final String ARG_SECTION_NUMBER = "section_number";
 	public static final String ARG_FRAGMENT_NAME = "fragment_name";
+	
 	BluetoothChat bActivity;
 	ToggleButton buttonLock;
 	
+	private int panL;
+	private int panR;
+	private int tiltL;
+	private int tiltR;
+	
+	Boolean changed = false;
+	
+	Timer timer;
 	
 	public JoystickFragment() {
 		// TODO Auto-generated constructor stub
@@ -43,10 +55,9 @@ public class JoystickFragment extends Fragment {
 
             @Override
             public void OnMoved(int pan, int tilt) {
-                    if (bActivity.isConnected()) {
-	                    bActivity.sendMessage(getString(R.string.set_Left_X) + pan + '\n');
-	                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tilt + '\n');         
-                    }
+                panL = pan;           
+            	tiltL = tilt;    
+            	changed = true;
             }
 
             @Override
@@ -61,10 +72,9 @@ public class JoystickFragment extends Fragment {
 	
 	        @Override
 	        public void OnMoved(int pan, int tilt) {
-	                if (bActivity.isConnected()) {
-		                bActivity.sendMessage(getString(R.string.set_Right_X) + pan + '\n');
-	                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tilt + '\n');    
-	                }
+                panR = pan;
+                tiltR = tilt;
+                changed = true;
 	        }
 	
 	        @Override
@@ -81,6 +91,7 @@ public class JoystickFragment extends Fragment {
         	
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+
 				// TODO Auto-generated method stub
 				
 				Activity activity = getActivity(); 
@@ -91,8 +102,29 @@ public class JoystickFragment extends Fragment {
 	            	}
 	            	else bActivity.sendMessage(getString(R.string.automatic_control));
 	            }
+	            
+	            if (arg1) {
+	            	timer = new Timer();
+	            	timer.schedule(new TimerTask() {
+						
+						@Override
+						public void run() {
+							if (bActivity.isConnected() && changed) {
+			                    bActivity.sendMessage(getString(R.string.set_Left_X) + panL + '\n');
+			                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tiltL + '\n');  
+				                bActivity.sendMessage(getString(R.string.set_Right_X) + panR + '\n');
+			                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tiltR + '\n');
+			                    changed = false;
+							}
+							
+						}
+					
+	            	},0,200);
+	            	
+	            }
 			}
-		});
+        });
+
     	return v;
 	}
 	

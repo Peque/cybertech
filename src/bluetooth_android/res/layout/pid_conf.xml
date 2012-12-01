@@ -28,8 +28,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="20dp" >
-
-        <EditText
+
+
+        	<EditText
             android:id="@+id/pEditText"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
@@ -38,7 +39,7 @@
             android:gravity="center"
             android:text="0" />
 
-        <TextView
+      		<TextView
             android:id="@+id/TextView_P"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,8 +47,9 @@
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    </LinearLayout>
-
+    	</LinearLayout>
+
+
     <SeekBar
         android:id="@+id/SeekBar_P"
         android:layout_width="match_parent"
@@ -55,7 +57,8 @@
         android:paddingTop="5dp"
         android:max="16"
         android:progress="8" />
-
+
+
     <TextView
         android:id="@+id/textView_I_Title"
         android:layout_width="wrap_content"
@@ -63,13 +66,15 @@
         android:paddingTop="10dp"
         android:text="Ki"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingTop="20dp" >
-
+
+
         <EditText
             android:id="@+id/iEditText"
             android:layout_width="100dp"
@@ -90,7 +95,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
-
+
+
     <SeekBar
         android:id="@+id/SeekBar_I"
         android:layout_width="match_parent"
@@ -105,7 +111,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:text="Kd"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -140,16 +147,38 @@
         android:paddingTop="5dp"
         android:paddingBottom="10dp"
         android:max="16"
-        android:progress="8"  />
+        android:progress="8"  />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_weight="0"
-        android:paddingTop="10dp"
-        android:text="Apply" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center" >
+
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingTop="10dp"
+            android:text="Apply" />
+
+        <Button
+            android:id="@+id/stopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="Button" />
+
+        <ToggleButton
+            android:id="@+id/pidLockButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textOn="Unlock"
+            android:textOff="Lock" />
+
+    </LinearLayout>
 
 	</LinearLayout>
 </ScrollView>

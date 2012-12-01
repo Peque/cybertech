@@ -1,6 +1,7 @@
 package reset.bluetoothchat.tab;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -8,12 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+
 
 public class PidFragment extends Fragment {
 	
@@ -49,7 +55,9 @@ public class PidFragment extends Fragment {
     	iEditText = (EditText) v.findViewById(R.id.iEditText);
     	dEditText = (EditText) v.findViewById(R.id.dEditText);
     	
-    	Button button1 = (Button) v.findViewById(R.id.button1);
+    	Button applyButton = (Button) v.findViewById(R.id.applyButton);
+    	Button stopButton = (Button) v.findViewById(R.id.stopButton);
+    	ToggleButton pidLockButton = (ToggleButton) v.findViewById(R.id.pidLockButton);
     	
     	// SeekBar Pos Values   	
     	final float seekValues [] = new float [17];
@@ -71,7 +79,7 @@ public class PidFragment extends Fragment {
 	    	seekValues [15] = 500;
 	    	seekValues [16] = 1000;
     	
-    	button1.setOnClickListener(new OnClickListener() {    
+    	applyButton.setOnClickListener(new OnClickListener() {    
             @Override
             public void onClick(View v) {
                 Activity activity = getActivity(); 
@@ -86,6 +94,35 @@ public class PidFragment extends Fragment {
                 }
             }
         });
+    	
+    	stopButton.setOnClickListener(new OnClickListener() {    
+          @Override
+          public void onClick(View v) {
+              Activity activity = getActivity(); 
+              if (activity != null) {
+              	if (bActivity.isConnected()) {
+	                    bActivity.sendMessage(getString(R.string.stop));    
+              	}
+              }
+          }
+      });
+  	
+  	 pidLockButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+				Activity activity = getActivity(); 
+	            if (activity != null) {
+	            	if (arg1) {
+	            		bActivity.mViewPager.setSwipingEnabled(false);
+	            	}
+	            	else 
+						bActivity.mViewPager.setSwipingEnabled(true);
+		        }	
+			}
+		});
     	
     	final SeekBar p_SeekBar = (SeekBar) v.findViewById(R.id.SeekBar_P);
     	p_SeekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(pTextIncrement, pEditText, seekValues));

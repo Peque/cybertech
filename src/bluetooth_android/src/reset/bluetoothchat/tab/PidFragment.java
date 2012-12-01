@@ -115,12 +115,8 @@ public class PidFragment extends Fragment {
 				
 				Activity activity = getActivity(); 
 	            if (activity != null) {
-	            	if (arg1) {
-	            		bActivity.mViewPager.setSwipingEnabled(false);
-	            	}
-	            	else 
-						bActivity.mViewPager.setSwipingEnabled(true);
-		        }	
+	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
+		        }
 			}
 		});
     	

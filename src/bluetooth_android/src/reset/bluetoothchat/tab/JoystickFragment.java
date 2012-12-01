@@ -1,13 +1,19 @@
 package reset.bluetoothchat.tab;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class JoystickFragment extends Fragment {
 	
@@ -27,14 +33,8 @@ public class JoystickFragment extends Fragment {
 		View v;
     	v = inflater.inflate(R.layout.dualjoystick, container, false);
     	bActivity = ((BluetoothChat)getActivity());
-    	final TextView txtX1, txtY1;
-        final TextView txtX2, txtY2;
-    	DualJoystickView joystick;     
-    	txtX1 = (TextView) v.findViewById(R.id.TextViewX1);
-        txtY1 = (TextView) v.findViewById(R.id.TextViewY1);
-        
-        txtX2 = (TextView) v.findViewById(R.id.TextViewX2);
-        txtY2 = (TextView) v.findViewById(R.id.TextViewY2);
+    	DualJoystickView joystick;   
+    	ToggleButton buttonLock = (ToggleButton) v.findViewById(R.id.buttonLock);
 
         joystick = (DualJoystickView) v.findViewById(R.id.dualjoystickView);
         
@@ -42,8 +42,6 @@ public class JoystickFragment extends Fragment {
 
             @Override
             public void OnMoved(int pan, int tilt) {
-                    txtX1.setText(Integer.toString(pan));
-                    txtY1.setText(Integer.toString(tilt));
                     if (bActivity.isConnected()) {
 	                    bActivity.sendMessage(getString(R.string.set_Left_X) + pan + '\n');
 	                    bActivity.sendMessage(getString(R.string.set_Left_Y) + tilt + '\n');         
@@ -52,13 +50,9 @@ public class JoystickFragment extends Fragment {
 
             @Override
             public void OnReleased() {
-                    txtX1.setText("released");
-                    txtY1.setText("released");
             }
             
             public void OnReturnedToCenter() {
-                    txtX1.setText("stopped");
-                    txtY1.setText("stopped");
             };
         }; 
 
@@ -66,8 +60,6 @@ public class JoystickFragment extends Fragment {
 	
 	        @Override
 	        public void OnMoved(int pan, int tilt) {
-	                txtX2.setText(Integer.toString(pan));
-	                txtY2.setText(Integer.toString(tilt));
 	                if (bActivity.isConnected()) {
 		                bActivity.sendMessage(getString(R.string.set_Right_X) + pan + '\n');
 	                    bActivity.sendMessage(getString(R.string.set_Right_Y) + tilt + '\n');    
@@ -76,17 +68,26 @@ public class JoystickFragment extends Fragment {
 	
 	        @Override
 	        public void OnReleased() {
-	                txtX2.setText("released");
-	                txtY2.setText("released");
 	        }
 	        
 	        public void OnReturnedToCenter() {
-	                txtX2.setText("stopped");
-	                txtY2.setText("stopped");
 	        };
 	   }; 
         
         joystick.setOnJostickMovedListener(_listenerLeft, _listenerRight);
+        
+        buttonLock.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        	
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				// TODO Auto-generated method stub
+				
+				Activity activity = getActivity(); 
+	            if (activity != null) {
+	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
+		        }
+			}
+		});
     	return v;
 	}
 	

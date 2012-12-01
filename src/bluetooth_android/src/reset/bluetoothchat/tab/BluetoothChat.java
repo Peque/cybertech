@@ -133,11 +133,9 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         		  public void run() {
         		    //Do something after 2000ms
         			  if (getActionBar().getSelectedNavigationIndex() == JOYSTICK_TAB) {
-                      	mViewPager.setSwipingEnabled(false);
                       	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                       	imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), imm.HIDE_NOT_ALWAYS );
                       }
-                      else mViewPager.setSwipingEnabled(true);
         		  }
         		}, 2000);
             } 

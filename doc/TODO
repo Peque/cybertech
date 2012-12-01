@@ -24,3 +24,8 @@ Release 2.0
  * Integrate the micro in the PCB.
  * Integrate the motor power converter in the board.
  * Change the motor driver to one easier to find/buy.
+ * Use common 0.1 inches, 3 pin connectors for the external modules. Use
+   PIN_ARRAY_1 pins to allow custom connections to the Maple for the
+   non-used PIN_ARRAY_3X1 connector pins.
+ * Use a MOSFET in the sensor array to turn off emmiters by default.
+ * Make use of an extra digital pin for module enable/disable.

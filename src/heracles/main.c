@@ -167,7 +167,7 @@ int parse_command(char *buffer)
 			if (*p_buffer == 'p') {
 				// :gpid:
 				char float2str_buf[15];
-				usart_putstr(BLUETOOTH_USART, "PID:");
+				usart_putstr(BLUETOOTH_USART, "PID,");
 				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				snprintf(float2str_buf, 15, "%e", kp);
 				usart_putstr(BLUETOOTH_USART, float2str_buf);

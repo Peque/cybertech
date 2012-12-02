@@ -98,9 +98,9 @@ public class JoystickFragment extends Fragment {
 	            if (activity != null) {
 	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
 	            	if (arg1) {
-	            		bActivity.sendMessage(getString(R.string.manual_control));
+	            		bActivity.sendMessage(getString(R.string.manual_control) + '\n');
 	            	}
-	            	else bActivity.sendMessage(getString(R.string.automatic_control));
+	            	else bActivity.sendMessage(getString(R.string.automatic_control) + '\n');
 	            }
 	            
 	            if (arg1) {

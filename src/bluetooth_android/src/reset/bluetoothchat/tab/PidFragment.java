@@ -102,7 +102,7 @@ public class PidFragment extends Fragment {
               Activity activity = getActivity(); 
               if (activity != null) {
               	if (bActivity.isConnected()) {
-	                    bActivity.sendMessage(getString(R.string.stop));    
+	                    bActivity.sendMessage(getString(R.string.stop) + '\n');    
               	}
               }
           }

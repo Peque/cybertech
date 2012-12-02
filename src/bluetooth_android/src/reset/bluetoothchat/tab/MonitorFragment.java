@@ -63,7 +63,7 @@ public class MonitorFragment extends Fragment {
 					boolean fromUser) {
 				// TODO Auto-generated method stub
 				if (fromUser) {
-					lineSeekBar.setProgress(linePos);		
+					lineSeekBar.setProgress((int)linePos);		
 				}
 			}
 		});
@@ -80,7 +80,7 @@ public class MonitorFragment extends Fragment {
 	            		public void run() {
 	            			bActivity = ((BluetoothChat)getActivity());
 	            			if (bActivity.isConnected()) 
-	            				bActivity.sendMessage(getString(R.string.get_Line_Pos));
+	            				bActivity.sendMessage(getString(R.string.get_Line_Pos) + '\n');
 	            		};
 	            	}, 0, 200);
 	            	
@@ -89,21 +89,16 @@ public class MonitorFragment extends Fragment {
 	            		public void run() {
 	            			bActivity = ((BluetoothChat)getActivity());
 	            			if (bActivity.isConnected())
-	            				bActivity.sendMessage(getString(R.string.get_Battery_Charge));
+	            				bActivity.sendMessage(getString(R.string.get_Battery_Charge) + '\n');
 	            		};
 	            	}, 0, 10000);
- 				}
- 				
+ 				} 				
  				else {
  					timer.cancel();
  					timer.purge();
  				}
             }
         });
-		
-    	
-
-
     	return v;
 	}
 	
@@ -122,7 +117,7 @@ public class MonitorFragment extends Fragment {
 	}
 
 	public void setLPos(float parseFloat) {
-		linePos = (Math.round(parseFloat) + 8) * 10;
+		linePos = (Math.round(parseFloat *10));
 		lineSeekBar.setProgress(linePos);			
 	}
 

@@ -40,7 +40,7 @@ public  class ConsoleFragment extends Fragment {
         mSendButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 // Send a message using content of the edit text widget
-                String message = mOutEditText.getText().toString();
+                String message = mOutEditText.getText().toString() + '\n';
                 int sent = bActivity.sendMessage(message);
                 // In case the message was successfully sent, clear the edit text field
                 if (sent == 1) mOutEditText.setText("");

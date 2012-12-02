@@ -36,8 +36,8 @@
 	            android:layout_width="0dip"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:max="160"
-	            android:progress="80" />
+	            android:max="150"
+	            android:progress="75" />
 
 	        <CheckBox
 	            android:id="@+id/checkBox2"

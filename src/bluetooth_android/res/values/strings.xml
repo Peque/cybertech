@@ -55,7 +55,7 @@
     
     <string name="automatic_control">:ac:</string>
     <string name="manual_control">:mc:</string>
-    <string name="stop">:st:</string>
+    <string name="stop">:mc:</string>
     
     <string name="get_Line_Pos">:gl:</string>
     <string name="get_Battery_Charge">:gb:</string>

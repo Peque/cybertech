@@ -20,8 +20,8 @@ public final class R {
         public static final int SeekBar_D=0x7f070021;
         public static final int SeekBar_I=0x7f07001d;
         public static final int SeekBar_P=0x7f070019;
-        public static final int TextAnalogBat=0x7f070014;
         public static final int TextDigitalBat=0x7f070013;
+        public static final int TextPowerBat=0x7f070014;
         public static final int TextView_D=0x7f070020;
         public static final int TextView_I=0x7f07001c;
         public static final int TextView_P=0x7f070018;

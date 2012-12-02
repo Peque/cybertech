@@ -62,7 +62,7 @@
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_weight="1"
-	            android:text="Analog Battery" />
+	            android:text="Power Battery" />
 	    </LinearLayout>
 
 	    <LinearLayout
@@ -80,7 +80,7 @@
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
 
 	        <TextView
-	            android:id="@+id/TextAnalogBat"
+	            android:id="@+id/TextPowerBat"
 	            android:layout_width="0dp"
 	            android:layout_height="wrap_content"
 	            android:layout_gravity="right"

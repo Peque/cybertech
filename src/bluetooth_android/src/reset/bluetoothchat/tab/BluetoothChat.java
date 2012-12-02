@@ -468,9 +468,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 			}
 			else if ((parameters.length == 3) && 
 			    (parameters[0].compareTo(getString(R.string.Battery_Label)) == 0)) {
-				mSectionsPagerAdapter.mFragment.setABat(Float.parseFloat(parameters[1]) + " V");
-				//(( (int)(Float.parseFloat(parameters[1])) * 100) / 100.0 + " V");
-				mSectionsPagerAdapter.mFragment.setDBat(Float.parseFloat(parameters[2]) + " V");				
+				mSectionsPagerAdapter.mFragment.setPBat(Float.parseFloat(parameters[1]));
+				mSectionsPagerAdapter.mFragment.setDBat(Float.parseFloat(parameters[2]));				
 			}
 			else if ((parameters.length == 2) && 
 				    (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)) {

@@ -41,6 +41,8 @@ __attribute__((constructor)) void premain() {
 #define PING_PERIOD 1000000          // Ping period in microseconds
 #define MAX_PWM_VALUE 65535
 #define MAX_MANUAL_PWM_VALUE 40000   // Max speed in manual mode (%)
+#define SENSOR_TRESHOLD 1000
+#define SENSOR_ARRAY_MIDDLE 7.5
 
 
 typedef enum { AUTO = 0, MANUAL } robot_mode;
@@ -54,17 +56,24 @@ char *p_buffer;
 HardwareTimer ping_timer(2);   // TODO: avoid using wirish stuff
 char waiting_for_ack = 0;
 
-// PID variables
-float kp, ki, kd;
+// PID Variables
+float kp = 2000;
+float ki = 0;
+float kd = 0;
+float error, prev_error, integral, derivative;
+unsigned long dt, time, prev_time;
+float correction;
+float line_position;
+float last_line_position = SENSOR_ARRAY_MIDDLE;
 
 // Battery levels
 uint16 power_bat, digital_bat;
 
-// Line Position
-float line_position;
-
 // Joystick variables (manual mode)
 int jleft_x, jleft_y, jright_x, jright_y;
+
+// Sensor array
+uint16 array_data[16];
 
 
 int set_speed(int speed_left, int speed_right)
@@ -117,7 +126,7 @@ int get_battery_level()
 {
 	power_bat = adc_read(ADC1, 8);  // POWER (D3)
 	digital_bat = adc_read(ADC1, 7);  // DIGITAL (D4)
-	
+
 	return 0;
 }
 
@@ -292,7 +301,7 @@ void setup(void)
 	Serial1.begin(1382400);            // TODO: avoid using wirish stuff
 
 	// Set manual mode
-	mode = MANUAL;
+	mode = AUTO;
 
 	// Ping timer
 	// TODO: avoid using wirish stuff!
@@ -305,11 +314,8 @@ void setup(void)
     //ping_timer.resume();
 }
 
-
-void auto_mode(void)
+void sensor_array_read(void)
 {
-	uint16 array_data[16];
-
 	// Set demux control signals to 00 and read data into the array
 	gpio_write_bit(GPIOC, 15, 0);        // S0
 	gpio_write_bit(GPIOC, 14, 0);        // S1
@@ -341,13 +347,73 @@ void auto_mode(void)
 	array_data[7]  = adc_read(ADC1, 1);  // 2A (D10)
 	array_data[8]  = adc_read(ADC1, 4);  // 3A (D7)
 	array_data[15] = adc_read(ADC1, 5);  // 4A (D6)
+}
 
+void set_line_position(void)
+{
+	float aux=0, cont=0;
 	int i;
-	for (i=0;i<16;i++) {
-		usart_putudec(BLUETOOTH_USART, array_data[i]);
-		if (i<15) usart_putstr(BLUETOOTH_USART, "\t");
-		else usart_putstr(BLUETOOTH_USART, "\r\n");
+
+	for (i = 0; i < 16; i++) {
+		if (array_data[i] > SENSOR_TRESHOLD) {
+			aux += i;
+			cont += 1;
+		}
 	}
+
+	line_position = cont ? aux/cont : -1;
+}
+
+void debug_sensor_array(void)
+{
+	int i;
+	for (i = 0; i < 16; i++) {
+		if (array_data[i] > SENSOR_TRESHOLD) usart_putc(BLUETOOTH_USART, '1');
+		else usart_putc(BLUETOOTH_USART, '0');
+	}
+	usart_putc(BLUETOOTH_USART, ' ');
+	usart_putudec(BLUETOOTH_USART, line_position * 10);
+	usart_putc(BLUETOOTH_USART, '\n');
+}
+
+float get_pid_output(void)
+{
+	float output;
+
+	time = systick_uptime_millis;
+	dt = time - prev_time;
+
+	error = line_position - SENSOR_ARRAY_MIDDLE;
+	integral += error*dt;
+	derivative = (error - prev_error)/dt;
+
+	output = kp*error + kd*derivative + ki*integral;
+
+	prev_time = time;
+	prev_error = error;
+
+	return output;
+}
+
+void auto_mode(void)
+{
+	sensor_array_read();
+	set_line_position();
+
+	correction = get_pid_output();
+
+	if (correction > 0) {
+		set_speed(40000, 40000 - correction);
+		usart_putc(BLUETOOTH_USART, '+');
+		usart_putudec(BLUETOOTH_USART, correction);
+	} else {
+		set_speed(40000 + correction, 40000);
+		usart_putc(BLUETOOTH_USART, '-');
+		usart_putudec(BLUETOOTH_USART, -correction);
+	}
+	usart_putc(BLUETOOTH_USART, '\n');
+
+	delay(10);
 }
 
 

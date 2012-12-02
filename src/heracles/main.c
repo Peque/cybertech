@@ -224,7 +224,28 @@ int parse_command(char *buffer)
 				usart_putudec(BLUETOOTH_USART, systick_uptime_millis);
 				usart_putstr(BLUETOOTH_USART, "\n");
 			} else return 1;
-		} else return 1;
+		}
+		 else if (*p_buffer == 'a') {
+			 p_buffer++;
+			if (*p_buffer == 'c') {
+				// :ac:
+				mode = AUTO;
+				char float2str_buf[15];
+				usart_putstr(BLUETOOTH_USART, "Switched to Automatic Mode");
+				usart_putstr(BLUETOOTH_USART, "\n");
+			}
+		}
+		else if (*p_buffer == 'm') {
+			 p_buffer++;
+			if (*p_buffer == 'c') {
+				// :ac:
+				mode = MANUAL;
+				char float2str_buf[15];
+				usart_putstr(BLUETOOTH_USART, "Switched to Manual Mode");
+				usart_putstr(BLUETOOTH_USART, "\n");
+			}
+		}
+		else return 1;
 	}
 
 	ping_timer.refresh();   // TODO: avoid using wirish stuff
@@ -404,14 +425,28 @@ void auto_mode(void)
 
 	if (correction > 0) {
 		set_speed(40000, 40000 - correction);
-		usart_putc(BLUETOOTH_USART, '+');
-		usart_putudec(BLUETOOTH_USART, correction);
+		//~ usart_putc(BLUETOOTH_USART, '+');
+		//~ usart_putudec(BLUETOOTH_USART, correction);
 	} else {
 		set_speed(40000 + correction, 40000);
-		usart_putc(BLUETOOTH_USART, '-');
-		usart_putudec(BLUETOOTH_USART, -correction);
+		//~ usart_putc(BLUETOOTH_USART, '-');
+		//~ usart_putudec(BLUETOOTH_USART, -correction);
 	}
-	usart_putc(BLUETOOTH_USART, '\n');
+	//~ usart_putc(BLUETOOTH_USART, '\n');
+
+	while (usart_data_available(BLUETOOTH_USART)) {
+
+		uint8 c_input = usart_getc(BLUETOOTH_USART);
+
+		*p_buffer = (char) c_input;
+		p_buffer++;
+
+		if (c_input == (uint8) '\n') {
+			*p_buffer = '\0';
+			p_buffer = (char *) buffer;
+			if (parse_command(buffer)) usart_putstr(BLUETOOTH_USART, "ERROR: Unknown command!\n");;
+		}
+	}
 
 	delay(10);
 }

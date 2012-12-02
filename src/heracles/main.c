@@ -113,7 +113,7 @@ int process_joysticks(int leftx, int lefty, int rightx, int righty)
 	return 0;
 }
 
-int battery_level()
+int get_battery_level()
 {
 	power_bat = adc_read(ADC1, 8);  // POWER (D3)
 	digital_bat = adc_read(ADC1, 7);  // DIGITAL (D4)
@@ -195,6 +195,7 @@ int parse_command(char *buffer)
 			} else if (*p_buffer == 'b') {
 				// :gbl:
 				char float2str_buf[15];
+				get_battery_level();
 				usart_putstr(BLUETOOTH_USART, "BL,");
 				snprintf(float2str_buf, 15, "%e", power_bat * 3.3f / 4096);
 				usart_putstr(BLUETOOTH_USART, float2str_buf);

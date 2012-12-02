@@ -57,6 +57,12 @@ char waiting_for_ack = 0;
 // PID variables
 float kp, ki, kd;
 
+// Battery levels
+uint16 power_bat, digital_bat;
+
+// Line Position
+float line_position;
+
 // Joystick variables (manual mode)
 int jleft_x, jleft_y, jright_x, jright_y;
 
@@ -104,6 +110,14 @@ int process_joysticks(int leftx, int lefty, int rightx, int righty)
 
 	set_speed(speed_left, speed_right);
 
+	return 0;
+}
+
+int battery_level()
+{
+	power_bat = adc_read(ADC1, 8);  // POWER (D3)
+	digital_bat = adc_read(ADC1, 7);  // DIGITAL (D4)
+	
 	return 0;
 }
 
@@ -176,6 +190,23 @@ int parse_command(char *buffer)
 				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				usart_putstr(BLUETOOTH_USART, ",");
 				snprintf(float2str_buf, 15, "%e", kd);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, "\n");
+			} else if (*p_buffer == 'b') {
+				// :gbl:
+				char float2str_buf[15];
+				usart_putstr(BLUETOOTH_USART, "BL,");
+				snprintf(float2str_buf, 15, "%e", power_bat * 3.3f / 4096);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, ",");
+				snprintf(float2str_buf, 15, "%e", digital_bat * 3.3f / 4096);
+				usart_putstr(BLUETOOTH_USART, float2str_buf);
+				usart_putstr(BLUETOOTH_USART, "\n");
+			} else if (*p_buffer == 'l') {
+				// :glp:
+				char float2str_buf[15];
+				usart_putstr(BLUETOOTH_USART, "LP,");
+				snprintf(float2str_buf, 15, "%e", line_position);
 				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				usart_putstr(BLUETOOTH_USART, "\n");
 			} else if (*p_buffer == 'u') {

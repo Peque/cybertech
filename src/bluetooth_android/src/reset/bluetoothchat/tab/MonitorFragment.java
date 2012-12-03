@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ public class MonitorFragment extends Fragment {
 	SeekBar lineSeekBar;
 	ToggleButton toggleUpdate;
 	TextView textDigitalBat; 
-	TextView textAnalogBat;
+	TextView textPowerBat;
 	
 	int linePos = 80;
 	
@@ -46,7 +47,7 @@ public class MonitorFragment extends Fragment {
     	toggleUpdate = (ToggleButton) v.findViewById(R.id.buttonUpdateMonitor);
     	
     	textDigitalBat = (TextView) v.findViewById(R.id.TextDigitalBat);
-    	textAnalogBat = (TextView) v.findViewById(R.id.TextAnalogBat);
+    	textPowerBat = (TextView) v.findViewById(R.id.TextPowerBat);
     	
     	lineSeekBar.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
 			
@@ -63,7 +64,7 @@ public class MonitorFragment extends Fragment {
 					boolean fromUser) {
 				// TODO Auto-generated method stub
 				if (fromUser) {
-					lineSeekBar.setProgress(linePos);		
+					lineSeekBar.setProgress((int)linePos);		
 				}
 			}
 		});
@@ -80,7 +81,7 @@ public class MonitorFragment extends Fragment {
 	            		public void run() {
 	            			bActivity = ((BluetoothChat)getActivity());
 	            			if (bActivity.isConnected()) 
-	            				bActivity.sendMessage(getString(R.string.get_Line_Pos));
+	            				bActivity.sendMessage(getString(R.string.get_Line_Pos) + '\n');
 	            		};
 	            	}, 0, 200);
 	            	
@@ -89,40 +90,49 @@ public class MonitorFragment extends Fragment {
 	            		public void run() {
 	            			bActivity = ((BluetoothChat)getActivity());
 	            			if (bActivity.isConnected())
-	            				bActivity.sendMessage(getString(R.string.get_Battery_Charge));
+	            				bActivity.sendMessage(getString(R.string.get_Battery_Charge) + '\n');
 	            		};
 	            	}, 0, 10000);
- 				}
- 				
+ 				} 				
  				else {
  					timer.cancel();
  					timer.purge();
  				}
             }
         });
-		
-    	
-
-
     	return v;
 	}
 	
 	public MonitorFragment getMonitorFragment() {
 		return this;
 	}
-
-	public void setABat(String s) {
-		textDigitalBat.setText(s);
-		
+	
+	public void setPBat(Float f) {
+		String s;
+		s = String.valueOf(f).substring(0, 4) + " V";
+		if (f > 3.6)
+			textPowerBat.setTextColor(Color.GREEN);
+		else if (f > 3.2 && f < 3.6)
+			textPowerBat.setTextColor(Color.YELLOW);
+		else
+			textPowerBat.setTextColor(Color.RED);
+		textPowerBat.setText(s);
 	}
 
-	public void setDBat(String s) {
-		textAnalogBat.setText(s);
-		
+	public void setDBat(Float f) {
+		String s;
+		s = String.valueOf(f).substring(0, 4) + " V";
+		if (f > 3.6)
+			textDigitalBat.setTextColor(Color.GREEN);
+		else if (f > 3.2 && f < 3.6)
+			textDigitalBat.setTextColor(Color.YELLOW);
+		else
+			textDigitalBat.setTextColor(Color.RED);
+		textDigitalBat.setText(s);
 	}
 
 	public void setLPos(float parseFloat) {
-		linePos = (Math.round(parseFloat) + 8) * 10;
+		linePos = (Math.round(parseFloat *10));
 		lineSeekBar.setProgress(linePos);			
 	}
 

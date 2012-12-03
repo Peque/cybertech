@@ -145,9 +145,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         			  if (getActionBar().getSelectedNavigationIndex() == JOYSTICK_TAB) {
                       	InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                       	imm.hideSoftInputFromWindow(mViewPager.getWindowToken(), imm.HIDE_NOT_ALWAYS );
+                      	if(mSectionsPagerAdapter.jFragment.buttonLock.isChecked())
+                      		mViewPager.setSwipingEnabled(false);
                       }
         		  }
-        		}, 2000);
+        		}, 1500);
             } 
         });
 
@@ -466,8 +468,8 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 			}
 			else if ((parameters.length == 3) && 
 			    (parameters[0].compareTo(getString(R.string.Battery_Label)) == 0)) {
-				mSectionsPagerAdapter.mFragment.setABat(parameters[1] + " V");
-				mSectionsPagerAdapter.mFragment.setDBat(parameters[2] + " V");				
+				mSectionsPagerAdapter.mFragment.setPBat(Float.parseFloat(parameters[1]));
+				mSectionsPagerAdapter.mFragment.setDBat(Float.parseFloat(parameters[2]));				
 			}
 			else if ((parameters.length == 2) && 
 				    (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)) {

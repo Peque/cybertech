@@ -19,20 +19,20 @@
 	        android:textAlignment="center"
 	        android:textAppearance="?android:attr/textAppearanceLarge" /> -->
 	
-	    <TextView
-	        android:id="@+id/textView_P_Title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Kp"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
-	
 	 
 	        <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	        android:paddingTop="20dp" >
-	
+
+	            <TextView
+	                android:id="@+id/textView_P_Title"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_weight="1"
+	                android:text="Kp      "
+	                android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	        	<EditText
 	            android:id="@+id/pEditText"
@@ -54,7 +54,6 @@
 	
 	    	</LinearLayout>
 	
-	
 	    <SeekBar
 	        android:id="@+id/SeekBar_P"
 	        android:layout_width="match_parent"
@@ -64,21 +63,20 @@
 	        android:progress="8" />
 	
 	
-	    <TextView
-	        android:id="@+id/textView_I_Title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="10dp"
-	        android:text="Ki"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
-	
-	
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	        android:paddingTop="20dp" >
-	
+
+	        <TextView
+	            android:id="@+id/textView_I_Title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:paddingTop="10dp"
+	            android:text="Ki      "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	        <EditText
 	            android:id="@+id/iEditText"
@@ -110,19 +108,20 @@
 	        android:max="16"
 	        android:progress="8"  />
 	
-	    <TextView
-	        android:id="@+id/textView_D_Title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:paddingTop="10dp"
-	        android:text="Kd"
-	        android:textAppearance="?android:attr/textAppearanceMedium" />
-	
 	    <LinearLayout
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
 	        android:orientation="horizontal"
 	        android:paddingTop="20dp" >
+
+	        <TextView
+	            android:id="@+id/textView_D_Title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:paddingTop="10dp"
+	            android:text="Kd      "
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	
 	        <EditText
 	            android:id="@+id/dEditText"
@@ -149,11 +148,56 @@
 	        android:id="@+id/SeekBar_D"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:paddingTop="5dp"
-	        android:paddingBottom="10dp"
 	        android:max="16"
-	        android:progress="8"  />
+	        android:paddingBottom="5dp"
+	        android:paddingTop="5dp"
+	        android:progress="8" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal"
+	        android:paddingTop="20dp" >
+
+	        <TextView
+	            android:id="@+id/textView_S_Title"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="1"
+	            android:paddingTop="10dp"
+	            android:text="Speed"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
 	
+	        <EditText
+	            android:id="@+id/sEditText"
+	            android:layout_width="100dp"
+	            android:layout_height="wrap_content"
+	            android:ems="10"
+	            android:inputType="numberDecimal"
+	            android:layout_weight="1"
+	            android:gravity="center"
+	            android:text="0"  >			
+	        </EditText>
+	
+	        <TextView
+	            android:id="@+id/TextView_S"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_weight="2"
+	            android:text=""
+	            android:gravity="center"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </LinearLayout>
+	
+	    <SeekBar
+	        android:id="@+id/SeekBar_S"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:max="65535"
+	        android:paddingBottom="5dp"
+	        android:paddingTop="5dp"
+	        android:progress="20000" />
+	    
 	
 	       <LinearLayout
 	           android:layout_width="match_parent"

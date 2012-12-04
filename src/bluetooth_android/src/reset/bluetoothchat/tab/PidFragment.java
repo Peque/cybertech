@@ -27,9 +27,11 @@ public class PidFragment extends Fragment {
 	EditText pEditText;
 	EditText iEditText;
 	EditText dEditText;
+	EditText sEditText;
 	public final String ARG_SECTION_NUMBER = "section_number";
 	public final String ARG_FRAGMENT_NAME = "fragment_name";
 	public float Kp, Ki, Kd;
+	public int speed;
 	ToggleButton pidLockButton;
 	
 	public PidFragment() {
@@ -51,10 +53,12 @@ public class PidFragment extends Fragment {
     	TextView pTextIncrement = (TextView) v.findViewById(R.id.TextView_P);
     	TextView iTextIncrement = (TextView) v.findViewById(R.id.TextView_I);
     	TextView dTextIncrement = (TextView) v.findViewById(R.id.TextView_D);
+    	TextView sTextIncrement = (TextView) v.findViewById(R.id.TextView_S);
     	
     	pEditText = (EditText) v.findViewById(R.id.pEditText);
     	iEditText = (EditText) v.findViewById(R.id.iEditText);
     	dEditText = (EditText) v.findViewById(R.id.dEditText);
+    	sEditText = (EditText) v.findViewById(R.id.sEditText);
     	
     	Button applyButton = (Button) v.findViewById(R.id.applyButton);
     	Button stopButton = (Button) v.findViewById(R.id.stopButton);
@@ -88,9 +92,8 @@ public class PidFragment extends Fragment {
                 	if (bActivity.isConnected()) {
 	                	Toast.makeText(activity, "PID values sent", Toast.LENGTH_SHORT).show();
 	                    updateKValues();
-	                    bActivity.sendMessage(getString(R.string.set_P) + Kp + '\n' );
-	                    bActivity.sendMessage(getString(R.string.set_I) + Ki  + '\n');
-	                    bActivity.sendMessage(getString(R.string.set_D) + Kd  + '\n');     
+	                    bActivity.sendMessage(getString(R.string.set_PID) + Kp + ',' + Ki + ',' + Kd +  '\n' );
+	                    bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed  + '\n' );
                 	}
                 }
             }
@@ -117,6 +120,8 @@ public class PidFragment extends Fragment {
 				Activity activity = getActivity(); 
 	            if (activity != null) {
 	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
+	            	bActivity.sendMessage(getString(R.string.get_PID) + '\n');
+	            	bActivity.sendMessage(getString(R.string.get_Max_Speed) + '\n');
 		        }
 			}
 		});
@@ -130,14 +135,41 @@ public class PidFragment extends Fragment {
     	final SeekBar d_SeekBar = (SeekBar) v.findViewById(R.id.SeekBar_D);
     	d_SeekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(dTextIncrement, dEditText, seekValues));
 
+    	final SeekBar s_SeekBar = (SeekBar) v.findViewById(R.id.SeekBar_S);
+    	s_SeekBar.setOnSeekBarChangeListener(new SeekBarChangeListener(sTextIncrement, sEditText, seekValues) {
+    		@Override
+    		public void onStopTrackingTouch(SeekBar seekBar) {
+//    			float base = Float.valueOf(baseText.getText().toString());
+    			speed = s_SeekBar.getProgress();
+//    			float newValue =  (seekValues [progress] / 100 * base );
+    			sEditText.setText(Integer.toString(speed));
+//    			seekBar.setProgress(8);
+    			incrementText.setText("");
+    			
+    			final BluetoothChat bActivity = ((BluetoothChat)getActivity());
+    			updateKValues();
+                bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed +  '\n' );    			
+    		}
+    		
+    		@Override
+    		public void onProgressChanged(SeekBar seekBar, int progress,
+    				boolean fromUser) {
+    			// TODO Auto-generated method stub
+    			if (fromUser == true) {
+    				incrementText.setText(Integer.toString(progress));
+    				}						
+    		}
+    	});
+
     	return v;
 	}
 	
 	private void updateKValues() {
 		// TODO Auto-generated method stub
 		Kp = Float.valueOf(pEditText.getText().toString());
-		Ki = Float.valueOf(iEditText.getText().toString());;
+		Ki = Float.valueOf(iEditText.getText().toString());
 		Kd = Float.valueOf(dEditText.getText().toString());
+		speed = Integer.valueOf(sEditText.getText().toString());
 	}
 	
 	public void setKd(float kd) {
@@ -153,7 +185,11 @@ public class PidFragment extends Fragment {
 	public void setKp(float kp) {
 		Kp = kp;
 		pEditText.setText(Float.toString(kp));
-		
+	}
+	
+	public void setSpeed(int s) {
+		speed = s;
+		sEditText.setText(Integer.toString(s));
 	}
 	
 	private class SeekBarChangeListener implements OnSeekBarChangeListener {
@@ -173,7 +209,9 @@ public class PidFragment extends Fragment {
 				boolean fromUser) {
 			// TODO Auto-generated method stub
 			if (fromUser == true) {
-				incrementText.setText(Float.toString(seekValues[progress]) + " %");
+				float base = Float.valueOf(baseText.getText().toString());
+				float newValue =  (seekValues [progress] / 100 * base );
+				incrementText.setText(Float.toString(seekValues[progress]) + " % (" + newValue + ")" );
 				}						
 		}
 		
@@ -195,7 +233,7 @@ public class PidFragment extends Fragment {
 			final BluetoothChat bActivity = ((BluetoothChat)getActivity());
 			updateKValues();
             bActivity.sendMessage(getString(R.string.set_PID) + Kp + ',' + Ki + ',' + Kd +  '\n' );
-			             
+            bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed +  '\n' );
 		}
 	}	
 }

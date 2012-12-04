@@ -498,8 +498,8 @@ public class JoystickView extends View {
                                 postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
-                                                touchX += intervalsX;
-                                                touchY += intervalsY;
+                                                touchX = 0;
+                                                touchY = 0;
                                                 
                                                 reportOnMoved();
                                                 invalidate();

@@ -36,7 +36,7 @@
     <string name="kp">Kp</string>
     <string name="ki">Ki</string>
     <string name="kd">Kd</string>
-    <string name="small_text">Small Text</string>
+    <string name="speed"></string>
     
     <!-- Bluetooth Commands -->
     <string name="set_P">:sp:</string>
@@ -47,11 +47,13 @@
     <string name="get_I">:gi:</string>
     <string name="get_D">:gd:</string>
     <string name="get_PID">:gpid:</string>
+    <string name="get_Max_Speed">:gms:</string>
     
     <string name="set_Left_X">:slx:</string>
     <string name="set_Left_Y">:sly:</string>
     <string name="set_Right_X">:srx:</string>
     <string name="set_Right_Y">:sry:</string>
+    <string name="set_Max_Speed">:sms:</string>
     
     <string name="automatic_control">:ac:</string>
     <string name="manual_control">:mc:</string>
@@ -64,4 +66,5 @@
     <string name="PID_Values_Label">PID</string>
     <string name="Battery_Label">BL</string>
     <string name="Line_Position_Label">LP</string>
+    <string name="Max_Speed_Label">MS</string>
   </resources>

@@ -127,7 +127,11 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                 if (mSectionsPagerAdapter.mFragment.timer != null) {
                 	mSectionsPagerAdapter.mFragment.timer.cancel();
                 	mSectionsPagerAdapter.mFragment.timer.purge();
-                }               
+                }
+                if (mSectionsPagerAdapter.jFragment.timer != null) {
+                	mSectionsPagerAdapter.jFragment.timer.cancel();
+                	mSectionsPagerAdapter.jFragment.timer.purge();
+                }
             }
             
             @Override
@@ -471,9 +475,12 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 				mSectionsPagerAdapter.mFragment.setPBat(Float.parseFloat(parameters[1]));
 				mSectionsPagerAdapter.mFragment.setDBat(Float.parseFloat(parameters[2]));				
 			}
-			else if ((parameters.length == 2) && 
-				    (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)) {
-					mSectionsPagerAdapter.mFragment.setLPos(Float.parseFloat(parameters[1]));			
+			else if (parameters.length == 2) {
+				if (parameters[0].compareTo(getString(R.string.Line_Position_Label)) == 0)
+					mSectionsPagerAdapter.mFragment.setLPos(Float.parseFloat(parameters[1]));
+				if (parameters[0].compareTo(getString(R.string.Max_Speed_Label)) == 0)
+					mSectionsPagerAdapter.pidFragment.setSpeed(Integer.parseInt(parameters[1]));
+				    		
 				}
 //			else
 //				sendMessage(getString(R.string.get_PID));

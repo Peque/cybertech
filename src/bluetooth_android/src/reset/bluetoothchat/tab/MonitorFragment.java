@@ -109,7 +109,7 @@ public class MonitorFragment extends Fragment {
 	
 	public void setPBat(Float f) {
 		String s;
-		s = String.valueOf(f).substring(0, 4) + " V";
+		s = String.valueOf(f * 2).substring(0, 4) + " V";
 		if (f > 3.6)
 			textPowerBat.setTextColor(Color.GREEN);
 		else if (f > 3.2 && f < 3.6)
@@ -121,7 +121,7 @@ public class MonitorFragment extends Fragment {
 
 	public void setDBat(Float f) {
 		String s;
-		s = String.valueOf(f).substring(0, 4) + " V";
+		s = String.valueOf(f * 2).substring(0, 4) + " V";
 		if (f > 3.6)
 			textDigitalBat.setTextColor(Color.GREEN);
 		else if (f > 3.2 && f < 3.6)

@@ -65,6 +65,7 @@ unsigned long dt, time, prev_time;
 float correction;
 float line_position;
 float last_line_position = SENSOR_ARRAY_MIDDLE;
+int MAX_SPEED = 40000;
 
 // Battery levels
 uint16 power_bat, digital_bat;
@@ -184,7 +185,15 @@ int parse_command(char *buffer)
 				// :sd:
 				p_buffer++;
 				if (!sscanf(p_buffer, "%f", &kd)) return 1;
-			} else return 1;
+			} else if (*p_buffer == 'm') {
+				p_buffer++;
+				if (*p_buffer == 's') {
+					// :sms:
+					p_buffer += 2;
+					if (!sscanf(p_buffer, "%d", &MAX_SPEED))  return 1;
+				}
+			}
+			else return 1;
 		} else if (*p_buffer == 'g') {
 			p_buffer++;
 			if (*p_buffer == 'p') {
@@ -223,37 +232,41 @@ int parse_command(char *buffer)
 				// :gu:
 				usart_putudec(BLUETOOTH_USART, systick_uptime_millis);
 				usart_putstr(BLUETOOTH_USART, "\n");
+			} else if (*p_buffer == 'm') {
+				p_buffer++;
+				if (*p_buffer == 's') {
+					// :sms:
+					char float2str_buf[15];
+					usart_putstr(BLUETOOTH_USART, "MS,");
+					snprintf(float2str_buf, 15, "%d", MAX_SPEED);
+					usart_putstr(BLUETOOTH_USART, float2str_buf);
+					usart_putstr(BLUETOOTH_USART, "\n");
+				} else return 1;
+			} else if (*p_buffer == 'a') {
+				 p_buffer++;
+				if (*p_buffer == 'c') {
+					// :ac:
+					mode = AUTO;
+					usart_putstr(BLUETOOTH_USART, "Switched to Automatic Mode");
+					usart_putstr(BLUETOOTH_USART, "\n");
+				}
+			} else if (*p_buffer == 'm') {
+				 p_buffer++;
+				if (*p_buffer == 'c') {
+					// :mc:
+					mode = MANUAL;
+					set_speed (0, 0);
+					usart_putstr(BLUETOOTH_USART, "Switched to Manual Mode");
+					usart_putstr(BLUETOOTH_USART, "\n");
+				}
 			} else return 1;
-		}
-		 else if (*p_buffer == 'a') {
-			 p_buffer++;
-			if (*p_buffer == 'c') {
-				// :ac:
-				mode = AUTO;
-				char float2str_buf[15];
-				usart_putstr(BLUETOOTH_USART, "Switched to Automatic Mode");
-				usart_putstr(BLUETOOTH_USART, "\n");
-			}
-		}
-		else if (*p_buffer == 'm') {
-			 p_buffer++;
-			if (*p_buffer == 'c') {
-				// :ac:
-				mode = MANUAL;
-				char float2str_buf[15];
-				usart_putstr(BLUETOOTH_USART, "Switched to Manual Mode");
-				usart_putstr(BLUETOOTH_USART, "\n");
-			}
-		}
-		else return 1;
+		} else return 1;
 	}
 
 	ping_timer.refresh();   // TODO: avoid using wirish stuff
 	waiting_for_ack = 0;
-
 	return 0;
 }
-
 
 void handler_ping()
 {
@@ -265,7 +278,6 @@ void handler_ping()
 		waiting_for_ack = 1;
 	}
 }
-
 
 void setup(void)
 {
@@ -322,7 +334,7 @@ void setup(void)
 	Serial1.begin(1382400);            // TODO: avoid using wirish stuff
 
 	// Set manual mode
-	mode = AUTO;
+	mode = MANUAL;
 
 	// Ping timer
 	// TODO: avoid using wirish stuff!
@@ -424,11 +436,11 @@ void auto_mode(void)
 	correction = get_pid_output();
 
 	if (correction > 0) {
-		set_speed(40000, 40000 - correction);
+		set_speed((int) MAX_SPEED, (int) MAX_SPEED - correction);
 		//~ usart_putc(BLUETOOTH_USART, '+');
 		//~ usart_putudec(BLUETOOTH_USART, correction);
 	} else {
-		set_speed(40000 + correction, 40000);
+		set_speed((int) MAX_SPEED + correction, (int) MAX_SPEED);
 		//~ usart_putc(BLUETOOTH_USART, '-');
 		//~ usart_putudec(BLUETOOTH_USART, -correction);
 	}
@@ -448,7 +460,7 @@ void auto_mode(void)
 		}
 	}
 
-	delay(10);
+	delay(1);
 }
 
 

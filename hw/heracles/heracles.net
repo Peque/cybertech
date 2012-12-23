@@ -264,7 +264,7 @@
   (    1 3V3 )
   (    2 GND )
  )
- ( /509B0C31/509B0C77 SSOP24  U6 TB6621FNG {Lib=TB6621FNG}
+ ( /509B0C31/509B0C77 SSOP24  U6 TB6612FNG {Lib=TB6612FNG}
   (    1 /Motor_driver/AO1 )
   (    2 /Motor_driver/AO1 )
   (    3 GND )

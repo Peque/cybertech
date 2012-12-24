@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  Thu 22 Nov 2012 06:45:38 PM CET
+# EESchema Netlist Version 1.1 created  Mon 24 Dec 2012 03:27:05 AM CET
 (
  ( /50AE6280 PIN_ARRAY_1  P8 S1 {Lib=CONN_1}
   (    1 /S1 )
@@ -192,7 +192,7 @@
  )
  ( /50A2F795 TSSOP16  U1 74CBTLV3253 {Lib=74CBTLV3253}
   (    1 GND )
-  (    2 /S0 )
+  (    2 /S1 )
   (    3 /1B1 )
   (    4 /1B2 )
   (    5 /1B3 )
@@ -204,7 +204,7 @@
   (   11 /2B2 )
   (   12 /2B3 )
   (   13 /2B4 )
-  (   14 /S1 )
+  (   14 /S0 )
   (   15 GND )
   (   16 VCC )
  )
@@ -505,129 +505,129 @@ Net 12 "" ""
  S12 1
  R14 2
 Net 13 "" ""
- R13 2
  S10 1
+ R13 2
 Net 14 "/2A" "2A"
  P4 1
  U1 9
 Net 15 "" ""
- R2 1
  S3 2
+ R2 1
 Net 16 "/1A" "1A"
- P3 1
  U1 7
+ P3 1
 Net 17 "" ""
- S6 1
  R3 2
+ S6 1
 Net 18 "" ""
- R3 1
  S5 2
+ R3 1
 Net 19 "" ""
- R1 1
  S1 2
+ R1 1
 Net 20 "" ""
- R1 2
  S2 1
+ R1 2
 Net 21 "/2B4" "2B4"
  R12 1
- U1 13
  S8 3
+ U1 13
 Net 22 "" ""
  R2 2
  S4 1
 Net 23 "" ""
- R4 1
  S7 2
+ R4 1
 Net 24 "/2B2" "2B2"
- U1 11
  R10 1
  S6 3
-Net 25 "VCC" "VCC"
- S15 1
+ U1 11
+Net 25 "/S1" "S1"
+ P8 1
+ U2 2
+ U1 2
+Net 26 "VCC" "VCC"
+ R18 2
  R19 2
  R20 2
  S13 1
+ S15 1
  R24 2
  R23 2
  S9 1
- R18 2
- R17 2
  R21 2
  S11 1
  R22 2
+ R17 2
  U2 16
  P1 1
  R10 2
- R11 2
- S5 1
- U1 16
- S7 1
- R8 2
- C1 1
  R7 2
  R12 2
+ S5 1
+ R11 2
+ S7 1
+ U1 16
+ S1 1
+ R8 2
+ C1 1
  S3 1
  R9 2
- S1 1
  R6 2
  R5 2
-Net 26 "/1B1" "1B1"
- R5 1
+Net 27 "/1B1" "1B1"
  S1 3
+ R5 1
  U1 3
-Net 27 "/4A" "4A"
+Net 28 "/4A" "4A"
  P6 1
  U2 9
-Net 28 "/2B1" "2B1"
+Net 29 "/2B1" "2B1"
  S5 3
  U1 10
  R9 1
-Net 29 "/2B3" "2B3"
- S7 3
+Net 30 "/2B3" "2B3"
  U1 12
+ S7 3
  R11 1
-Net 30 "/4B4" "4B4"
- U2 13
+Net 31 "/4B4" "4B4"
  S16 3
+ U2 13
  R24 1
-Net 31 "/1B4" "1B4"
- S4 3
- U1 6
+Net 32 "/1B4" "1B4"
  R8 1
-Net 32 "/S1" "S1"
- U2 2
- U1 14
- P8 1
+ U1 6
+ S4 3
 Net 33 "/1B2" "1B2"
+ U1 4
  S2 3
  R6 1
- U1 4
 Net 34 "/1B3" "1B3"
+ U1 5
  S3 3
  R7 1
- U1 5
 Net 35 "/S0" "S0"
- U1 2
- U2 14
  P7 1
+ U1 14
+ U2 14
 Net 36 "/3A" "3A"
- U2 7
  P5 1
+ U2 7
 Net 37 "/3B2" "3B2"
  S10 3
- U2 4
  R18 1
+ U2 4
 Net 38 "/4B2" "4B2"
+ S14 3
  U2 11
  R22 1
- S14 3
 Net 39 "/3B4" "3B4"
- U2 6
  S12 3
  R20 1
+ U2 6
 Net 40 "/3B1" "3B1"
- R17 1
  U2 3
  S9 3
+ R17 1
 }
 #End

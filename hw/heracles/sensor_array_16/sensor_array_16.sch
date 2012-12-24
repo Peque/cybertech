@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Thu 22 Nov 2012 06:45:34 PM CET
+EESchema Schematic File Version 2  date Mon 24 Dec 2012 03:27:00 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:sensor_array_16-cache
 EELAYER 25  0
 EELAYER END
 $Descr A3 16535 11700
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "22 nov 2012"
+Date "24 dec 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -534,13 +533,13 @@ Text Label 12150 8700 0    60   ~ 0
 Text Label 12150 6800 0    60   ~ 0
 1A
 Text Label 13950 6400 2    60   ~ 0
-S1
+S0
 Text Label 13950 8300 2    60   ~ 0
 S0
 Text Label 12150 8200 0    60   ~ 0
 S1
 Text Label 12150 6300 0    60   ~ 0
-S0
+S1
 $Comp
 L 74CBTLV3253 U2
 U 1 1 50AD72D6

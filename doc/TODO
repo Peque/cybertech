@@ -7,7 +7,6 @@
 Release 1.1
 ==================================================
 
- ! Change footprint for the motor control (the current one is wrong)
  * For those Maple pins which have top layer tracks, put vias next to
    them for easier making when plated drills are not available.
  * Move vias next to the motors to allow motor brackets on the surface.

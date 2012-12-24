@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Wed 28 Nov 2012 05:42:03 PM CET
+EESchema Schematic File Version 2  date Mon 24 Dec 2012 01:41:31 AM CET
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -30,14 +30,13 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:reset
-LIBS:heracles-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 6 4
+Sheet 4 4
 Title ""
-Date "28 nov 2012"
+Date "24 dec 2012"
 Rev ""
 Comp ""
 Comment1 ""
@@ -306,7 +305,7 @@ U 1 1 509B0C77
 P 7850 3000
 F 0 "U6" H 7400 3800 50  0000 C CNN
 F 1 "TB6612FNG" H 7550 2200 50  0000 C CNN
-F 2 "SSOP24" H 7850 3000 50  0001 C CNN
+F 2 "SSOP24-P-300.0.65A" H 7850 3000 50  0001 C CNN
 	1    7850 3000
 	1    0    0    -1  
 $EndComp

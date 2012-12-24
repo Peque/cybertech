@@ -1,342 +1,321 @@
-# EESchema Netlist Version 1.1 created  Wed 28 Nov 2012 05:41:59 PM CET
+# EESchema Netlist Version 1.1 created  Mon 24 Dec 2012 01:42:51 AM CET
 (
- ( /50B63EAA PIN_ARRAY_1  P3V3 CONN_1 {Lib=CONN_1}
-  (    1 3V3 )
+ ( /50A32263/50A32A51 SM0603 C2 10uF
+  ( 1 /Logic_power_converter/VBAT+ )
+  ( 2 GND )
  )
- ( /50B63EA9 PIN_ARRAY_1  PGND1 CONN_1 {Lib=CONN_1}
-  (    1 GND )
+ ( /50A32263/50A32A89 SM0603 C3 22uF
+  ( 1 3V3 )
+  ( 2 GND )
  )
- ( /50A6E7C4 PIN_ARRAY_1  P17 CONN_1 {Lib=CONN_1}
-  (    1 N-000012 )
+ ( /509B0C31/509B1393 SM0603 C5 0.1uF
+  ( 1 3V3 )
+  ( 2 GND )
  )
- ( /50A6E7C3 PIN_ARRAY_1  P16 CONN_1 {Lib=CONN_1}
-  (    1 N-000016 )
+ ( /509B0C31/509B139B SM0603 C6 0.1uF
+  ( 1 VMOT )
+  ( 2 GND )
  )
- ( /50A6E7C2 PIN_ARRAY_1  P15 CONN_1 {Lib=CONN_1}
-  (    1 N-000034 )
+ ( /509B0C31/509B13AD SM1206 C7 10uF_,_20V
+  ( 1 VMOT )
+  ( 2 GND )
  )
- ( /50A6E7C0 PIN_ARRAY_1  P11 CONN_1 {Lib=CONN_1}
-  (    1 N-000040 )
+ ( /509BC4E1/509BCECE SM1206 D1 Pairing_LED
+  ( 1 N-000050 )
+  ( 2 GND )
  )
- ( /50A6E7BF PIN_ARRAY_1  P12 CONN_1 {Lib=CONN_1}
-  (    1 N-000041 )
+ ( /509BC4E1/509BCB23 SM1206 D2 Work_mode_LED
+  ( 1 N-000052 )
+  ( 2 GND )
  )
- ( /50A6E7BE PIN_ARRAY_1  P13 CONN_1 {Lib=CONN_1}
-  (    1 N-000029 )
+ ( /509BC4E1/50A31F90 GS2 GS1 GS2
+  ( 1 3V3 )
+  ( 2 N-000048 )
  )
- ( /50A6E7BD PIN_ARRAY_1  P14 CONN_1 {Lib=CONN_1}
-  (    1 N-000032 )
+ ( /50A32E8E PIN_ARRAY_3X1 K1 MCONV
+  ( 1 N-000039 )
+  ( 2 GND )
+  ( 3 VMOT )
  )
- ( /50A6E7B9 PIN_ARRAY_1  P10 CONN_1 {Lib=CONN_1}
-  (    1 N-000042 )
+ ( /50A32263/50A3299E NRS4018T2R2MDGJ L1 2.2uH
+  ( 1 N-000077 )
+  ( 2 N-000078 )
  )
- ( /50A6E7B8 PIN_ARRAY_1  P9 CONN_1 {Lib=CONN_1}
-  (    1 N-000023 )
+ ( /50A321DD PIN_ARRAY_2X1 P1 LLIPO
+  ( 1 /Logic_power_converter/VBAT+ )
+  ( 2 GND )
  )
- ( /50A6E7B7 PIN_ARRAY_1  P8 CONN_1 {Lib=CONN_1}
-  (    1 N-000043 )
+ ( /50A321E8 PIN_ARRAY_2X1 P2 MLIPO
+  ( 1 N-000039 )
+  ( 2 GND )
  )
- ( /50A6E7B6 PIN_ARRAY_1  P7 CONN_1 {Lib=CONN_1}
-  (    1 N-000044 )
+ ( /50A6E7A6 PIN_ARRAY_1 P3 CONN_1
+  ( 1 N-000004 )
  )
- ( /50A6E7A6 PIN_ARRAY_1  P3 CONN_1 {Lib=CONN_1}
-  (    1 N-000004 )
+ ( /50B63EAA PIN_ARRAY_1 P3V3 CONN_1
+  ( 1 3V3 )
  )
- ( /50A6E7A5 PIN_ARRAY_1  P4 CONN_1 {Lib=CONN_1}
-  (    1 N-000045 )
+ ( /50A6E7A5 PIN_ARRAY_1 P4 CONN_1
+  ( 1 N-000045 )
  )
- ( /50A6E7A4 PIN_ARRAY_1  P5 CONN_1 {Lib=CONN_1}
-  (    1 N-000027 )
+ ( /50A6E7A4 PIN_ARRAY_1 P5 CONN_1
+  ( 1 N-000027 )
  )
- ( /50A6E7A3 PIN_ARRAY_1  P6 CONN_1 {Lib=CONN_1}
-  (    1 N-000005 )
+ ( /50A6E7A3 PIN_ARRAY_1 P6 CONN_1
+  ( 1 N-000005 )
  )
- ( /50A6E769 PIN_ARRAY_1  P28 CONN_1 {Lib=CONN_1}
-  (    1 N-000030 )
+ ( /50A6E7B6 PIN_ARRAY_1 P7 CONN_1
+  ( 1 N-000044 )
  )
- ( /50A6E768 PIN_ARRAY_1  P24 CONN_1 {Lib=CONN_1}
-  (    1 N-000031 )
+ ( /50A6E7B7 PIN_ARRAY_1 P8 CONN_1
+  ( 1 N-000043 )
  )
- ( /50A6E767 PIN_ARRAY_1  P25 CONN_1 {Lib=CONN_1}
-  (    1 N-000028 )
+ ( /50A6E7B8 PIN_ARRAY_1 P9 CONN_1
+  ( 1 N-000023 )
  )
- ( /50A6E766 PIN_ARRAY_1  P26 CONN_1 {Lib=CONN_1}
-  (    1 N-000026 )
+ ( /50A6E7B9 PIN_ARRAY_1 P10 CONN_1
+  ( 1 N-000042 )
  )
- ( /50A6E765 PIN_ARRAY_1  P27 CONN_1 {Lib=CONN_1}
-  (    1 N-000024 )
+ ( /50A6E7C0 PIN_ARRAY_1 P11 CONN_1
+  ( 1 N-000040 )
  )
- ( /50A6E755 PIN_ARRAY_1  P23 CONN_1 {Lib=CONN_1}
-  (    1 N-000011 )
+ ( /50A6E7BF PIN_ARRAY_1 P12 CONN_1
+  ( 1 N-000041 )
  )
- ( /50A6E754 PIN_ARRAY_1  P22 CONN_1 {Lib=CONN_1}
-  (    1 N-000013 )
+ ( /50A6E7BE PIN_ARRAY_1 P13 CONN_1
+  ( 1 N-000029 )
  )
- ( /50A6E753 PIN_ARRAY_1  P21 CONN_1 {Lib=CONN_1}
-  (    1 N-000014 )
+ ( /50A6E7BD PIN_ARRAY_1 P14 CONN_1
+  ( 1 N-000032 )
  )
- ( /50A6E751 PIN_ARRAY_1  P20 CONN_1 {Lib=CONN_1}
-  (    1 N-000015 )
+ ( /50A6E7C2 PIN_ARRAY_1 P15 CONN_1
+  ( 1 N-000034 )
  )
- ( /50A69D7A PIN_ARRAY_1  P19 CONN_1 {Lib=CONN_1}
-  (    1 N-000025 )
+ ( /50A6E7C3 PIN_ARRAY_1 P16 CONN_1
+  ( 1 N-000016 )
  )
- ( /50A698A2 Micrometal  P35 MOTORA {Lib=CONN_2}
-  (    1 /Motor_driver/AO1 )
-  (    2 /Motor_driver/AO2 )
+ ( /50A6E7C4 PIN_ARRAY_1 P17 CONN_1
+  ( 1 N-000012 )
  )
- ( /50A3318F SM0603  R1 720k {Lib=R}
-  (    1 N-000039 )
-  (    2 N-000038 )
+ ( /50A32F64 PIN_ARRAY_2X1 P18 3V3OUT
+  ( 1 3V3 )
+  ( 2 GND )
  )
- ( /50A3318E SM0603  R2 720k {Lib=R}
-  (    1 N-000038 )
-  (    2 GND )
+ ( /50A69D7A PIN_ARRAY_1 P19 CONN_1
+  ( 1 N-000025 )
  )
- ( /50A3307A SM0603  R4 720k {Lib=R}
-  (    1 N-000037 )
-  (    2 GND )
+ ( /50A6E751 PIN_ARRAY_1 P20 CONN_1
+  ( 1 N-000015 )
  )
- ( /50A33076 SM0603  R3 720k {Lib=R}
-  (    1 /Logic_power_converter/VBAT+ )
-  (    2 N-000037 )
+ ( /50A6E753 PIN_ARRAY_1 P21 CONN_1
+  ( 1 N-000014 )
  )
- ( /50A32F64 PIN_ARRAY_2X1  P18 3V3OUT {Lib=CONN_2}
-  (    1 3V3 )
-  (    2 GND )
+ ( /50A6E754 PIN_ARRAY_1 P22 CONN_1
+  ( 1 N-000013 )
  )
- ( /50A32E8E PIN_ARRAY_3X1  K1 MCONV {Lib=CONN_3}
-  (    1 N-000039 )
-  (    2 GND )
-  (    3 VMOT )
+ ( /50A6E755 PIN_ARRAY_1 P23 CONN_1
+  ( 1 N-000011 )
  )
- ( /50A321E8 PIN_ARRAY_2X1  P2 MLIPO {Lib=CONN_2}
-  (    1 N-000039 )
-  (    2 GND )
+ ( /50A6E768 PIN_ARRAY_1 P24 CONN_1
+  ( 1 N-000031 )
  )
- ( /50A321DD PIN_ARRAY_2X1  P1 LLIPO {Lib=CONN_2}
-  (    1 /Logic_power_converter/VBAT+ )
-  (    2 GND )
+ ( /50A6E767 PIN_ARRAY_1 P25 CONN_1
+  ( 1 N-000028 )
  )
- ( /50A31C51 Micrometal  P36 MOTORB {Lib=CONN_2}
-  (    1 /Motor_driver/BO1 )
-  (    2 /Motor_driver/BO2 )
+ ( /50A6E766 PIN_ARRAY_1 P26 CONN_1
+  ( 1 N-000026 )
  )
- ( /50A31370 MAPLE_MINI  U1 MAPLE_MINI {Lib=MAPLE_MINI}
-  (    1 N-000004 )
-  (    2 N-000045 )
-  (    3 N-000027 )
-  (    4 N-000005 )
-  (    5 N-000038 )
-  (    6 N-000037 )
-  (    7 N-000044 )
-  (    8 N-000043 )
-  (    9 N-000023 )
-  (   10 N-000042 )
-  (   11 N-000040 )
-  (   12 N-000041 )
-  (   13 N-000029 )
-  (   14 N-000032 )
-  (   15 N-000034 )
-  (   16 N-000016 )
-  (   17 N-000012 )
-  (   18 ? )
-  (   19 ? )
-  (   20 ? )
-  (   21 3V3 )
-  (   22 GND )
-  (   23 N-000030 )
-  (   24 /Motor_driver/PWMA )
-  (   25 /Motor_driver/PWMB )
-  (   26 /Motor_driver/AIN1 )
-  (   27 /Motor_driver/AIN2 )
-  (   28 /Motor_driver/BIN1 )
-  (   29 /Motor_driver/BIN2 )
-  (   30 N-000024 )
-  (   31 N-000026 )
-  (   32 N-000028 )
-  (   33 N-000031 )
-  (   34 /Bluetooth/UART_TXD )
-  (   35 /Bluetooth/UART_RXD )
-  (   36 N-000011 )
-  (   37 N-000013 )
-  (   38 N-000014 )
-  (   39 N-000015 )
-  (   40 N-000025 )
+ ( /50A6E765 PIN_ARRAY_1 P27 CONN_1
+  ( 1 N-000024 )
  )
- ( /50A32263/50A32A89 SM0603  C3 22uF {Lib=C}
-  (    1 3V3 )
-  (    2 GND )
+ ( /50A6E769 PIN_ARRAY_1 P28 CONN_1
+  ( 1 N-000030 )
  )
- ( /50A32263/50A32A51 SM0603  C2 10uF {Lib=C}
-  (    1 /Logic_power_converter/VBAT+ )
-  (    2 GND )
+ ( /50A698A2 Micrometal P35 MOTORA
+  ( 1 /Motor_driver/AO1 )
+  ( 2 /Motor_driver/AO2 )
  )
- ( /50A32263/50A3299E NRS4018T2R2MDGJ  L1 2.2uH {Lib=INDUCTOR}
-  (    1 N-000077 )
-  (    2 N-000078 )
+ ( /50A31C51 Micrometal P36 MOTORB
+  ( 1 /Motor_driver/BO1 )
+  ( 2 /Motor_driver/BO2 )
  )
- ( /50A32263/50A3243C QFN10  U3 TPS63031 {Lib=TPS63031}
-  (    1 3V3 )
-  (    2 N-000078 )
-  (    3 GND )
-  (    4 N-000077 )
-  (    5 /Logic_power_converter/VBAT+ )
-  (    6 /Logic_power_converter/VBAT+ )
-  (    7 /Logic_power_converter/VBAT+ )
-  (    8 /Logic_power_converter/VBAT+ )
-  (    9 GND )
-  (   10 3V3 )
+ ( /50B63EA9 PIN_ARRAY_1 PGND1 CONN_1
+  ( 1 GND )
  )
- ( /509BC4E1/50A31F90 GS2  GS1 GS2 {Lib=GS2}
-  (    1 3V3 )
-  (    2 N-000048 )
+ ( /50A3318F SM0603 R1 720k
+  ( 1 N-000039 )
+  ( 2 N-000038 )
  )
- ( /509BC4E1/509BCECF SM0603  R30 470 {Lib=R}
-  (    1 N-000049 )
-  (    2 N-000050 )
+ ( /50A3318E SM0603 R2 720k
+  ( 1 N-000038 )
+  ( 2 GND )
  )
- ( /509BC4E1/509BCECE SM1206  D1 Pairing_LED {Lib=LED}
-  (    1 N-000050 )
-  (    2 GND )
+ ( /50A33076 SM0603 R3 720k
+  ( 1 /Logic_power_converter/VBAT+ )
+  ( 2 N-000037 )
  )
- ( /509BC4E1/509BCB23 SM1206  D2 Work_mode_LED {Lib=LED}
-  (    1 N-000052 )
-  (    2 GND )
+ ( /50A3307A SM0603 R4 720k
+  ( 1 N-000037 )
+  ( 2 GND )
  )
- ( /509BC4E1/509BCB0A SM0603  R31 470 {Lib=R}
-  (    1 N-000051 )
-  (    2 N-000052 )
+ ( /509BC4E1/509BCA51 SM0603 R29 10K
+  ( 1 N-000054 )
+  ( 2 GND )
  )
- ( /509BC4E1/509BCA51 SM0603  R29 10K {Lib=R}
-  (    1 N-000054 )
-  (    2 GND )
+ ( /509BC4E1/509BCECF SM0603 R30 470
+  ( 1 N-000049 )
+  ( 2 N-000050 )
  )
- ( /509BC4E1/509BCA1B SM1206  SW1 SW_PUSH {Lib=SW_PUSH}
-  (    1 N-000054 )
-  (    2 3V3 )
+ ( /509BC4E1/509BCB0A SM0603 R31 470
+  ( 1 N-000051 )
+  ( 2 N-000052 )
  )
- ( /509BC4E1/509BC507 Bluetooth_HC-0X  U5 HC-0X {Lib=HC-0X}
-  (    1 /Bluetooth/UART_TXD )
-  (    2 /Bluetooth/UART_RXD )
-  (    3 ? )
-  (    4 ? )
-  (    5 ? )
-  (    6 ? )
-  (    7 ? )
-  (    8 ? )
-  (    9 ? )
-  (   10 ? )
-  (   11 ? )
-  (   12 N-000048 )
-  (   13 GND )
-  (   14 ? )
-  (   15 ? )
-  (   16 ? )
-  (   17 ? )
-  (   18 ? )
-  (   19 ? )
-  (   20 ? )
-  (   21 GND )
-  (   22 GND )
-  (   23 ? )
-  (   24 N-000049 )
-  (   25 ? )
-  (   26 N-000054 )
-  (   27 ? )
-  (   28 ? )
-  (   29 ? )
-  (   30 ? )
-  (   31 N-000051 )
-  (   32 N-000049 )
-  (   33 ? )
-  (   34 N-000054 )
+ ( /509BC4E1/509BCA1B SM1206 SW1 SW_PUSH
+  ( 1 N-000054 )
+  ( 2 3V3 )
  )
- ( /509B0C31/509B13AD SM1206  C7 10uF_,_20V {Lib=CP1}
-  (    1 VMOT )
-  (    2 GND )
+ ( /50A31370 MAPLE_MINI U1 MAPLE_MINI
+  ( 1 N-000004 )
+  ( 2 N-000045 )
+  ( 3 N-000027 )
+  ( 4 N-000005 )
+  ( 5 N-000038 )
+  ( 6 N-000037 )
+  ( 7 N-000044 )
+  ( 8 N-000043 )
+  ( 9 N-000023 )
+  ( 10 N-000042 )
+  ( 11 N-000040 )
+  ( 12 N-000041 )
+  ( 13 N-000029 )
+  ( 14 N-000032 )
+  ( 15 N-000034 )
+  ( 16 N-000016 )
+  ( 17 N-000012 )
+  ( 18 ? )
+  ( 19 ? )
+  ( 20 ? )
+  ( 21 3V3 )
+  ( 22 GND )
+  ( 23 N-000030 )
+  ( 24 /Motor_driver/PWMA )
+  ( 25 /Motor_driver/PWMB )
+  ( 26 /Motor_driver/AIN1 )
+  ( 27 /Motor_driver/AIN2 )
+  ( 28 /Motor_driver/BIN1 )
+  ( 29 /Motor_driver/BIN2 )
+  ( 30 N-000024 )
+  ( 31 N-000026 )
+  ( 32 N-000028 )
+  ( 33 N-000031 )
+  ( 34 /Bluetooth/UART_TXD )
+  ( 35 /Bluetooth/UART_RXD )
+  ( 36 N-000011 )
+  ( 37 N-000013 )
+  ( 38 N-000014 )
+  ( 39 N-000015 )
+  ( 40 N-000025 )
  )
- ( /509B0C31/509B139B SM0603  C6 0.1uF {Lib=C}
-  (    1 VMOT )
-  (    2 GND )
+ ( /50A32263/50A3243C QFN10 U3 TPS63031
+  ( 1 3V3 )
+  ( 2 N-000078 )
+  ( 3 GND )
+  ( 4 N-000077 )
+  ( 5 /Logic_power_converter/VBAT+ )
+  ( 6 /Logic_power_converter/VBAT+ )
+  ( 7 /Logic_power_converter/VBAT+ )
+  ( 8 /Logic_power_converter/VBAT+ )
+  ( 9 GND )
+  ( 10 3V3 )
  )
- ( /509B0C31/509B1393 SM0603  C5 0.1uF {Lib=C}
-  (    1 3V3 )
-  (    2 GND )
+ ( /509BC4E1/509BC507 Bluetooth_HC-0X U5 HC-0X
+  ( 1 /Bluetooth/UART_TXD )
+  ( 2 /Bluetooth/UART_RXD )
+  ( 3 ? )
+  ( 4 ? )
+  ( 5 ? )
+  ( 6 ? )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 ? )
+  ( 11 ? )
+  ( 12 N-000048 )
+  ( 13 GND )
+  ( 14 ? )
+  ( 15 ? )
+  ( 16 ? )
+  ( 17 ? )
+  ( 18 ? )
+  ( 19 ? )
+  ( 20 ? )
+  ( 21 GND )
+  ( 22 GND )
+  ( 23 ? )
+  ( 24 N-000049 )
+  ( 25 ? )
+  ( 26 N-000054 )
+  ( 27 ? )
+  ( 28 ? )
+  ( 29 ? )
+  ( 30 ? )
+  ( 31 N-000051 )
+  ( 32 N-000049 )
+  ( 33 ? )
+  ( 34 N-000054 )
  )
- ( /509B0C31/509B0C77 SSOP24  U6 TB6612FNG {Lib=TB6612FNG}
-  (    1 /Motor_driver/AO1 )
-  (    2 /Motor_driver/AO1 )
-  (    3 GND )
-  (    4 GND )
-  (    5 /Motor_driver/AO2 )
-  (    6 /Motor_driver/AO2 )
-  (    7 /Motor_driver/BO2 )
-  (    8 /Motor_driver/BO2 )
-  (    9 GND )
-  (   10 GND )
-  (   11 /Motor_driver/BO1 )
-  (   12 /Motor_driver/BO1 )
-  (   13 VMOT )
-  (   14 VMOT )
-  (   15 /Motor_driver/PWMB )
-  (   16 /Motor_driver/BIN2 )
-  (   17 /Motor_driver/BIN1 )
-  (   18 GND )
-  (   19 3V3 )
-  (   20 3V3 )
-  (   21 /Motor_driver/AIN1 )
-  (   22 /Motor_driver/AIN2 )
-  (   23 /Motor_driver/PWMA )
-  (   24 VMOT )
+ ( /509B0C31/509B0C77 SSOP24-P-300.0.65A U6 TB6612FNG
+  ( 1 /Motor_driver/AO1 )
+  ( 2 /Motor_driver/AO1 )
+  ( 3 GND )
+  ( 4 GND )
+  ( 5 /Motor_driver/AO2 )
+  ( 6 /Motor_driver/AO2 )
+  ( 7 /Motor_driver/BO2 )
+  ( 8 /Motor_driver/BO2 )
+  ( 9 GND )
+  ( 10 GND )
+  ( 11 /Motor_driver/BO1 )
+  ( 12 /Motor_driver/BO1 )
+  ( 13 VMOT )
+  ( 14 VMOT )
+  ( 15 /Motor_driver/PWMB )
+  ( 16 /Motor_driver/BIN2 )
+  ( 17 /Motor_driver/BIN1 )
+  ( 18 GND )
+  ( 19 3V3 )
+  ( 20 3V3 )
+  ( 21 /Motor_driver/AIN1 )
+  ( 22 /Motor_driver/AIN2 )
+  ( 23 /Motor_driver/PWMA )
+  ( 24 VMOT )
  )
 )
 *
 { Allowed footprints by component:
-$component R1
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R2
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R4
- R?
- SM0603
- SM0805
- R?-*
- SM1206
-$endlist
-$component R3
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C2
+ SM*
+ C?
+ C1-1
 $endlist
 $component C3
  SM*
  C?
  C1-1
 $endlist
-$component C2
+$component C5
  SM*
  C?
  C1-1
 $endlist
-$component R30
- R?
- SM0603
- SM0805
- R?-*
- SM1206
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ CP*
+ SM*
 $endlist
 $component D1
  LED-3MM
@@ -356,7 +335,28 @@ $component D2
  LED-1206
  LEDV
 $endlist
-$component R31
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
  R?
  SM0603
  SM0805
@@ -370,230 +370,19 @@ $component R29
  R?-*
  SM1206
 $endlist
-$component C7
- CP*
- SM*
+$component R30
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
-$component C6
- SM*
- C?
- C1-1
-$endlist
-$component C5
- SM*
- C?
- C1-1
+$component R31
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
 $endlist
 $endfootprintlist
 }
-{ Pin List by Nets
-Net 1 "/Logic power converter/VBAT+" "VBAT+"
- U3 7
- U3 6
- U3 5
- U3 8
- C2 1
- P1 1
- R3 1
-Net 2 "GND" "GND"
- D1 2
- D2 2
- R29 2
- U1 22
- U6 18
- U6 3
- U6 4
- C6 2
- PGND1 1
- C5 2
- C7 2
- U6 9
- U6 10
- C2 2
- R2 2
- C3 2
- U3 9
- U3 3
- U5 13
- P1 2
- P2 2
- K1 2
- P18 2
- R4 2
- U5 21
- U5 22
-Net 3 "/Motor driver/BO1" "BO1"
- U6 11
- U6 12
- P36 1
-Net 4 "" ""
- U1 1
- P3 1
-Net 5 "" ""
- P6 1
- U1 4
-Net 9 "/Motor driver/AO1" "AO1"
- P35 1
- U6 2
- U6 1
-Net 10 "/Bluetooth/UART_TXD" "UART_TXD"
- U5 1
- U1 34
-Net 11 "" ""
- P23 1
- U1 36
-Net 12 "" ""
- P17 1
- U1 17
-Net 13 "" ""
- U1 37
- P22 1
-Net 14 "" ""
- P21 1
- U1 38
-Net 15 "" ""
- P20 1
- U1 39
-Net 16 "" ""
- U1 16
- P16 1
-Net 17 "/Motor driver/BO2" "BO2"
- U6 8
- U6 7
- P36 2
-Net 18 "/Motor driver/AO2" "AO2"
- P35 2
- U6 5
- U6 6
-Net 19 "/Motor driver/AIN1" "AIN1"
- U1 26
- U6 21
-Net 20 "/Motor driver/AIN2" "AIN2"
- U6 22
- U1 27
-Net 21 "/Motor driver/BIN2" "BIN2"
- U1 29
- U6 16
-Net 22 "/Motor driver/BIN1" "BIN1"
- U1 28
- U6 17
-Net 23 "" ""
- U1 9
- P9 1
-Net 24 "" ""
- P27 1
- U1 30
-Net 25 "" ""
- U1 40
- P19 1
-Net 26 "" ""
- P26 1
- U1 31
-Net 27 "" ""
- P5 1
- U1 3
-Net 28 "" ""
- P25 1
- U1 32
-Net 29 "" ""
- P13 1
- U1 13
-Net 30 "" ""
- U1 23
- P28 1
-Net 31 "" ""
- U1 33
- P24 1
-Net 32 "" ""
- U1 14
- P14 1
-Net 33 "/Motor driver/PWMA" "PWMA"
- U6 23
- U1 24
-Net 34 "" ""
- U1 15
- P15 1
-Net 35 "/Motor driver/PWMB" "PWMB"
- U1 25
- U6 15
-Net 36 "/Bluetooth/UART_RXD" "UART_RXD"
- U1 35
- U5 2
-Net 37 "" ""
- R4 1
- U1 6
- R3 2
-Net 38 "" ""
- U1 5
- R2 1
- R1 2
-Net 39 "" ""
- R1 1
- K1 1
- P2 1
-Net 40 "" ""
- U1 11
- P11 1
-Net 41 "" ""
- P12 1
- U1 12
-Net 42 "" ""
- U1 10
- P10 1
-Net 43 "" ""
- U1 8
- P8 1
-Net 44 "" ""
- U1 7
- P7 1
-Net 45 "" ""
- P4 1
- U1 2
-Net 46 "VMOT" "VMOT"
- C7 1
- K1 3
- U6 14
- U6 13
- C6 1
- U6 24
-Net 47 "3V3" "3V3"
- P18 1
- U3 1
- SW1 2
- P3V3 1
- C3 1
- U3 10
- GS1 1
- U1 21
- U6 20
- U6 19
- C5 1
-Net 48 "" ""
- U5 12
- GS1 2
-Net 49 "" ""
- U5 32
- R30 1
- U5 24
-Net 50 "" ""
- R30 2
- D1 1
-Net 51 "" ""
- R31 1
- U5 31
-Net 52 "" ""
- D2 1
- R31 2
-Net 54 "" ""
- U5 26
- R29 1
- SW1 1
- U5 34
-Net 77 "" ""
- L1 1
- U3 4
-Net 78 "" ""
- L1 2
- U3 2
-}
-#End

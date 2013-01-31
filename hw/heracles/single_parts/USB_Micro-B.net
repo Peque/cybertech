@@ -1,0 +1,38 @@
+# EESchema Netlist Version 1.1 created  Thu 31 Jan 2013 03:20:50 PM CET
+(
+ ( /510A7B15 SIL-5  P1 CONN_5 {Lib=CONN_5}
+  (    1 N-000005 )
+  (    2 N-000002 )
+  (    3 N-000004 )
+  (    4 N-000003 )
+  (    5 N-000001 )
+ )
+ ( /510A7AAB USB_Micro-B  J1 USB2-MINI/MICRO {Lib=USB2-MINI/MICRO}
+  (    1 N-000005 )
+  (    2 N-000002 )
+  (    3 N-000004 )
+  (    4 N-000003 )
+  (    5 N-000001 )
+  (    6 N-000001 )
+ )
+)
+*
+{ Pin List by Nets
+Net 1 "" ""
+ J1 6
+ J1 5
+ P1 5
+Net 2 "" ""
+ P1 2
+ J1 2
+Net 3 "" ""
+ P1 4
+ J1 4
+Net 4 "" ""
+ P1 3
+ J1 3
+Net 5 "" ""
+ P1 1
+ J1 1
+}
+#End

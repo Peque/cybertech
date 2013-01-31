@@ -1,0 +1,5 @@
+comp = "P1" module = "SIL-12"
+comp = "P2" module = "SIL-12"
+comp = "P3" module = "SIL-12"
+comp = "P4" module = "SIL-12"
+comp = "U1" module = "LQFP48"

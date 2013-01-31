@@ -1,0 +1,193 @@
+EESchema Schematic File Version 2  date Thu 31 Jan 2013 01:35:49 PM CET
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:reset
+EELAYER 43  0
+EELAYER END
+$Descr A4 11700 8267
+encoding utf-8
+Sheet 1 1
+Title ""
+Date "31 jan 2013"
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Wire Wire Line
+	6350 5000 6350 5250
+Wire Wire Line
+	6150 5000 6150 5250
+Wire Wire Line
+	5950 5000 5950 5250
+Wire Wire Line
+	5750 5000 5750 5250
+Wire Wire Line
+	5550 5000 5550 5250
+Wire Wire Line
+	5350 5000 5350 5250
+Wire Wire Line
+	7100 4250 7350 4250
+Wire Wire Line
+	7100 4050 7350 4050
+Wire Wire Line
+	7100 3850 7350 3850
+Wire Wire Line
+	7100 3650 7350 3650
+Wire Wire Line
+	7100 3450 7350 3450
+Wire Wire Line
+	7100 3250 7350 3250
+Wire Wire Line
+	6350 2150 6350 2400
+Wire Wire Line
+	6150 2150 6150 2400
+Wire Wire Line
+	5950 2150 5950 2400
+Wire Wire Line
+	5750 2150 5750 2400
+Wire Wire Line
+	5550 2150 5550 2400
+Wire Wire Line
+	5350 2150 5350 2400
+Wire Wire Line
+	4250 4250 4500 4250
+Wire Wire Line
+	4250 4050 4500 4050
+Wire Wire Line
+	4250 3850 4500 3850
+Wire Wire Line
+	4250 3650 4500 3650
+Wire Wire Line
+	4250 3450 4500 3450
+Wire Wire Line
+	4250 3250 4500 3250
+Wire Wire Line
+	4250 3150 4500 3150
+Wire Wire Line
+	4250 3350 4500 3350
+Wire Wire Line
+	4250 3550 4500 3550
+Wire Wire Line
+	4250 3750 4500 3750
+Wire Wire Line
+	4250 3950 4500 3950
+Wire Wire Line
+	4250 4150 4500 4150
+Wire Wire Line
+	5250 2400 5250 2150
+Wire Wire Line
+	5450 2150 5450 2400
+Wire Wire Line
+	5650 2150 5650 2400
+Wire Wire Line
+	5850 2150 5850 2400
+Wire Wire Line
+	6050 2150 6050 2400
+Wire Wire Line
+	6250 2150 6250 2400
+Wire Wire Line
+	7100 3150 7350 3150
+Wire Wire Line
+	7100 3350 7350 3350
+Wire Wire Line
+	7100 3550 7350 3550
+Wire Wire Line
+	7100 3750 7350 3750
+Wire Wire Line
+	7100 3950 7350 3950
+Wire Wire Line
+	7100 4150 7350 4150
+Wire Wire Line
+	5250 5000 5250 5250
+Wire Wire Line
+	5450 5000 5450 5250
+Wire Wire Line
+	5650 5000 5650 5250
+Wire Wire Line
+	5850 5000 5850 5250
+Wire Wire Line
+	6050 5000 6050 5250
+Wire Wire Line
+	6250 5000 6250 5250
+$Comp
+L CONN_12 P4
+U 1 1 510A5B82
+P 5800 1800
+F 0 "P4" V 5750 1800 60  0000 C CNN
+F 1 "CONN_12" V 5850 1800 60  0000 C CNN
+F 2 "SIL-12" H 5800 1800 60  0001 C CNN
+	1    5800 1800
+	0    1    -1   0   
+$EndComp
+$Comp
+L CONN_12 P3
+U 1 1 510A5B81
+P 7700 3700
+F 0 "P3" V 7650 3700 60  0000 C CNN
+F 1 "CONN_12" V 7750 3700 60  0000 C CNN
+F 2 "SIL-12" H 7700 3700 60  0001 C CNN
+	1    7700 3700
+	1    0    0    1   
+$EndComp
+$Comp
+L CONN_12 P2
+U 1 1 510A5B7E
+P 5800 5600
+F 0 "P2" V 5750 5600 60  0000 C CNN
+F 1 "CONN_12" V 5850 5600 60  0000 C CNN
+F 2 "SIL-12" H 5800 5600 60  0001 C CNN
+	1    5800 5600
+	0    -1   1    0   
+$EndComp
+$Comp
+L CONN_12 P1
+U 1 1 510A5B7C
+P 3900 3700
+F 0 "P1" V 3850 3700 60  0000 C CNN
+F 1 "CONN_12" V 3950 3700 60  0000 C CNN
+F 2 "SIL-12" H 3900 3700 60  0001 C CNN
+	1    3900 3700
+	-1   0    0    -1  
+$EndComp
+$Comp
+L STM32F103CBT6 U1
+U 1 1 510A5AF8
+P 5800 3700
+F 0 "U1" H 5800 3750 60  0000 C CNN
+F 1 "STM32F103CBT6" H 5800 3650 60  0000 C CNN
+F 2 "LQFP48" H 5800 3700 60  0001 C CNN
+	1    5800 3700
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

@@ -1,0 +1,38 @@
+Cmp-Mod V01 Created by CvPcb (2012-01-19 BZR 3256)-stable date = Thu 31 Jan 2013 01:10:21 PM CET
+
+BeginCmp
+TimeStamp = /510A5B7C;
+Reference = P1;
+ValeurCmp = CONN_12;
+IdModule  = SIL-12;
+EndCmp
+
+BeginCmp
+TimeStamp = /510A5B7E;
+Reference = P2;
+ValeurCmp = CONN_12;
+IdModule  = SIL-12;
+EndCmp
+
+BeginCmp
+TimeStamp = /510A5B81;
+Reference = P3;
+ValeurCmp = CONN_12;
+IdModule  = SIL-12;
+EndCmp
+
+BeginCmp
+TimeStamp = /510A5B82;
+Reference = P4;
+ValeurCmp = CONN_12;
+IdModule  = SIL-12;
+EndCmp
+
+BeginCmp
+TimeStamp = /510A5AF8;
+Reference = U1;
+ValeurCmp = STM32F103CBT6;
+IdModule  = LQFP48;
+EndCmp
+
+EndListe

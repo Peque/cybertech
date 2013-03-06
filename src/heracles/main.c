@@ -200,7 +200,6 @@ int parse_command(char *buffer)
 				// :gpid:
 				char float2str_buf[15];
 				usart_putstr(BLUETOOTH_USART, "PID,");
-				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				snprintf(float2str_buf, 15, "%e", kp);
 				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				usart_putstr(BLUETOOTH_USART, ",");
@@ -242,24 +241,22 @@ int parse_command(char *buffer)
 					usart_putstr(BLUETOOTH_USART, float2str_buf);
 					usart_putstr(BLUETOOTH_USART, "\n");
 				} else return 1;
-			} else if (*p_buffer == 'a') {
-				 p_buffer++;
-				if (*p_buffer == 'c') {
-					// :ac:
-					mode = AUTO;
-					usart_putstr(BLUETOOTH_USART, "Switched to Automatic Mode");
-					usart_putstr(BLUETOOTH_USART, "\n");
-				}
-			} else if (*p_buffer == 'm') {
-				 p_buffer++;
-				if (*p_buffer == 'c') {
-					// :mc:
-					mode = MANUAL;
-					set_speed (0, 0);
-					usart_putstr(BLUETOOTH_USART, "Switched to Manual Mode");
-					usart_putstr(BLUETOOTH_USART, "\n");
-				}
 			} else return 1;
+		} else if (*p_buffer == 'a') {
+			p_buffer++;
+			if (*p_buffer == 'c') {
+				// :ac:
+				mode = AUTO;
+				usart_putstr(BLUETOOTH_USART, "Switched to Automatic Mode\n");
+			}
+		} else if (*p_buffer == 'm') {
+			p_buffer++;
+			if (*p_buffer == 'c') {
+				// :mc:
+				mode = MANUAL;
+				set_speed (0, 0);
+				usart_putstr(BLUETOOTH_USART, "Switched to Manual Mode\n");
+			}
 		} else return 1;
 	}
 

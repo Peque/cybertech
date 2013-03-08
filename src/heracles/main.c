@@ -43,6 +43,7 @@ __attribute__((constructor)) void premain() {
 #define MAX_MANUAL_PWM_VALUE 40000   // Max speed in manual mode (%)
 #define SENSOR_TRESHOLD 1000
 #define SENSOR_ARRAY_MIDDLE 7.5
+#define NUMBER_OF_IR_SENSORS 16
 
 
 typedef enum { AUTO = 0, MANUAL } robot_mode;
@@ -66,6 +67,10 @@ float correction;
 float line_position;
 float last_line_position = SENSOR_ARRAY_MIDDLE;
 int MAX_SPEED = 40000;
+
+// Calibration variables
+int max_measurement = 4095; // 12 bit ADC so max possible reading is 4095
+int min_measurement = 0; 
 
 // Battery levels
 uint16 power_bat, digital_bat;
@@ -200,7 +205,6 @@ int parse_command(char *buffer)
 				// :gpid:
 				char float2str_buf[15];
 				usart_putstr(BLUETOOTH_USART, "PID,");
-				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				snprintf(float2str_buf, 15, "%e", kp);
 				usart_putstr(BLUETOOTH_USART, float2str_buf);
 				usart_putstr(BLUETOOTH_USART, ",");
@@ -386,15 +390,35 @@ void set_line_position(void)
 {
 	float aux=0, cont=0;
 	int i;
-
 	for (i = 0; i < 16; i++) {
 		if (array_data[i] > SENSOR_TRESHOLD) {
 			aux += i;
 			cont += 1;
 		}
 	}
-
 	line_position = cont ? aux/cont : -1;
+}
+	
+	/**
+ * @brief Returns the line position
+ * 
+ * The return value will go from 1 to the number of sensors the array has
+ * If there is no line it will return -1
+ *
+ * @author Juan Herrero Macías <jn.herrerom@gmail.com>
+ * @date 2013/03/08
+ */
+void set_analog_line_position(void)
+{
+	float aux=0, cont=0;
+	int i;
+	for (i = 1; i <= NUMBER_OF_IR_SENSORS; i++) {
+		if (array_data[i] > SENSOR_TRESHOLD) {
+			aux += i * (array_data - min_measurement);
+			cont += 1;
+		}
+	}
+	line_position = cont ? aux/(max_measurement - min_measurement) : -1;
 }
 
 void debug_sensor_array(void)

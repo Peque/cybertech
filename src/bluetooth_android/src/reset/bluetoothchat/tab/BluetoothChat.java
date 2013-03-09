@@ -35,6 +35,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -97,8 +98,7 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
         if(D) Log.e(TAG, "++ ON CREATE ++");
         setContentView(R.layout.real_main);
 
-     // Create the adapter that will return a fragment for each of the three primary sections
-        // of the app.
+        // Create the adapter that will return a fragment for each of the three primary sections of the app.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Force screen on
@@ -137,7 +137,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
             @Override
         	public void onPageScrolled(int position, float positionOffset,
         			int positionOffsetPixels) {
-        		// TODO Auto-generated method stub
         		super.onPageScrolled(position, positionOffset, positionOffsetPixels);
         		// If we are on Joystick Tab, hide the key board after 2000ms
         		final Handler handler = new Handler();
@@ -167,9 +166,10 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
                             .setText(mSectionsPagerAdapter.getPageTitle(i))
                             .setTabListener(this));
         }
+        
         // Request No title bar
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        actionBar.setDisplayShowHomeEnabled(false);
+//        actionBar.setDisplayShowTitleEnabled(false);     
         
 	    // Get local Bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -279,7 +279,6 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
     
     @Override
     	public void onConfigurationChanged(Configuration newConfig) {
-    		// TODO Auto-generated method stub
     		super.onConfigurationChanged(newConfig);
     		
     		// Destroy and recreate joystick fragment

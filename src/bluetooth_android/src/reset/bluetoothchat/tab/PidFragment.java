@@ -41,8 +41,6 @@ public class PidFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		
 		// Get context
 		View v;
 		final BluetoothChat bActivity = ((BluetoothChat)getActivity());
@@ -88,7 +86,7 @@ public class PidFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Activity activity = getActivity(); 
-                if (activity != null) {
+                if (null != activity) {
                 	if (bActivity.isConnected()) {
 	                	Toast.makeText(activity, "PID values sent", Toast.LENGTH_SHORT).show();
 	                    updateKValues();
@@ -102,23 +100,17 @@ public class PidFragment extends Fragment {
     	stopButton.setOnClickListener(new OnClickListener() {    
           @Override
           public void onClick(View v) {
-              Activity activity = getActivity(); 
-              if (activity != null) {
-              	if (bActivity.isConnected()) {
-	                    bActivity.sendMessage(getString(R.string.stop) + '\n');    
-              	}
-              }
+          	if (bActivity.isConnected()) {
+                    bActivity.sendMessage(getString(R.string.stop) + '\n');    
+          	}
           }
-      });
+    	});
   	
-  	 pidLockButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+    	pidLockButton.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
-				// TODO Auto-generated method stub
-				
-				Activity activity = getActivity(); 
-	            if (activity != null) {
+	            if (null != bActivity) {
 	            	bActivity.mViewPager.setSwipingEnabled(!arg1);
 	            	bActivity.sendMessage(getString(R.string.get_PID) + '\n');
 	            	bActivity.sendMessage(getString(R.string.get_Max_Speed) + '\n');
@@ -145,8 +137,6 @@ public class PidFragment extends Fragment {
     			sEditText.setText(Integer.toString(speed));
 //    			seekBar.setProgress(8);
     			incrementText.setText("");
-    			
-    			final BluetoothChat bActivity = ((BluetoothChat)getActivity());
     			updateKValues();
                 bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed +  '\n' );    			
     		}
@@ -154,18 +144,15 @@ public class PidFragment extends Fragment {
     		@Override
     		public void onProgressChanged(SeekBar seekBar, int progress,
     				boolean fromUser) {
-    			// TODO Auto-generated method stub
     			if (fromUser == true) {
     				incrementText.setText(Integer.toString(progress));
     				}						
     		}
     	});
-
     	return v;
 	}
 	
 	private void updateKValues() {
-		// TODO Auto-generated method stub
 		Kp = Float.valueOf(pEditText.getText().toString());
 		Ki = Float.valueOf(iEditText.getText().toString());
 		Kd = Float.valueOf(dEditText.getText().toString());
@@ -198,7 +185,6 @@ public class PidFragment extends Fragment {
 		float seekValues [];
 	
 		public SeekBarChangeListener(TextView incrementText, EditText baseText, float[] seekValues) {
-			// TODO Auto-generated constructor stub
 			this.incrementText = incrementText;
 			this .baseText = baseText;
 			this.seekValues = seekValues;
@@ -207,7 +193,6 @@ public class PidFragment extends Fragment {
 		@Override
 		public void onProgressChanged(SeekBar seekBar, int progress,
 				boolean fromUser) {
-			// TODO Auto-generated method stub
 			if (fromUser == true) {
 				float base = Float.valueOf(baseText.getText().toString());
 				float newValue =  (seekValues [progress] / 100 * base );
@@ -222,18 +207,18 @@ public class PidFragment extends Fragment {
 		
 		@Override
 		public void onStopTrackingTouch(SeekBar seekBar) {
-			// TODO Auto-generated method stub
 			float base = Float.valueOf(baseText.getText().toString());
 			int progress = seekBar.getProgress();
 			float newValue =  (seekValues [progress] / 100 * base );
 			baseText.setText(Float.toString(newValue));
 			seekBar.setProgress(8);
 			incrementText.setText("");
-			
 			final BluetoothChat bActivity = ((BluetoothChat)getActivity());
 			updateKValues();
-            bActivity.sendMessage(getString(R.string.set_PID) + Kp + ',' + Ki + ',' + Kd +  '\n' );
-            bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed +  '\n' );
+			if (null != bActivity) {
+	            bActivity.sendMessage(getString(R.string.set_PID) + Kp + ',' + Ki + ',' + Kd +  '\n' );
+	            bActivity.sendMessage(getString(R.string.set_Max_Speed) + speed +  '\n' );
+			}
 		}
 	}	
 }

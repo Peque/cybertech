@@ -465,9 +465,17 @@ public class BluetoothChat extends FragmentActivity implements ActionBar.TabList
 	    	
 			if ((parameters.length == 4) && 
 			    (parameters[0].compareTo(getString(R.string.PID_Values_Label)) == 0)) {
-				mSectionsPagerAdapter.pidFragment.setKp(Float.parseFloat(parameters[1]));
-				mSectionsPagerAdapter.pidFragment.setKi(Float.parseFloat(parameters[2]));
-				mSectionsPagerAdapter.pidFragment.setKd(Float.parseFloat(parameters[3]));
+				  try  
+				  {  
+						mSectionsPagerAdapter.pidFragment.setKp(Float.parseFloat(parameters[1]));
+						mSectionsPagerAdapter.pidFragment.setKi(Float.parseFloat(parameters[2]));
+						mSectionsPagerAdapter.pidFragment.setKd(Float.parseFloat(parameters[3]));  
+				  }  
+				  catch(NumberFormatException nfe)  
+				  {  
+					  Toast.makeText(this, "Incorrect PID values", Toast.LENGTH_SHORT).show();
+				  }  
+
 			}
 			else if ((parameters.length == 3) && 
 			    (parameters[0].compareTo(getString(R.string.Battery_Label)) == 0)) {

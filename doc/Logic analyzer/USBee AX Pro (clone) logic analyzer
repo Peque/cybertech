@@ -1,0 +1,17 @@
+Working with the unexpensive USBee AX Pro (clone) 24 MHz 8 channels logic analyzer:
+http://dx.com/p/logic-analyzer-w-dupont-lines-and-usb-cable-for-scm-black-148945
+================================================================================
+
+These instructions are meant for Fedora users only:
+
+  # yum install pulseview sigrok-cli sigrok-firmware*
+  # usermod -a -G lock,dialout,plugdev <user_name>
+
+We'll need to restart or, at least, log out and log back in the user session.
+
+We can execute now the graphical interface and test each channel! :-D
+
+  $ pulseview
+
+You may press the 'c' key to show or hide cursors, which can help a lot measuring
+event times.
